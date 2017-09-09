@@ -17,19 +17,32 @@ package processing.message;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 import org.joda.time.DateTime;
+import processing.Processable;
+import processing.message.handler.HandlerFactory;
 
 /**
  *
  * @author Dariusz Lelek
  */
-public class Message {
+public class Message implements Processable {
   private final MessageType type;
   private final String header;
   private final DateTime messageTime;
 
+  private boolean isProcessed = false;
+
   private final List<String> content = new ArrayList<>();
+
+  public Message() {
+    this.type = MessageType.EMPTY;
+    this.header = "";
+    this.messageTime = DateTime.now();
+
+    isProcessed = true;
+  }
 
   Message(MessageType type, String header, DateTime messageTime) {
     this.type = type;
@@ -37,7 +50,7 @@ public class Message {
     this.messageTime = messageTime;
   }
 
-  MessageType getType() {
+  public MessageType getType() {
     return type;
   }
 
@@ -45,15 +58,53 @@ public class Message {
     return messageTime;
   }
 
-  String getHeader() {
+  public String getHeader() {
     return header;
   }
 
-  List<String> getContent() {
+  public List<String> getContent() {
     return content;
   }
 
   void addTextToContent(String text){
     content.add(text);
   }
+
+  private String getContentString(){
+    return content.stream().collect(Collectors.joining(" "));
+  }
+
+
+  @Override
+  public void startProcessing() {
+    if(!isProcessed){
+      HandlerFactory.getHandlerByMessageType(type).handle(this);
+    }
+  }
+
+  @Override
+  public void stopProcessing() {
+    isProcessed = true;
+  }
+
+  @Override
+  public boolean isProcessed() {
+    return isProcessed;
+  }
+
+  @Override
+  public boolean canBeProcessed() {
+    return HandlerFactory.getHandlerByMessageType(type).canHandle();
+  }
+
+  @Override
+  public int getPriority() {
+    return type.getPriority();
+  }
+
+  @Override
+  public String getInfo() {
+    return "Message type: " + type.name() + ", header: " + header + ", content: " + getContentString();
+  }
+
 }

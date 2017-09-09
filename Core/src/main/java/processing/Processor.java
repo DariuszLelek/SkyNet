@@ -16,22 +16,26 @@
 package processing;
 
 import org.apache.log4j.Logger;
-import sun.rmi.runtime.Log;
+import processing.executor.ProcessableExecutor;
 
 /**
  *
  * @author Dariusz Lelek
  */
-public class Processor implements Process{
+public class Processor {
   final static Logger logger = Logger.getLogger(Processor.class);
 
-  @Override
   public void processText(String text) {
     logger.debug("processText(): \"" + text + "\"");
   }
 
-  @Override
   public void processInt(int number) {
     logger.debug("processInt(): " + number);
+  }
+
+  public void process(Processable processable){
+    logger.debug("process(): " + processable.getInfo());
+
+    ProcessableExecutor.addProcessable(processable);
   }
 }

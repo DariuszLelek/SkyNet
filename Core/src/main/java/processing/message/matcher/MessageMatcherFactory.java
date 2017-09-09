@@ -1,4 +1,4 @@
-package processing.message.match;
+package processing.message.matcher;
 
 import processing.message.MessageType;
 

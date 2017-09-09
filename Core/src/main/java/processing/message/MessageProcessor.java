@@ -44,7 +44,6 @@ public class MessageProcessor extends Processor{
   }
 
   private void processMessage(Message message){
-    // TODO process message
-
+    super.process(message);
   }
 }

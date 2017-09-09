@@ -15,23 +15,27 @@
  */
 package processing.message;
 
-import jdk.nashorn.internal.runtime.regexp.joni.MatcherFactory;
-import processing.message.match.MatchesFactory;
-
-import java.util.ArrayList;
-import java.util.List;
-
 /**
  *
  * @author Dariusz Lelek
  */
 public enum MessageType {
-  EMPTY,
+  EMPTY(0),
 
-  COMMAND,
-  REQUEST,
-  QUESTION,
+  COMMAND(3),
+  REQUEST(2),
+  QUESTION(2),
 
-  CONFIRMATION,
-  DENIAL
+  CONFIRMATION(2),
+  DENIAL(2);
+
+  private int priority;
+
+  MessageType(int priority) {
+    this.priority = priority;
+  }
+
+  public int getPriority() {
+    return priority;
+  }
 }

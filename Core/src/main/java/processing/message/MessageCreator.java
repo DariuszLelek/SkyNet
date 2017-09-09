@@ -16,8 +16,8 @@
 package processing.message;
 
 import org.joda.time.DateTime;
-import processing.message.match.Matcher;
-import processing.message.match.MessageMatcherFactory;
+import processing.message.matcher.Matcher;
+import processing.message.matcher.MessageMatcherFactory;
 
 import java.util.Arrays;
 import java.util.LinkedList;

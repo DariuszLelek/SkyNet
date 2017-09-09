@@ -1,4 +1,4 @@
-package processing.message.match.type;
+package processing.message.predefined;
 
 public enum Confirmation {
   YES, CONFIRMED, CONFIRM, TRUE

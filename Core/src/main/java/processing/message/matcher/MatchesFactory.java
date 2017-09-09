@@ -1,7 +1,7 @@
-package processing.message.match;
+package processing.message.matcher;
 
 import processing.message.MessageType;
-import processing.message.match.type.*;
+import processing.message.predefined.*;
 
 import java.util.ArrayList;
 import java.util.Arrays;
