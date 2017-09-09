@@ -13,7 +13,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package processing.message.process;
+package processing.message;
 
 import processing.Processor;
 import processing.message.Message;
@@ -27,13 +27,14 @@ import java.util.Queue;
  *
  * @author Dariusz Lelek
  */
-public class MessageProcessor extends Processor implements MessageProcess{
+public class MessageProcessor extends Processor{
   private final MessageCreator messageCreator = new MessageCreator();
 
   @Override
-  public void processMessageText(String messageText) {
-    final Queue<Message> messagesQueue = messageCreator.getMessages(messageText);
-    processMessages(messagesQueue);
+  public void processText(String messageText) {
+    super.processText(messageText);
+
+    processMessages(messageCreator.getMessages(messageText));
   }
 
   private void processMessages(final Queue<Message> messages){

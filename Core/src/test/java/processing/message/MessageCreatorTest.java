@@ -30,6 +30,7 @@ import static junit.framework.TestCase.assertNotNull;
  */
 public class MessageCreatorTest {
   private final MessageCreator instance = new MessageCreator();
+
   private final String alphabetic = "abcABC";
   private final String numeric = "0123456789";
   private final String space = " ";

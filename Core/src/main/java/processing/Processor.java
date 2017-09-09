@@ -15,10 +15,23 @@
  */
 package processing;
 
+import org.apache.log4j.Logger;
+import sun.rmi.runtime.Log;
+
 /**
  *
  * @author Dariusz Lelek
  */
-public class Processor {
-  
+public class Processor implements Process{
+  final static Logger logger = Logger.getLogger(Processor.class);
+
+  @Override
+  public void processText(String text) {
+    logger.debug("processText(): \"" + text + "\"");
+  }
+
+  @Override
+  public void processInt(int number) {
+    logger.debug("processInt(): " + number);
+  }
 }
