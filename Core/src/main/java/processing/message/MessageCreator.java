@@ -15,8 +15,14 @@
  */
 package processing.message;
 
+import org.joda.time.DateTime;
+import processing.message.match.Matcher;
+import processing.message.match.MessageMatcherFactory;
+
+import java.util.Arrays;
 import java.util.LinkedList;
 import java.util.Queue;
+import java.util.stream.Collectors;
 
 /**
  *
@@ -24,51 +30,43 @@ import java.util.Queue;
  */
 public class MessageCreator {
 
-  public Queue<Message> getMessages(String messageText, MessagePriority priority){
-    Queue<Message> messages = new LinkedList<>();
-    
-    
-    Queue<String> messageChunks = getMessageChunks(messageText);
-    
-    while(!messageChunks.isEmpty()){
+  public Queue<Message> getMessages(final String messageText) {
+    final Queue<String> messageChunks = getMessageChunks(messageText != null ? messageText : "");
+    return getMessagesFromChunks(messageChunks);
+  }
+
+  private Queue<Message> getMessagesFromChunks(final Queue<String> messageChunks){
+    final Queue<Message> messages = new LinkedList<>();
+
+    while (!messageChunks.isEmpty()) {
       String dequeuedChunk = messageChunks.poll();
-      
-      //if(dequeuedChunk)
+
+      addChunkToMessages(dequeuedChunk, messages);
+      tryInsertNewMessageFromChunk(dequeuedChunk, messages);
     }
-    
-    //List<String> messageContent = textMessage.split(messageText)
 
     return messages;
   }
-  
-  private boolean isTextOfMessageType(String text){
-    return false;
+
+  private void tryInsertNewMessageFromChunk(String chunk, Queue<Message> messages){
+    for(Matcher matcher : MessageMatcherFactory.getMatchers()){
+      String match = matcher.getMatch(chunk);
+      if(!match.isEmpty()){
+        messages.add(new Message(matcher.getMessageType(), match, DateTime.now()));
+        return;
+      }
+    }
+  }
+
+  private void addChunkToMessages(String chunk, Queue<Message> messages){
+    messages.forEach(message -> message.addTextToContent(chunk));
   }
 
   private Queue<String> getMessageChunks(String messageText) {
-    Queue<String> messageChunks = new LinkedList<>();
-
-    if (!messageText.isEmpty()) {
-      String[] chunks = messageText.split("\\s+");
-      for (String chunk : chunks) {
-        if (!chunk.isEmpty()) {
-          messageChunks.add(chunk.replaceAll("[^A-Za-z0-9]", ""));
-        }
-      }
-    }
-
-    return messageChunks;
+    return new LinkedList<>(
+        Arrays.stream(messageText.split("\\s+"))
+            .filter(chunk -> !chunk.isEmpty())
+            .map(x -> x.replaceAll("[^A-Za-z0-9]", ""))
+            .collect(Collectors.toList()));
   }
-  
-  private MessageType getMessageType(Queue<String> messageChunks){
-    MessageType messageType = MessageType.EMPTY;
-      
-    // dequeue chunks
-    
-    return messageType;
-  }
-  
-  
-  
-  
 }

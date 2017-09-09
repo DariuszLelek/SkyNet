@@ -15,28 +15,23 @@
  */
 package processing.message;
 
+import jdk.nashorn.internal.runtime.regexp.joni.MatcherFactory;
+import processing.message.match.MatchesFactory;
+
+import java.util.ArrayList;
+import java.util.List;
+
 /**
  *
  * @author Dariusz Lelek
  */
 public enum MessageType {
-  EMPTY(MessagePriority.NONE),
-  
-  COMMAND(MessagePriority.INITIAL),
-  REQUEST(MessagePriority.INITIAL),
-  QUESTION(MessagePriority.INITIAL),
-  
-  CONFIRMATION(MessagePriority.FOLLOW_UP),
-  DENIAL(MessagePriority.FOLLOW_UP);
-  
-  private final MessagePriority level;
+  EMPTY,
 
-  private MessageType(MessagePriority level) {
-    this.level = level;
-  }
+  COMMAND,
+  REQUEST,
+  QUESTION,
 
-  public MessagePriority getLevel() {
-    return level;
-  }
-  
+  CONFIRMATION,
+  DENIAL
 }

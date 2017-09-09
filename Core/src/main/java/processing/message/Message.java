@@ -15,7 +15,9 @@
  */
 package processing.message;
 
-import java.util.Queue;
+import java.util.ArrayList;
+import java.util.List;
+
 import org.joda.time.DateTime;
 
 /**
@@ -24,17 +26,18 @@ import org.joda.time.DateTime;
  */
 public class Message {
   private final MessageType type;
-  // TODO add priority here?
+  private final String header;
   private final DateTime messageTime;
-  
-  private  Queue<String> contentQueue;
 
-  public Message(MessageType type) {
+  private final List<String> content = new ArrayList<>();
+
+  Message(MessageType type, String header, DateTime messageTime) {
     this.type = type;
-    this.messageTime = DateTime.now();
+    this.header = header;
+    this.messageTime = messageTime;
   }
 
-  public MessageType getType() {
+  MessageType getType() {
     return type;
   }
 
@@ -42,11 +45,15 @@ public class Message {
     return messageTime;
   }
 
-  public Queue<String> getContentQueue() {
-    return contentQueue;
+  String getHeader() {
+    return header;
   }
 
-  public void setContentQueue(Queue<String> contentQueue) {
-    this.contentQueue = contentQueue;
+  List<String> getContent() {
+    return content;
+  }
+
+  void addTextToContent(String text){
+    content.add(text);
   }
 }

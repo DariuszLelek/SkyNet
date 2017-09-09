@@ -13,13 +13,13 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package processing.message;
+package processing.message.process;
 
 /**
  *
  * @author Dariusz Lelek
  */
-public class MessageFactory {
+public class MessageProcessorFactory {
   private static MessageProcessor messageProcessor = new MessageProcessor();
 
   public static MessageProcessor getMessageProcessor() {

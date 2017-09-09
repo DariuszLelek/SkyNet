@@ -13,12 +13,14 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package processing.message.command;
+package processing.message.process;
+
+import processing.message.Message;
 
 /**
  *
  * @author Dariusz Lelek
  */
-public interface CommandProcess {
-  public void processCommand(String command);
+public interface MessageProcess {
+  void processMessageText(String messageText);
 }

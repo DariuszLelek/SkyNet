@@ -13,18 +13,37 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package processing.message;
+package processing.message.process;
 
 import processing.Processor;
+import processing.message.Message;
+import processing.message.MessageCreator;
+
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Queue;
 
 /**
  *
  * @author Dariusz Lelek
  */
 public class MessageProcessor extends Processor implements MessageProcess{
+  private final MessageCreator messageCreator = new MessageCreator();
 
   @Override
-  public void processMessage(Message message) {
+  public void processMessageText(String messageText) {
+    final Queue<Message> messagesQueue = messageCreator.getMessages(messageText);
+    processMessages(messagesQueue);
   }
 
+  private void processMessages(final Queue<Message> messages){
+    while (!messages.isEmpty()){
+      processMessage(messages.poll());
+    }
+  }
+
+  private void processMessage(Message message){
+    // TODO process message
+
+  }
 }
