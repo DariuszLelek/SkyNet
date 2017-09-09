@@ -8,6 +8,7 @@
     <modules>
         <module>Core</module>
         <module>WordProcessing</module>
+        <module>TextProcessing</module>
     </modules>
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
