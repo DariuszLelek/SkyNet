@@ -20,22 +20,22 @@ package processing.message;
  * @author Dariusz Lelek
  */
 public enum MessageType {
-  EMPTY(0),
+  EMPTY(MessagePriority.NO),
 
-  COMMAND(3),
-  REQUEST(2),
-  QUESTION(2),
+  COMMAND(MessagePriority.HIGH),
 
-  CONFIRMATION(2),
-  DENIAL(2);
+  REQUEST(MessagePriority.MEDIUM),
+  QUESTION(MessagePriority.MEDIUM),
+  CONFIRMATION(MessagePriority.MEDIUM),
+  DENIAL(MessagePriority.MEDIUM);
 
-  private int priority;
+  private final MessagePriority priority;
 
-  MessageType(int priority) {
+  MessageType(MessagePriority priority) {
     this.priority = priority;
   }
 
   public int getPriority() {
-    return priority;
+    return priority.getValue();
   }
 }
