@@ -15,7 +15,6 @@ public class TestClass {
     System.out.println(SkillFactory.getSkillProvider().hasSkill("iNSert"));
     SkillFactory.getSkillProvider().getSkill("add");
 
-
     HibernateUtility.stopConnectionProvider();
   }
 }

@@ -1,9 +1,10 @@
 package provider;
 
 import dictionary.DictionaryFactory;
+import file.FileUtility;
 import org.apache.log4j.Logger;
 import skill.Skill;
-import utility.FileUtility;
+
 
 import java.lang.reflect.Constructor;
 import java.lang.reflect.InvocationTargetException;

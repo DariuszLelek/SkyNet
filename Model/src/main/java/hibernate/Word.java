@@ -1,7 +1,7 @@
 package hibernate;
 
 
-import global.GlobalStrings;
+import config.GlobalStrings;
 
 import javax.persistence.*;
 import java.util.ArrayList;
