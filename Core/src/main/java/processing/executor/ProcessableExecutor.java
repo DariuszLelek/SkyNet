@@ -61,10 +61,10 @@ public class ProcessableExecutor extends Executor {
     running = false;
   }
 
-  private static Processable getHighestPriorityProcessable(){
+  private synchronized static Processable getHighestPriorityProcessable(){
     Processable highestPriorityProcessable = new Message();
 
-    for(Processable processable : getPendingProcessables()){
+    for(Processable processable : pendingProcessables){
       if(processable.getPriority() > highestPriorityProcessable.getPriority() &&
           processable.canBeProcessed()){
         highestPriorityProcessable = processable;
@@ -72,10 +72,6 @@ public class ProcessableExecutor extends Executor {
     }
 
     return highestPriorityProcessable;
-  }
-
-  private synchronized static List<Processable> getPendingProcessables(){
-    return pendingProcessables;
   }
 
   private synchronized static void removeProcessable(Processable processable){

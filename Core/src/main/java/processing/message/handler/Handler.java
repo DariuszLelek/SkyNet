@@ -6,7 +6,7 @@ public class Handler implements Handle {
 
   @Override
   public boolean canHandle() {
-    return false;
+    return true;
   }
 
   @Override

@@ -12,5 +12,8 @@ public class TestingClass {
     Thread.sleep(5000);
 
     ProcessableExecutor.stopExecutorThread();
+
+
+    //WordProcessor wp;
   }
 }

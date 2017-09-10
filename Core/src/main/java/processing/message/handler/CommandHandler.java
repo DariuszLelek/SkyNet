@@ -11,7 +11,7 @@ public class CommandHandler extends Handler {
   @Override
   public boolean canHandle() {
     // TODO
-    return false;
+    return true;
   }
 
   @Override
