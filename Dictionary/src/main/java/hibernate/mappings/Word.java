@@ -1,39 +1,37 @@
 package hibernate.mappings;
-// Generated Sep 9, 2017 9:52:23 PM by Hibernate Tools 4.3.1
 
-
+import config.GlobalStrings;
+import dictionary.word.WordClass;
 import javax.persistence.*;
+import java.util.Arrays;
+import java.util.List;
+import java.util.stream.Collectors;
 
 @Entity
 @Table(name = "word", catalog = "dictionary")
 public class Word implements java.io.Serializable {
+  public static final Word UNKNOWN = new Word();
 
   @Id
   @GeneratedValue(strategy = GenerationType.AUTO)
   @Column(name = "WORD_ID", unique = true, nullable = false)
   private int wordId;
-  @Column(name = "WORD_STRING", unique = true, nullable = false)
-  private String wordString;
-  @Column(name = "COMMAND", columnDefinition = "boolean default false")
-  private boolean command;
-  @Column(name = "QUESTION", columnDefinition = "boolean default false")
-  private boolean question;
-  // probably not needed
+  @Column(name = "WORD", unique = true, nullable = false)
+  private String word;
+  @Column(name = "WORD_CLASS", nullable = false)
+  private String wordClassString;
   @Column(name = "SYNONYMS")
   private String synonyms;
 
   public Word() {
-    this.wordString = "";
-    this.command = false;
-    this.question = false;
+    this.word = "";
+    this.wordClassString = WordClass.UNKNOWN.toString();
     this.synonyms = "";
   }
 
-  public Word(String wordString, boolean command, boolean question, String synonyms) {
-    this.wordId = wordId;
-    this.wordString = wordString;
-    this.command = command;
-    this.question = question;
+  public Word(String word, String wordClassString, String synonyms) {
+    this.word = word;
+    this.wordClassString = wordClassString;
     this.synonyms = synonyms;
   }
 
@@ -45,28 +43,20 @@ public class Word implements java.io.Serializable {
     this.wordId = wordId;
   }
 
-  public String getWordString() {
-    return wordString;
+  public String getWord() {
+    return word;
   }
 
-  public void setWordString(String wordString) {
-    this.wordString = wordString;
+  public void setWord(String word) {
+    this.word = word;
   }
 
-  public boolean isCommand() {
-    return command;
+  public String getWordClassString() {
+    return wordClassString;
   }
 
-  public void setCommand(boolean command) {
-    this.command = command;
-  }
-
-  public boolean isQuestion() {
-    return question;
-  }
-
-  public void setQuestion(boolean question) {
-    this.question = question;
+  public void setWordClassString(String wordClassString) {
+    this.wordClassString = wordClassString;
   }
 
   public String getSynonyms() {
@@ -75,6 +65,15 @@ public class Word implements java.io.Serializable {
 
   public void setSynonyms(String synonyms) {
     this.synonyms = synonyms;
+  }
+
+  public WordClass getWordClass(){
+    return WordClass.getEnumByValue(wordClassString);
+  }
+
+  public List<String> getSynonymsList() {
+    return Arrays.stream(synonyms.split(GlobalStrings.SYNONYM_SPLITTER.toString()))
+        .collect(Collectors.toList());
   }
 }
 
