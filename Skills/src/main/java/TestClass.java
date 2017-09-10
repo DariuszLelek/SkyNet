@@ -1,4 +1,5 @@
-import skill.provider.SkillFactory;
+import hibernate.HibernateUtility;
+import provider.SkillFactory;
 import skill.Add;
 
 public class TestClass {
@@ -15,6 +16,6 @@ public class TestClass {
     SkillFactory.getSkillProvider().getSkill("add");
 
 
-    //HibernateUtility.stopConnectionProvider();
+    HibernateUtility.stopConnectionProvider();
   }
 }

@@ -1,6 +1,7 @@
 import dictionary.DictionaryFactory;
 import hibernate.HibernateUtility;
-import hibernate.mappings.Word;
+import hibernate.Word;
+
 
 public class TestClass {
 

@@ -1,8 +1,8 @@
-package skill.provider;
+package provider;
 
 import dictionary.DictionaryFactory;
 import org.apache.log4j.Logger;
-import skill.model.Skill;
+import skill.Skill;
 import utility.FileUtility;
 
 import java.lang.reflect.Constructor;

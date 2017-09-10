@@ -1,4 +1,4 @@
-package skill.provider;
+package skill;
 
 public enum SkillPriority {
   NONE(0),
@@ -14,5 +14,12 @@ public enum SkillPriority {
 
   public int getValue() {
     return value;
+  }
+
+  @Override
+  public String toString() {
+    return "SkillPriority{" +
+        "value=" + value +
+        '}';
   }
 }

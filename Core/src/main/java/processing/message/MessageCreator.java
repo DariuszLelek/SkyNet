@@ -16,7 +16,7 @@
 package processing.message;
 
 import dictionary.DictionaryFactory;
-import hibernate.mappings.Word;
+import hibernate.Word;
 import processing.message.model.Message;
 import processing.message.model.MessageType;
 

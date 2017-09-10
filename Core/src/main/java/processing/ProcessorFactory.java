@@ -1,17 +1,24 @@
 package processing;
 
-import processing.message.MessageProcessor;
-import processing.skill.SkillProcessor;
+import processing.message.model.MessageType;
 
 public class ProcessorFactory {
-  private final static MessageProcessor messageProcessor = new MessageProcessor();
-  private final static SkillProcessor skillProcessor = new SkillProcessor();
+  private final static Processor voiceMessageProcessor = new VoiceMessageProcessor();
 
-  public static MessageProcessor getMessageProcessor() {
-    return messageProcessor;
-  }
+  public static Processor getMessageProcessor(MessageType messageType) {
+    switch (messageType) {
+      case VOICE:
+        return voiceMessageProcessor;
+      case SYSTEM:
+        return null;
 
-  public static SkillProcessor getSkillProcessor() {
-    return skillProcessor;
+      case EMPTY:
+      default:
+        return null;
+    }
   }
+  
+  
+
+
 }

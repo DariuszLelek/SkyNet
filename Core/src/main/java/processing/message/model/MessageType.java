@@ -20,18 +20,32 @@ package processing.message.model;
  * @author Dariusz Lelek
  */
 public enum MessageType {
-  EMPTY(MessagePriority.NONE),
+  EMPTY("Empty", MessagePriority.NONE),
 
-  VOICE(MessagePriority.HIGH),
-  SYSTEM(MessagePriority.HIGH);
+  VOICE("Voice", MessagePriority.HIGH),
+  SYSTEM("System", MessagePriority.HIGH);
 
+  private final String type;
   private final MessagePriority priority;
 
-  MessageType(MessagePriority priority) {
+  MessageType(String type, MessagePriority priority) {
+    this.type = type;
     this.priority = priority;
   }
 
-  public int getPriority() {
-    return priority.getValue();
+  public String getType() {
+    return type;
+  }
+
+  public MessagePriority getPriority() {
+    return priority;
+  }
+
+  @Override
+  public String toString() {
+    return "{" +
+        "type='" + type + '\'' +
+        ", priority=" + priority.getValue() +
+        '}';
   }
 }

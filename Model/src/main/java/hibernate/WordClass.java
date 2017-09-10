@@ -1,4 +1,4 @@
-package dictionary.word;
+package hibernate;
 
 public enum WordClass {
   UNKNOWN("unknown"),

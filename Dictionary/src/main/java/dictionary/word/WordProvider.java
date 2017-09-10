@@ -1,11 +1,11 @@
 package dictionary.word;
 
 import dictionary.DictionaryFactory;
-import hibernate.mappings.Word;
+import hibernate.Word;
+
 
 import java.util.Arrays;
 import java.util.List;
-import java.util.Objects;
 import java.util.stream.Collectors;
 
 public class WordProvider {

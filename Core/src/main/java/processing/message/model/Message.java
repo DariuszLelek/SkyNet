@@ -19,21 +19,19 @@ import java.util.LinkedList;
 import java.util.Queue;
 import java.util.stream.Collectors;
 
-import hibernate.mappings.Word;
+import hibernate.Word;
 import org.joda.time.DateTime;
-import processing.Processable;
-import processing.message.handler.HandlerFactory;
+
+import processable.Processable;
 
 /**
  *
  * @author Dariusz Lelek
  */
-public class Message implements Processable {
+public class Message extends Processable {
 
   private final MessageType type;
   private final DateTime messageTime = DateTime.now();
-
-  private boolean isProcessed = false;
 
   private final Queue<Word> words = new LinkedList<>();
 
@@ -58,35 +56,23 @@ public class Message implements Processable {
   }
 
   @Override
-  public void startProcessing() {
-    if(!isProcessed){
-      HandlerFactory.getHandlerByMessageType(type).handle(this);
-    }
-  }
-
-  @Override
-  public void stopProcessing() {
-    isProcessed = true;
-  }
-
-  @Override
-  public boolean isProcessed() {
-    return isProcessed;
+  public void execute() {
+    //TODO
   }
 
   @Override
   public boolean canBeProcessed() {
-    return HandlerFactory.getHandlerByMessageType(type).canHandle();
+    return !words.isEmpty();
   }
 
   @Override
   public int getPriorityValue() {
-    return type.getPriority();
+    return type.getPriority().getValue();
   }
 
   @Override
-  public String getInfo() {
-    return "Message type: " + type.name() + ", words: " + getWordsString();
+  public String toString() {
+    return "Message: " + type.toString() + ", words: " + getWordsString();
   }
 
   private String getWordsString(){

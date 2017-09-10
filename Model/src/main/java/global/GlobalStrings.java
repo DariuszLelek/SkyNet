@@ -1,4 +1,4 @@
-package config;
+package global;
 
 public enum GlobalStrings {
   SYNONYM_SPLITTER(",");

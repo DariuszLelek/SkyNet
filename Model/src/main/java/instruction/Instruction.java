@@ -1,6 +1,6 @@
-package skill.model;
+package instruction;
 
-import hibernate.mappings.Word;
+import hibernate.Word;
 
 import java.util.LinkedList;
 import java.util.Queue;
@@ -9,9 +9,9 @@ public class Instruction {
   public final static Instruction EMPTY = new Instruction();
 
   private final Queue<Word> words;
-  private final Queue<Integer> numbers;
+  private final Queue<Number> numbers;
 
-  public Instruction(Queue<Word> words, Queue<Integer> numbers) {
+  public Instruction(Queue<Word> words, Queue<Number> numbers) {
     this.words = words;
     this.numbers = numbers;
   }
@@ -25,7 +25,15 @@ public class Instruction {
     return words != null ? words : new LinkedList<>();
   }
 
-  public Queue<Integer> getNumbers() {
+  public Queue<Number> getNumbers() {
     return numbers != null ? numbers : new LinkedList<>();
+  }
+
+  @Override
+  public String toString() {
+    return "Instruction{" +
+        "words=" + words +
+        ", numbers=" + numbers +
+        '}';
   }
 }

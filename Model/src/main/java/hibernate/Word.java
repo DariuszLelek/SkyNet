@@ -1,7 +1,8 @@
-package hibernate.mappings;
+package hibernate;
 
-import config.GlobalStrings;
-import dictionary.word.WordClass;
+
+import global.GlobalStrings;
+
 import javax.persistence.*;
 import java.util.ArrayList;
 import java.util.Arrays;

@@ -1,11 +1,10 @@
-package hibernate.mappings;
+package hibernate;
 
-import dictionary.word.WordClass;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 
-import static org.junit.Assert.*;
+import static junit.framework.TestCase.assertEquals;
 
 public class WordTest {
   private Word word;
@@ -43,5 +42,4 @@ public class WordTest {
     word.setSynonyms(synonymsString);
     assertEquals(synonyms.length, word.getSynonymsList().size());
   }
-
 }

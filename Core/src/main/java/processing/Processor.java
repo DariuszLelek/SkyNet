@@ -15,27 +15,13 @@
  */
 package processing;
 
-import org.apache.log4j.Logger;
-import processing.executor.ProcessableExecutor;
+import processable.Processable;
 
 /**
  *
  * @author Dariusz Lelek
  */
-public class Processor {
-  final static Logger logger = Logger.getLogger(Processor.class);
+public interface Processor {
 
-  public void processText(String text) {
-    logger.debug("processText(): \"" + text + "\"");
-  }
-
-  public void processInt(int number) {
-    logger.debug("processInt(): " + number);
-  }
-
-  public void process(Processable processable){
-    logger.info("process(): " + processable.getInfo());
-
-    ProcessableExecutor.addProcessable(processable);
-  }
+  void process(Processable processable);
 }

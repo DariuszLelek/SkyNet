@@ -1,6 +1,6 @@
-package skill.provider;
+package provider;
 
-import skill.model.Skill;
+import skill.Skill;
 
 public interface SkillProvide {
   Skill getSkill(String skillName);

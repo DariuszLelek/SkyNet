@@ -1,8 +1,8 @@
 package processing.executor;
 
 import org.apache.log4j.Logger;
-import processing.Processable;
-import processing.EmptyProcessable;
+import processable.Processable;
+import processable.EmptyProcessable;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -27,27 +27,26 @@ public class ProcessableExecutor extends Executor {
   }
 
   private static void startExecutorThread(){
-    Thread thread = new Thread(new Runnable() {
-      @Override
-      public void run() {
-        while(running){
-          synchronized (pendingProcessables){
-            if(pendingProcessables.size() > 0){
-              Processable pendingProcessable = getHighestPriorityProcessable();
-              removeProcessable(pendingProcessable);
-              pendingProcessable.startProcessing();
-              try {
-                Thread.sleep(PROCESS_NEXT_DELAY);
-              } catch (InterruptedException e) {
-                logger.error("startExecutorThread()" ,e);
-              }
-            }else{
-              logger.info("No pending processables, sleeping " + PENDING_CHECK_DELAY);
-              try {
-                Thread.sleep(PENDING_CHECK_DELAY);
-              } catch (InterruptedException e) {
-                logger.error("startExecutorThread()" ,e);
-              }
+    Thread thread = new Thread(() -> {
+      while (running) {
+        synchronized (pendingProcessables) {
+          if (pendingProcessables.size() > 0) {
+            Processable pendingProcessable = getHighestPriorityProcessable();
+            removeProcessable(pendingProcessable);
+
+            logger.info("execute processable: " + pendingProcessable.toString());
+            pendingProcessable.execute();
+            try {
+              Thread.sleep(PROCESS_NEXT_DELAY);
+            } catch (InterruptedException e) {
+              logger.error("startExecutorThread()" ,e);
+            }
+          }else{
+            logger.info("No pending processables, sleeping " + PENDING_CHECK_DELAY);
+            try {
+              Thread.sleep(PENDING_CHECK_DELAY);
+            } catch (InterruptedException e) {
+              logger.error("startExecutorThread()" ,e);
             }
           }
         }

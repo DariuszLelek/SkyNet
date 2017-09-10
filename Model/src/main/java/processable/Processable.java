@@ -1,11 +1,10 @@
 package processable;
 
-public interface Processable {
-  void startProcessing();
-  void stopProcessing();
-  boolean isProcessed();
-  boolean canBeProcessed();
-  int getPriorityValue();
+public abstract class Processable {
+  public abstract void execute();
 
-  String getInfo();
+  public abstract boolean canBeProcessed();
+
+  public abstract int getPriorityValue();
+
 }
