@@ -1,4 +1,10 @@
+/*
+ * Created by Dariusz Lelek on 9/10/17 9:54 PM
+ * Copyright (c) 2017. All rights reserved.
+ */
+
 import dictionary.DictionaryFactory;
+import dictionary.DictionaryPreserver;
 import hibernate.HibernateUtility;
 import hibernate.Word;
 
@@ -6,9 +12,9 @@ import hibernate.Word;
 public class TestClass {
 
   public static void main(String[] args) {
-    Word w = new Word("add", "noun", "insert");
+    Word w = new Word("remove", "noun", "del");
 
-    //DictionaryFactory.getDataPreserver().saveEntity(w);
+    //DictionaryFactory.getDictionaryPreserver().saveEntity(w);
 
     String[] words = {"none", "none2"};
 
