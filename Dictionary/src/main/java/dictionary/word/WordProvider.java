@@ -3,23 +3,34 @@ package dictionary.word;
 import dictionary.DictionaryFactory;
 import hibernate.mappings.Word;
 
+import java.util.Arrays;
 import java.util.List;
+import java.util.Objects;
 import java.util.stream.Collectors;
 
 public class WordProvider {
 
   public Word getWord(String wordString){
-    Word word = DictionaryFactory.getDictionaryProvider()
-        .getEntityByUniqueKey(Word.class, "word", wordString);
-    return word != null ? word : Word.UNKNOWN;
+    return validateWord(DictionaryFactory.getDictionaryProvider()
+        .getEntityByUniqueKey(Word.class, "word", wordString), wordString);
   }
 
   public List<Word> getWords(String[] wordStrings){
-    return DictionaryFactory.getDictionaryProvider()
-        .getEntitiesByUniqueKeys(Word.class, "word", wordStrings)
-        .stream()
-        .filter(w -> w != null)
-        .map(Word.class::cast)
+    return Arrays.stream(wordStrings)
+        .map(s -> validateWord(getWord(s), s))
         .collect(Collectors.toList());
+  }
+
+  private Word validateWord(Object object, String wordString){
+    Word word;
+
+    if(object instanceof Word){
+      word = (Word) object;
+    }else{
+      word = new Word();
+      word.setWord(wordString);
+    }
+
+    return word;
   }
 }

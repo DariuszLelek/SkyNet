@@ -2,7 +2,7 @@ package dictionary;
 
 import dictionary.word.WordProvider;
 
-public class DictionaryFactory {
+public class  DictionaryFactory {
   private final static WordProvider wordProvider = new WordProvider();
 
   private final static DictionaryProvider dictionaryProvider = new DictionaryProvider();
