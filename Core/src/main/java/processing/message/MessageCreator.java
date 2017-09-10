@@ -31,29 +31,22 @@ public class MessageCreator {
 
   public Message getMessage(final String messageText, final MessageType messageType) {
     final Message message = new Message(messageType);
-    final Queue<String> messageChunks = getMessageChunks(messageText != null ? messageText : "");
-    final Queue<Word> messageWords = getWordsFromChunks(messageChunks);
+    final Queue<String> messageChunks = getMessageChunks(validateMessageText(messageText));
+    final Queue<Word> words = getWordsFromChunks(messageChunks);
 
-    dequeueWordsIntoMessage(messageWords, message);
+    dequeueWordsIntoMessage(words, message);
 
     return message;
   }
 
   private void dequeueWordsIntoMessage(final Queue<Word> messageWords, final Message message){
-    while(!messageWords.isEmpty()){
-      message.addWord(messageWords.poll());
-    }
+    messageWords.forEach(message::addWord);
   }
 
   private Queue<Word> getWordsFromChunks(final Queue<String> messageChunks) {
-    Queue<Word> words = new LinkedList<>();
-
-    while (!messageChunks.isEmpty()) {
-      Word word = DictionaryFactory.getWordProvider().getWord(messageChunks.poll());
-      words.add(word);
-    }
-
-    return words;
+    return messageChunks.stream()
+        .map(chunk -> DictionaryFactory.getWordProvider().getWord(chunk))
+        .collect(Collectors.toCollection(LinkedList::new));
   }
 
   private Queue<String> getMessageChunks(String messageText) {
@@ -62,5 +55,9 @@ public class MessageCreator {
             .filter(chunk -> !chunk.isEmpty())
             .map(x -> x.replaceAll("[^A-Za-z0-9]", ""))
             .collect(Collectors.toList()));
+  }
+
+  private String validateMessageText(String messageText){
+    return messageText != null ? messageText : "";
   }
 }
