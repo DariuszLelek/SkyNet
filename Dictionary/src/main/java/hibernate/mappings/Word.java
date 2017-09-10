@@ -3,6 +3,7 @@ package hibernate.mappings;
 import config.GlobalStrings;
 import dictionary.word.WordClass;
 import javax.persistence.*;
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -72,8 +73,10 @@ public class Word implements java.io.Serializable {
   }
 
   public List<String> getSynonymsList() {
-    return Arrays.stream(synonyms.split(GlobalStrings.SYNONYM_SPLITTER.toString()))
+    List<String> synonymsList = Arrays.stream(synonyms.split(GlobalStrings.SYNONYM_SPLITTER.toString()))
         .collect(Collectors.toList());
+
+    return synonymsList != null ? synonymsList : new ArrayList<>();
   }
 }
 

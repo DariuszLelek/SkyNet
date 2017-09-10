@@ -1,6 +1,6 @@
 package processing.message.handler;
 
-import processing.message.MessageType;
+import processing.message.model.MessageType;
 
 public class HandlerFactory {
   private static UserMessageHandler userMessageHandler = new UserMessageHandler();

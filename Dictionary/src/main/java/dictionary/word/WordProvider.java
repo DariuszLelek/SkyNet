@@ -11,14 +11,19 @@ import java.util.stream.Collectors;
 public class WordProvider {
 
   public Word getWord(String wordString){
+    wordString = formatWordString(wordString);
     return validateWord(DictionaryFactory.getDictionaryProvider()
         .getEntityByUniqueKey(Word.class, "word", wordString), wordString);
   }
 
   public List<Word> getWords(String[] wordStrings){
     return Arrays.stream(wordStrings)
-        .map(s -> validateWord(getWord(s), s))
+        .map(this::getWord)
         .collect(Collectors.toList());
+  }
+
+  private String formatWordString(String wordString){
+    return wordString.toLowerCase();
   }
 
   private Word validateWord(Object object, String wordString){

@@ -1,6 +1,6 @@
 package processing.message.handler;
 
-import processing.message.Message;
+import processing.message.model.Message;
 
 public class Handler implements Handle {
 

@@ -1,4 +1,4 @@
-package processing;
+package processable;
 
 public interface Processable {
   void startProcessing();

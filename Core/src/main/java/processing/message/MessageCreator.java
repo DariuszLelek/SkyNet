@@ -17,6 +17,8 @@ package processing.message;
 
 import dictionary.DictionaryFactory;
 import hibernate.mappings.Word;
+import processing.message.model.Message;
+import processing.message.model.MessageType;
 
 import java.util.Arrays;
 import java.util.LinkedList;

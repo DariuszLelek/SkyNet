@@ -1,6 +1,6 @@
-package processing.message;
+package skill.provider;
 
-public enum MessagePriority {
+public enum SkillPriority {
   NONE(0),
   LOW(1),
   MEDIUM(2),
@@ -8,7 +8,7 @@ public enum MessagePriority {
 
   private final int value;
 
-  MessagePriority(int value) {
+  SkillPriority(int value) {
     this.value = value;
   }
 

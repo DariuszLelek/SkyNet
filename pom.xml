@@ -8,6 +8,8 @@
     <modules>
         <module>Core</module>
         <module>Dictionary</module>
+        <module>Skills</module>
+        <module>Model</module>
     </modules>
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>

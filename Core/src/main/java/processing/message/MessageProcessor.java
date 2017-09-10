@@ -16,6 +16,8 @@
 package processing.message;
 
 import processing.Processor;
+import processing.message.model.Message;
+import processing.message.model.MessageType;
 
 /**
  *

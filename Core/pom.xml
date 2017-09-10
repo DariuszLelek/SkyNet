@@ -39,6 +39,11 @@
             <artifactId>Dictionary</artifactId>
             <version>1.0-SNAPSHOT</version>
         </dependency>
+        <dependency>
+            <groupId>com.darodev</groupId>
+            <artifactId>Skills</artifactId>
+            <version>1.0-SNAPSHOT</version>
+        </dependency>
     </dependencies>
     <properties>
         <maven.compiler.source>1.8</maven.compiler.source>

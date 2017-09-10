@@ -65,7 +65,7 @@ public class ProcessableExecutor extends Executor {
     Processable highestPriorityProcessable = new EmptyProcessable();
 
     for(Processable processable : pendingProcessables){
-      if(processable.getPriority() > highestPriorityProcessable.getPriority() &&
+      if(processable.getPriorityValue() > highestPriorityProcessable.getPriorityValue() &&
           processable.canBeProcessed()){
         highestPriorityProcessable = processable;
       }

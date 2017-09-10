@@ -1,12 +1,12 @@
 package processing.message.handler;
 
-import processing.message.Message;
-import processing.message.handler.Command.Add;
-import processing.message.predefined.Command;
-
-import java.util.List;
+import org.apache.log4j.Logger;
+import processing.ProcessorFactory;
+import processing.message.model.Message;
+import skill.provider.SkillFactory;
 
 public class UserMessageHandler extends Handler {
+  final static Logger logger = Logger.getLogger(UserMessageHandler.class);
 
   @Override
   public boolean canHandle() {
@@ -16,22 +16,17 @@ public class UserMessageHandler extends Handler {
 
   @Override
   public void handle(Message message) {
-    // TODO check against different actions on verb: command, (request) etc.
+    // TODO check against different actions Skills, other actions.
+
+    String skill = message.getWords().peek().getWord();
+
+    if(SkillFactory.getSkillProvider().hasSkill(skill)){
 
 
+//      ProcessorFactory.getSkillProcessor()
+//          .processSkill(SkillFactory.getSkillProvider().getSkill(skill));
+    }
 
     message.stopProcessing();
-
-
-//
-//    Command command = Command.getByName(message.getHeader());
-//    List<String> content = message.getWords();
-//
-//    if(command == Command.ADD){
-//      new Add(content);
-//    }else if(command == Command.REMOVE){
-//
-//    }
-
   }
 }

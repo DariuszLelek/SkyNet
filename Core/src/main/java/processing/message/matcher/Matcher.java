@@ -1,6 +1,6 @@
 package processing.message.matcher;
 
-import processing.message.MessageType;
+import processing.message.model.MessageType;
 
 public class Matcher{
   private final MessageType messageType;

@@ -13,11 +13,9 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package processing.message;
+package processing.message.model;
 
-import java.util.ArrayList;
 import java.util.LinkedList;
-import java.util.List;
 import java.util.Queue;
 import java.util.stream.Collectors;
 
@@ -55,7 +53,7 @@ public class Message implements Processable {
     return words;
   }
 
-  void addWord(Word word){
+  public void addWord(Word word){
     words.add(word);
   }
 
@@ -82,7 +80,7 @@ public class Message implements Processable {
   }
 
   @Override
-  public int getPriority() {
+  public int getPriorityValue() {
     return type.getPriority();
   }
 

@@ -1,17 +1,21 @@
-package processing;
+package processing.skill.model;
 
-public class EmptyProcessable implements Processable {
+import processing.Processable;
+
+public class Skill implements Processable {
   @Override
   public void startProcessing() {
+    
   }
 
   @Override
   public void stopProcessing() {
+
   }
 
   @Override
   public boolean isProcessed() {
-    return true;
+    return false;
   }
 
   @Override
@@ -26,6 +30,6 @@ public class EmptyProcessable implements Processable {
 
   @Override
   public String getInfo() {
-    return "EmptyProcessable";
+    return null;
   }
 }
