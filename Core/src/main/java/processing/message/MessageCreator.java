@@ -15,9 +15,8 @@
  */
 package processing.message;
 
-import org.joda.time.DateTime;
-import processing.message.matcher.Matcher;
-import processing.message.matcher.MessageMatcherFactory;
+import dictionary.DictionaryFactory;
+import hibernate.mappings.Word;
 
 import java.util.Arrays;
 import java.util.LinkedList;
@@ -30,36 +29,31 @@ import java.util.stream.Collectors;
  */
 public class MessageCreator {
 
-  public Queue<Message> getMessages(final String messageText) {
+  public Message getMessage(final String messageText, final MessageType messageType) {
+    final Message message = new Message(messageType);
     final Queue<String> messageChunks = getMessageChunks(messageText != null ? messageText : "");
-    return getMessagesFromChunks(messageChunks);
+    final Queue<Word> messageWords = getWordsFromChunks(messageChunks);
+
+    dequeueWordsIntoMessage(messageWords, message);
+
+    return message;
   }
 
-  private Queue<Message> getMessagesFromChunks(final Queue<String> messageChunks){
-    final Queue<Message> messages = new LinkedList<>();
+  private void dequeueWordsIntoMessage(final Queue<Word> messageWords, final Message message){
+    while(!messageWords.isEmpty()){
+      message.addWord(messageWords.poll());
+    }
+  }
+
+  private Queue<Word> getWordsFromChunks(final Queue<String> messageChunks) {
+    Queue<Word> words = new LinkedList<>();
 
     while (!messageChunks.isEmpty()) {
-      String dequeuedChunk = messageChunks.poll();
-
-      addChunkToMessages(dequeuedChunk, messages);
-      tryInsertNewMessageFromChunk(dequeuedChunk, messages);
+      Word word = DictionaryFactory.getWordProvider().getWord(messageChunks.poll());
+      words.add(word);
     }
 
-    return messages;
-  }
-
-  private void tryInsertNewMessageFromChunk(String chunk, Queue<Message> messages){
-    for(Matcher matcher : MessageMatcherFactory.getMatchers()){
-      String match = matcher.getMatch(chunk);
-      if(!match.isEmpty()){
-        messages.add(new Message(matcher.getMessageType(), match, DateTime.now()));
-        return;
-      }
-    }
-  }
-
-  private void addChunkToMessages(String chunk, Queue<Message> messages){
-    messages.forEach(message -> message.addTextToContent(chunk));
+    return words;
   }
 
   private Queue<String> getMessageChunks(String messageText) {

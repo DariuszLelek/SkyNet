@@ -16,9 +16,12 @@
 package processing.message;
 
 import java.util.ArrayList;
+import java.util.LinkedList;
 import java.util.List;
+import java.util.Queue;
 import java.util.stream.Collectors;
 
+import hibernate.mappings.Word;
 import org.joda.time.DateTime;
 import processing.Processable;
 import processing.message.handler.HandlerFactory;
@@ -28,26 +31,16 @@ import processing.message.handler.HandlerFactory;
  * @author Dariusz Lelek
  */
 public class Message implements Processable {
+
   private final MessageType type;
-  private final String header;
-  private final DateTime messageTime;
+  private final DateTime messageTime = DateTime.now();
 
   private boolean isProcessed = false;
 
-  private final List<String> content = new ArrayList<>();
+  private final Queue<Word> words = new LinkedList<>();
 
-  public Message() {
-    this.type = MessageType.EMPTY;
-    this.header = "";
-    this.messageTime = DateTime.now();
-
-    isProcessed = true;
-  }
-
-  Message(MessageType type, String header, DateTime messageTime) {
+  public Message(MessageType type) {
     this.type = type;
-    this.header = header;
-    this.messageTime = messageTime;
   }
 
   public MessageType getType() {
@@ -58,22 +51,13 @@ public class Message implements Processable {
     return messageTime;
   }
 
-  public String getHeader() {
-    return header;
+  public Queue<Word> getWords() {
+    return words;
   }
 
-  public List<String> getContent() {
-    return content;
+  void addWord(Word word){
+    words.add(word);
   }
-
-  void addTextToContent(String text){
-    content.add(text);
-  }
-
-  private String getContentString(){
-    return content.stream().collect(Collectors.joining(" "));
-  }
-
 
   @Override
   public void startProcessing() {
@@ -104,7 +88,10 @@ public class Message implements Processable {
 
   @Override
   public String getInfo() {
-    return "Message type: " + type.name() + ", header: " + header + ", content: " + getContentString();
+    return "Message type: " + type.name() + ", words: " + getWordsString();
   }
 
+  private String getWordsString(){
+    return words.stream().map(Word::getWord).collect(Collectors.joining(", "));
+  }
 }

@@ -20,14 +20,10 @@ package processing.message;
  * @author Dariusz Lelek
  */
 public enum MessageType {
-  EMPTY(MessagePriority.NO),
+  EMPTY(MessagePriority.NONE),
 
-  COMMAND(MessagePriority.HIGH),
-
-  REQUEST(MessagePriority.MEDIUM),
-  QUESTION(MessagePriority.MEDIUM),
-  CONFIRMATION(MessagePriority.MEDIUM),
-  DENIAL(MessagePriority.MEDIUM);
+  VOICE(MessagePriority.HIGH),
+  SYSTEM(MessagePriority.HIGH);
 
   private final MessagePriority priority;
 

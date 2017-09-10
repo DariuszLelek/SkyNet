@@ -16,12 +16,6 @@
 package processing.message;
 
 import processing.Processor;
-import processing.message.Message;
-import processing.message.MessageCreator;
-
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Queue;
 
 /**
  *
@@ -30,20 +24,12 @@ import java.util.Queue;
 public class MessageProcessor extends Processor{
   private final MessageCreator messageCreator = new MessageCreator();
 
-  @Override
-  public void processText(String messageText) {
+  public void processVoiceMessage(String messageText){
     super.processText(messageText);
-
-    processMessages(messageCreator.getMessages(messageText));
+    processMessage(messageCreator.getMessage(messageText, MessageType.VOICE));
   }
 
-  private void processMessages(final Queue<Message> messages){
-    while (!messages.isEmpty()){
-      processMessage(messages.poll());
-    }
-  }
-
-  private void processMessage(Message message){
+  private void processMessage(final Message message){
     super.process(message);
   }
 }

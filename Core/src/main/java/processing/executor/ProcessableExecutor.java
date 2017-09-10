@@ -2,7 +2,7 @@ package processing.executor;
 
 import org.apache.log4j.Logger;
 import processing.Processable;
-import processing.message.Message;
+import processing.EmptyProcessable;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -42,7 +42,7 @@ public class ProcessableExecutor extends Executor {
                 logger.error("startExecutorThread()" ,e);
               }
             }else{
-              logger.debug("No pending processables, sleeping " + PENDING_CHECK_DELAY);
+              logger.info("No pending processables, sleeping " + PENDING_CHECK_DELAY);
               try {
                 Thread.sleep(PENDING_CHECK_DELAY);
               } catch (InterruptedException e) {
@@ -62,7 +62,7 @@ public class ProcessableExecutor extends Executor {
   }
 
   private synchronized static Processable getHighestPriorityProcessable(){
-    Processable highestPriorityProcessable = new Message();
+    Processable highestPriorityProcessable = new EmptyProcessable();
 
     for(Processable processable : pendingProcessables){
       if(processable.getPriority() > highestPriorityProcessable.getPriority() &&

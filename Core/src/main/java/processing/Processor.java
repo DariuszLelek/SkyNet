@@ -34,7 +34,7 @@ public class Processor {
   }
 
   public void process(Processable processable){
-    logger.debug("process(): " + processable.getInfo());
+    logger.info("process(): " + processable.getInfo());
 
     ProcessableExecutor.addProcessable(processable);
   }
