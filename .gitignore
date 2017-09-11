@@ -14,3 +14,4 @@
 /.idea
 
 *.iml
+Utility/src/main/java/config/HibernateConfig.java
