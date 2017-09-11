@@ -4,9 +4,6 @@
  */
 package processing.message;
 
-import dictionary.DictionaryFactory;
-import dictionary.word.Word;
-
 import java.util.Arrays;
 import java.util.LinkedList;
 import java.util.Queue;
@@ -16,22 +13,14 @@ public class MessageCreator {
 
   public Message getMessage(final String messageText, final MessageType messageType) {
     final Message message = new Message(messageType);
-    final Queue<String> messageChunks = getMessageChunks(validateMessageText(messageText));
-    final Queue<Word> words = getWordsFromChunks(messageChunks);
 
-    dequeueWordsIntoMessage(words, message);
+    dequeueTextIntoMessage(validateMessageText(messageText), message);
 
     return message;
   }
 
-  private void dequeueWordsIntoMessage(final Queue<Word> messageWords, final Message message){
-    messageWords.forEach(word -> message.addWord(word.getWord()));
-  }
-
-  private Queue<Word> getWordsFromChunks(final Queue<String> messageChunks) {
-    return messageChunks.stream()
-        .map(chunk -> DictionaryFactory.getWordProvider().getWord(chunk))
-        .collect(Collectors.toCollection(LinkedList::new));
+  private void dequeueTextIntoMessage(final String messageText, final Message message) {
+    getMessageChunks(messageText).stream().filter(text -> !text.isEmpty()).forEach(message::addWord);
   }
 
   private Queue<String> getMessageChunks(String messageText) {
@@ -42,7 +31,7 @@ public class MessageCreator {
             .collect(Collectors.toList()));
   }
 
-  private String validateMessageText(String messageText){
+  private String validateMessageText(String messageText) {
     return messageText != null ? messageText : "";
   }
 }
