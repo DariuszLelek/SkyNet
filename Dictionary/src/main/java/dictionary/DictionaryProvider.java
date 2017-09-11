@@ -26,29 +26,26 @@ public class DictionaryProvider {
     return result;
   }
 
-  @SuppressWarnings("unchecked")
-  public <T> T getEntityByUniqueKey(Class clazz, String criterion, String value) {
+  public Object getEntityByUniqueKey(Class clazz, String criterion, String value) {
     Session session = hibernateUtility.getSession();
     Transaction tx = session.beginTransaction();
-    T t = (T)session.createCriteria(clazz).add(Restrictions.eq(criterion, value)).uniqueResult();
+    Object object = session.createCriteria(clazz).add(Restrictions.eq(criterion, value)).uniqueResult();
     tx.commit();
-    return t;
+    return object;
   }
 
-  @SuppressWarnings("unchecked")
-  public <T> List<T> getEntitiesByUniqueKeys(Class clazz, String criterion, String[] values) {
+  public List<Object> getEntitiesByUniqueKeys(Class clazz, String criterion, String[] values) {
     Session session = hibernateUtility.getSession();
     Transaction tx = session.beginTransaction();
-    List<T> list = session.createCriteria(clazz).add(Restrictions.in(criterion, values)).list();
+    List<Object> list = session.createCriteria(clazz).add(Restrictions.in(criterion, values)).list();
     tx.commit();
     return list;
   }
 
-  @SuppressWarnings("unchecked")
-  public <T> List<T> getAllEntities(Class clazz) {
+  public List<Object> getAllEntities(Class clazz) {
     Session session = hibernateUtility.getSession();
     Transaction tx = session.beginTransaction();
-    List<T> list = session.createCriteria(clazz).list();
+    List<Object> list = session.createCriteria(clazz).list();
     tx.commit();
     return list;
   }
