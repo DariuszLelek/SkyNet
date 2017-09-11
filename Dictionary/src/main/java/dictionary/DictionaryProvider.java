@@ -34,18 +34,18 @@ public class DictionaryProvider {
     return object;
   }
 
-  public List<Object> getEntitiesByUniqueKeys(Class clazz, String criterion, String[] values) {
+  public List getEntitiesByUniqueKeys(Class clazz, String criterion, String[] values) {
     Session session = hibernateUtility.getSession();
     Transaction tx = session.beginTransaction();
-    List<Object> list = session.createCriteria(clazz).add(Restrictions.in(criterion, values)).list();
+    List list = session.createCriteria(clazz).add(Restrictions.in(criterion, values)).list();
     tx.commit();
     return list;
   }
 
-  public List<Object> getAllEntities(Class clazz) {
+  public List getAllEntities(Class clazz) {
     Session session = hibernateUtility.getSession();
     Transaction tx = session.beginTransaction();
-    List<Object> list = session.createCriteria(clazz).list();
+    List list = session.createCriteria(clazz).list();
     tx.commit();
     return list;
   }
