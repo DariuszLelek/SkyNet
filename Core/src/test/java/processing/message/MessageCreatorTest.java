@@ -4,7 +4,6 @@
  */
 package processing.message;
 
-import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 
@@ -18,161 +17,77 @@ import static junit.framework.TestCase.assertNotNull;
  * @author Dariusz Lelek
  */
 public class MessageCreatorTest {
-//  private final MessageCreator instance = new MessageCreator();
-//
-//  private final String alphabetic = "abcABC";
-//  private final String numeric = "0123456789";
-//  private final String space = " ";
-//  private final String[] invalidChunks = {"!@#$%^&*()", ":{}[]|", "  ><  .", "// /'' \" \n"};
-//  private final String[] content = {"some", "content", "here"};
-//  private final MessageType defaultType = MessageType.COMMAND;
-//
-//  private final Map<MessageType, List<String>> validChunksByType = new HashMap<>();
-//  private List<String> defaultChunks;
-//
-//  private final int MESSAGE_TEXT_NUM = 4;
-//
-//  @Before
-//  public void setUp() throws Exception {
-//    validChunksByType.put(MessageType.COMMAND, new ArrayList<>(Arrays.asList("add", "remove", "find")));
-//    validChunksByType.put(MessageType.CONFIRMATION, new ArrayList<>(Arrays.asList("yes", "confirm")));
-//    validChunksByType.put(MessageType.DENIAL, new ArrayList<>(Arrays.asList("no", "not")));
-//
-//    defaultChunks = validChunksByType.get(defaultType);
-//  }
-//
-//  @After
-//  public void tearDown() throws Exception {
-//  }
+  private static final MessageCreator INSTANCE = new MessageCreator();
 
-//  @Test
-//  public void testGetMessagesNonNull() {
-//    System.out.println("testGetMessagesNonNull");
-//
-//    assertNotNull(instance.getMessages(null));
-//    assertNotNull(instance.getMessages(getValidText(defaultType, 0)));
-//    assertNotNull(instance.getMessages(getValidText(defaultType, 1)));
-//    assertNotNull(instance.getMessages(getInvalidText()));
-//  }
-//
-//  @Test
-//  public void testGetMessagesNonAlphanumeric() {
-//    System.out.println("testGetMessagesNonAlphanumeric");
-//
-//    assertEquals(0, instance.getMessages(getInvalidText()).size());
-//  }
-//
-//  @Test
-//  public void testGetMessagesFromValidChunks() {
-//    System.out.println("testGetMessagesFromValidChunks");
-//
-//    for(int i = 0; i< MESSAGE_TEXT_NUM; i++){
-//      assertEquals(i, instance.getMessages(getValidText(defaultType, i)).size());
-//    }
-//
-//    assertEquals(0, instance.getMessages(alphabetic).size());
-//    assertEquals(0, instance.getMessages(numeric).size());
-//  }
-//
-//  @Test
-//  public void testGetMessageFromMixedChunks() {
-//    System.out.println("testGetMessageFromMixedChunks");
-//
-//    for(int i = 0; i< MESSAGE_TEXT_NUM; i++){
-//      assertEquals(i, instance.getMessages(getValidText(defaultType, i) + getInvalidText()).size());
-//    }
-//  }
-//
-//  @Test
-//  public void testGetMessagesHeader() {
-//    System.out.println("testGetMessagesHeader");
-//
-//    Queue<Message> voiceMessages = instance.getMessages(getValidText(defaultType, defaultChunks.size()));
-//
-//    int chunkIndex = 0;
-//    while (!voiceMessages.isEmpty()){
-//      assertEquals(voiceMessages.poll().getHeader(), defaultChunks.get(chunkIndex));
-//      chunkIndex++;
-//    }
-//  }
-//
-//  @Test
-//  public void testGetMessagesContent() {
-//    System.out.println("testGetMessagesContent");
-//
-//    String firstValidTextWithContent = getValidTextWithContent(defaultChunks.get(0), content[0]);
-//    String secondValidTextWithContent = getValidTextWithContent(defaultChunks.get(0), content[0]);
-//    secondValidTextWithContent += getValidTextWithContent(defaultChunks.get(1), content[1]);
-//
-//    Queue<Message> voiceMessages = instance.getMessages(firstValidTextWithContent);
-//    assertEquals(content[0], voiceMessages.poll().getInstructions().get(0));
-//
-//    voiceMessages = instance.getMessages(secondValidTextWithContent);
-//
-//    Message firstVoiceMessage = voiceMessages.poll();
-//    assertEquals(content[0], firstVoiceMessage.getInstructions().get(0));
-//    assertEquals(defaultChunks.get(1), firstVoiceMessage.getInstructions().get(1));
-//    assertEquals(content[1], firstVoiceMessage.getInstructions().get(2));
-//
-//    Message secondVoiceMessage = voiceMessages.poll();
-//    assertEquals(content[1], secondVoiceMessage.getInstructions().get(0));
-//  }
-//
-//  @Test
-//  public void testGetMessagesContentFromDistorted() {
-//    System.out.println("testGetMessagesContentFromDistorted");
-//
-//    String distortedContent = "a&b*c=1--2";
-//    String expectedContent = "abc12";
-//    String messageText = getValidTextWithContent(defaultChunks.get(0), distortedContent);
-//
-//    Queue<Message> voiceMessages = instance.getMessages(messageText);
-//    assertEquals(expectedContent, voiceMessages.poll().getInstructions().get(0));
-//  }
-//
-//  @Test
-//  public void testGetMessagesType() {
-//    System.out.println("testGetMessagesType");
-//
-//    Queue<Message> voiceMessages = instance.getMessages(getValidText(defaultType, defaultChunks.size()));
-//
-//    while (!voiceMessages.isEmpty()){
-//      assertEquals(MessageType.COMMAND, voiceMessages.poll().getType());
-//    }
-//
-//    voiceMessages = instance.getMessages(getValidText(MessageType.CONFIRMATION, 1));
-//    assertEquals(MessageType.CONFIRMATION, voiceMessages.poll().getType());
-//
-//    voiceMessages = instance.getMessages(getValidText(MessageType.DENIAL, 1));
-//    assertEquals(MessageType.DENIAL, voiceMessages.poll().getType());
-//  }
-//
-//  private String getValidTextWithContent(String validChunk, String content){
-//    return validChunk + space + content + space;
-//  }
-//
-//  private String getInvalidText(){
-//    StringBuilder result = new StringBuilder();
-//
-//    for (String invalidChunk : invalidChunks) {
-//      result.append(space).append(invalidChunk);
-//    }
-//
-//    return result.getValue();
-//  }
-//
-//  private String getValidText(MessageType type, int numOfValidChunks){
-//    StringBuilder result = new StringBuilder();
-//
-//    List<String> listByType = validChunksByType.get(type);
-//
-//    for (int i = 0; i < numOfValidChunks; i++) {
-//      result.append(space + alphabetic)
-//          .append(space).append(listByType.get(i < listByType.size() ? i : listByType.size() - 1))
-//          .append(space + numeric);
-//    }
-//
-//    return result.getValue();
-//  }
+  private static final String VALID_TEXT = "abcABC cdeFGH  IJKlmn   ";
+  private static final String VALID_TEXT_NUMERIC = "0123456789";
 
+  private static final String EMPTY_TEXT = "";
+  private static final String INVALID_TEXT = "!@#$%  ^&*()\", \":{}[  ]|\"><  ";
+  private static final MessageType DEFAULT_TYPE = MessageType.EMPTY;
+
+  @Test
+  public void testGetMessagesNonNull() {
+    System.out.println("testGetMessagesNonNull");
+
+    assertNotNull(INSTANCE.getMessage(null, DEFAULT_TYPE));
+    assertNotNull(INSTANCE.getMessage(EMPTY_TEXT, DEFAULT_TYPE));
+    assertNotNull(INSTANCE.getMessage(VALID_TEXT, DEFAULT_TYPE));
+  }
+
+  @Test
+  public void testGetMessagesNonAlphanumeric() {
+    System.out.println("testGetMessagesNonAlphanumeric");
+
+    assertEquals(0, INSTANCE.getMessage(INVALID_TEXT, DEFAULT_TYPE).getWords().size());
+  }
+
+  @Test
+  public void testGetMessagesFromValidText() {
+    System.out.println("testGetMessagesFromValidText");
+
+    assertEquals(1, INSTANCE.getMessage(VALID_TEXT_NUMERIC, DEFAULT_TYPE).getWords().size());
+    assertEquals(3, INSTANCE.getMessage(VALID_TEXT, DEFAULT_TYPE).getWords().size());
+  }
+
+  @Test
+  public void testGetMessageFromMixedChunks() {
+    System.out.println("testGetMessageFromMixedChunks");
+
+    String messageText = VALID_TEXT + " " + INVALID_TEXT;
+    int expected = 3;
+
+    assertEquals(expected, INSTANCE.getMessage(messageText, DEFAULT_TYPE).getWords().size());
+  }
+
+  @Test
+  public void testGetMessagesWords() {
+    System.out.println("testGetMessagesWords");
+
+    assertEquals(VALID_TEXT_NUMERIC,
+        INSTANCE.getMessage(VALID_TEXT_NUMERIC, DEFAULT_TYPE).getWords().peek());
+
+    String messageText = "some message text";
+    Message message = INSTANCE.getMessage(messageText, DEFAULT_TYPE);
+
+    assertEquals("some", message.getWords().poll());
+    assertEquals("message", message.getWords().poll());
+    assertEquals("text", message.getWords().poll());
+
+    messageText = "some d<i$stor&ted 2 !!";
+    message = INSTANCE.getMessage(messageText, DEFAULT_TYPE);
+
+    assertEquals("some", message.getWords().poll());
+    assertEquals("distorted", message.getWords().poll());
+    assertEquals("2", message.getWords().poll());
+  }
+
+  @Test
+  public void testGetMessagesType() {
+    System.out.println("testGetMessagesType");
+
+    assertEquals(DEFAULT_TYPE, INSTANCE.getMessage(null, DEFAULT_TYPE).getType());
+    assertEquals(DEFAULT_TYPE, INSTANCE.getMessage(EMPTY_TEXT, DEFAULT_TYPE).getType());
+    assertEquals(MessageType.VOICE, INSTANCE.getMessage(VALID_TEXT, MessageType.VOICE).getType());
+  }
 }
