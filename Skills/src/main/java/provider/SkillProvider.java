@@ -18,8 +18,11 @@ import java.util.*;
 public class SkillProvider implements SkillProvide {
   private static final Logger logger = Logger.getLogger(SkillProvider.class);
 
-  private static final String SKILLS_LOCATION_PACKAGE = "skill.";
-  private final String SKILLS_LOCATION = getClass().getProtectionDomain().getCodeSource().getLocation().getPath() + "skill/";
+  private static final String SKILLS_DIRECTORY = "skills";
+  private static final String SKILLS_LOCATION_PACKAGE = SKILLS_DIRECTORY + ".";
+  private final String SKILLS_LOCATION =
+      getClass().getProtectionDomain().getCodeSource().getLocation().getPath()
+          + SKILLS_DIRECTORY + "/";
 
   private final Map<String, String> skillSynonymCache = new HashMap<>();
   private final FileUtility fileUtility = new FileUtility();
@@ -77,7 +80,8 @@ public class SkillProvider implements SkillProvide {
     try {
       clazz = Class.forName(SKILLS_LOCATION_PACKAGE + getClassNameFromSkillName(skillName));
     } catch (ClassNotFoundException e) {
-      logger.error("tryGetSkillClass()", e);
+      logger.error("tryGetSkillClass() - Skill [" + skillName + "] not found in location: "
+          + SKILLS_LOCATION + " (package " + SKILLS_LOCATION_PACKAGE + ")");
     }
 
     return clazz;

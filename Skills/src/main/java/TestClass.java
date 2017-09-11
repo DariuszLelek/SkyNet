@@ -6,7 +6,7 @@
 import config.DataBaseSchema;
 import hibernate.HibernateUtilityFactory;
 import provider.SkillFactory;
-import skill.Add;
+import skills.Add;
 
 public class TestClass {
 
