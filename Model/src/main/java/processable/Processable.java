@@ -28,6 +28,10 @@ public abstract class Processable {
     }
   };
 
+  public boolean isNotEmpty(){
+    return !EMPTY.equals(this);
+  }
+
   public abstract void execute();
 
   public abstract boolean canBeProcessed();

@@ -27,7 +27,9 @@ public class ProcessableExecutor extends Executor {
   }
 
   public synchronized static void addProcessable(Processable processable) {
-    pendingProcessables.add(processable);
+    if(processable.isNotEmpty() && !pendingProcessables.contains(processable)){
+      pendingProcessables.add(processable);
+    }
   }
 
   public static void stopExecutorThread() {
@@ -62,10 +64,12 @@ public class ProcessableExecutor extends Executor {
   }
 
   private static void executeProcessable(final Processable processable) {
-    logger.info("executeProcessable()" + processable.toString());
-
     removeFromPending(processable);
-    processable.execute();
+
+    if(processable.isNotEmpty()){
+      logger.info("executeProcessable() - " + processable.toString());
+      processable.execute();
+    }
   }
 
   private synchronized static Processable getHighestPriorityProcessable() {
@@ -82,7 +86,7 @@ public class ProcessableExecutor extends Executor {
   }
 
   private synchronized static void removeFromPending(Processable processable) {
-    if (pendingProcessables.contains(processable)) {
+    if (processable.isNotEmpty() && pendingProcessables.contains(processable)) {
       pendingProcessables.remove(processable);
     }
   }
