@@ -16,14 +16,14 @@ import org.hibernate.cfg.Configuration;
 import org.hibernate.service.ServiceRegistry;
 
 public class HibernateUtility {
-  private final Logger logger = Logger.getLogger(HibernateUtility.class);
+  private static final Logger logger = Logger.getLogger(HibernateUtility.class);
 
-  private final String urlProperty = "hibernate.connection.url";
-  private final String driverProperty = "hibernate.connection.driver_class";
-  private final String usernameProperty = "hibernate.connection.username";
-  private final String passwordProperty = "hibernate.connection.password";
-  private final String catalogProperty = "hibernate.default_catalog";
-  private final String dialectProperty = "hibernate.dialect";
+  private static final String urlProperty = "hibernate.connection.url";
+  private static final String driverProperty = "hibernate.connection.driver_class";
+  private static final String usernameProperty = "hibernate.connection.username";
+  private static final String passwordProperty = "hibernate.connection.password";
+  private static final String catalogProperty = "hibernate.default_catalog";
+  private static final String dialectProperty = "hibernate.dialect";
 
   private final Configuration configuration;
   private final HibernateConfig hibernateConfig;

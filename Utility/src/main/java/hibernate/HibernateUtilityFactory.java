@@ -24,4 +24,16 @@ public class HibernateUtilityFactory {
     }
     return CACHE.get(schema);
   }
+
+
+  // TODO provide a way to close session factory for each active DB connection from one place
+  private static void closeSessionFactory(DataBaseSchema schema){
+    if(CACHE.containsKey(schema)){
+      CACHE.get(schema).closeSessionFactory();
+    }
+  }
+
+  private static void closeAllSessionFactories(){
+    CACHE.values().forEach(HibernateUtility::closeSessionFactory);
+  }
 }

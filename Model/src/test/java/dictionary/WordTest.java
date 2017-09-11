@@ -27,7 +27,7 @@ public class WordTest {
   public void getWordClass() throws Exception {
     System.out.println("getWordClass");
 
-    word.setWordClassString(WordClass.NOUN.toString());
+    word.setWordClassString(WordClass.NOUN.getValue());
     assertEquals(WordClass.NOUN, word.getWordClass());
     word.setWordClassString("noun");
     assertEquals(WordClass.NOUN, word.getWordClass());

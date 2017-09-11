@@ -32,7 +32,7 @@ public class Word implements java.io.Serializable {
 
   public Word() {
     this.word = "";
-    this.wordClassString = WordClass.UNKNOWN.toString();
+    this.wordClassString = WordClass.UNKNOWN.getValue();
     this.synonyms = "";
   }
 
@@ -79,7 +79,7 @@ public class Word implements java.io.Serializable {
   }
 
   public List<String> getSynonymsList() {
-    List<String> synonymsList = Arrays.stream(synonyms.split(GlobalStrings.SYNONYM_SPLITTER.toString()))
+    List<String> synonymsList = Arrays.stream(synonyms.split(GlobalStrings.SYNONYM_SPLITTER.getValue()))
         .collect(Collectors.toList());
 
     return synonymsList != null ? synonymsList : new ArrayList<>();

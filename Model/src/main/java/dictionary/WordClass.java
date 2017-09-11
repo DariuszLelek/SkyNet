@@ -25,15 +25,19 @@ public enum WordClass {
 
   public static WordClass getEnumByValue(String value){
     for(WordClass wordClass : values()){
-      if(wordClass.toString().equalsIgnoreCase(value)){
+      if(wordClass.getValue().equalsIgnoreCase(value)){
         return wordClass;
       }
     }
     return UNKNOWN;
   }
 
+  public String getValue() {
+    return value;
+  }
+
   @Override
   public String toString() {
-    return value;
+    return "WordClass{\'" + value + "\'}";
   }
 }

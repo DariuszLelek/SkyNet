@@ -7,8 +7,11 @@ package instruction;
 
 import dictionary.Word;
 
+import java.util.Arrays;
 import java.util.LinkedList;
+import java.util.List;
 import java.util.Queue;
+import java.util.stream.Collectors;
 
 public class Instruction {
   public final static Instruction EMPTY = new Instruction();
@@ -30,6 +33,6 @@ public class Instruction {
   @Override
   public String toString() {
     return "Instruction{" +
-        "words=" + words + '}';
+        "words=" + String.join(",", words.stream().map(Word::getWord).collect(Collectors.toList())) + '}';
   }
 }

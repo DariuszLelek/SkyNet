@@ -34,7 +34,7 @@ public class WordProvider {
   private Word validateWord(Object object, String wordString){
     Word word;
 
-    if(object instanceof Word){
+    if(Word.class.isInstance(object)){
       word = (Word) object;
     }else{
       word = new Word();

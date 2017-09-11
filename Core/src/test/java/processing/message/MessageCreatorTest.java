@@ -158,7 +158,7 @@ public class MessageCreatorTest {
 //      result.append(space).append(invalidChunk);
 //    }
 //
-//    return result.toString();
+//    return result.getValue();
 //  }
 //
 //  private String getValidText(MessageType type, int numOfValidChunks){
@@ -172,7 +172,7 @@ public class MessageCreatorTest {
 //          .append(space + numeric);
 //    }
 //
-//    return result.toString();
+//    return result.getValue();
 //  }
 
 }
