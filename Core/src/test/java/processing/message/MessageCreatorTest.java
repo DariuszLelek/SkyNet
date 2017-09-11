@@ -4,10 +4,7 @@
  */
 package processing.message;
 
-import org.junit.Before;
 import org.junit.Test;
-
-import java.util.*;
 
 import static junit.framework.TestCase.assertEquals;
 import static junit.framework.TestCase.assertNotNull;
