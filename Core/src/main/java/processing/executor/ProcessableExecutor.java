@@ -7,13 +7,12 @@ package processing.executor;
 
 import org.apache.log4j.Logger;
 import processable.Processable;
-import processable.EmptyProcessable;
 
 import java.util.ArrayList;
 import java.util.List;
 
 public class ProcessableExecutor extends Executor {
-  final static Logger logger = Logger.getLogger(ProcessableExecutor.class);
+  private final static Logger logger = Logger.getLogger(ProcessableExecutor.class);
 
   private final static List<Processable> pendingProcessables = new ArrayList<>();
   private final static List<Processable> runningProcessables = new ArrayList<>();
@@ -70,7 +69,7 @@ public class ProcessableExecutor extends Executor {
   }
 
   private synchronized static Processable getHighestPriorityProcessable() {
-    Processable highestPriorityProcessable = new EmptyProcessable();
+    Processable highestPriorityProcessable = Processable.EMPTY;
 
     for (Processable processable : pendingProcessables) {
       if (processable.getPriorityValue() > highestPriorityProcessable.getPriorityValue() &&

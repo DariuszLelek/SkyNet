@@ -8,7 +8,7 @@ package processing;
 import org.apache.log4j.Logger;
 import processable.Processable;
 import processing.executor.ProcessableExecutor;
-import processing.message.model.Message;
+import processing.message.Message;
 import instruction.Instruction;
 import skill.Skill;
 import provider.SkillFactory;
@@ -21,7 +21,7 @@ public class VoiceMessageProcessor implements Processor {
 
   @Override
   public void process(Processable processable) {
-    if(processable instanceof Message){
+    if(Message.class.isInstance(processable)){
       process((Message) processable);
     }else{
       logger.warn("process() - processable is not type of " + Message.class.getName());
@@ -33,11 +33,15 @@ public class VoiceMessageProcessor implements Processor {
     if(message.canBeProcessed()){
       String messageChunk = peekMessageChunk(message);
 
+      // TODO copy message here to persist original one?
+
       if(skillProvider.hasSkill(messageChunk)){
         handleMessageAsSkill(message, messageChunk);
       }else{
         dequeueChunkAndTryAgain(message);
       }
+
+      //TODO when all prev condition failed just process message - message.execute(); // ask google or sth
     }
   }
 
@@ -50,7 +54,7 @@ public class VoiceMessageProcessor implements Processor {
   }
 
   private String peekMessageChunk(final Message message){
-    return !message.getWords().isEmpty() ? message.getWords().peek().getWord() : "";
+    return !message.getWords().isEmpty() ? message.getWords().peek() : "";
   }
 
   private void dequeueChunkAndTryAgain(final Message message){

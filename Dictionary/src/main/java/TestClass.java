@@ -5,7 +5,7 @@
 
 import dictionary.DictionaryFactory;
 import config.DataBaseSchema;
-import dictionary.Word;
+import dictionary.word.Word;
 import hibernate.HibernateUtilityFactory;
 
 
@@ -20,7 +20,6 @@ public class TestClass {
 
     System.out.println(DictionaryFactory.getWordProvider().getWord("add").getWordClass());
     System.out.println(DictionaryFactory.getWordProvider().getWords(words).size());
-
 
     HibernateUtilityFactory.getBySchema(DataBaseSchema.DICTIONARY).closeSessionFactory();
   }

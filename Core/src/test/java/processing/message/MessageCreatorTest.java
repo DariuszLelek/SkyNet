@@ -105,17 +105,17 @@ public class MessageCreatorTest {
 //    secondValidTextWithContent += getValidTextWithContent(defaultChunks.get(1), content[1]);
 //
 //    Queue<Message> voiceMessages = instance.getMessages(firstValidTextWithContent);
-//    assertEquals(content[0], voiceMessages.poll().getWords().get(0));
+//    assertEquals(content[0], voiceMessages.poll().getInstructions().get(0));
 //
 //    voiceMessages = instance.getMessages(secondValidTextWithContent);
 //
 //    Message firstVoiceMessage = voiceMessages.poll();
-//    assertEquals(content[0], firstVoiceMessage.getWords().get(0));
-//    assertEquals(defaultChunks.get(1), firstVoiceMessage.getWords().get(1));
-//    assertEquals(content[1], firstVoiceMessage.getWords().get(2));
+//    assertEquals(content[0], firstVoiceMessage.getInstructions().get(0));
+//    assertEquals(defaultChunks.get(1), firstVoiceMessage.getInstructions().get(1));
+//    assertEquals(content[1], firstVoiceMessage.getInstructions().get(2));
 //
 //    Message secondVoiceMessage = voiceMessages.poll();
-//    assertEquals(content[1], secondVoiceMessage.getWords().get(0));
+//    assertEquals(content[1], secondVoiceMessage.getInstructions().get(0));
 //  }
 //
 //  @Test
@@ -127,7 +127,7 @@ public class MessageCreatorTest {
 //    String messageText = getValidTextWithContent(defaultChunks.get(0), distortedContent);
 //
 //    Queue<Message> voiceMessages = instance.getMessages(messageText);
-//    assertEquals(expectedContent, voiceMessages.poll().getWords().get(0));
+//    assertEquals(expectedContent, voiceMessages.poll().getInstructions().get(0));
 //  }
 //
 //  @Test

@@ -5,6 +5,7 @@
 
 package provider;
 
+
 import skill.Skill;
 
 public interface SkillProvide {

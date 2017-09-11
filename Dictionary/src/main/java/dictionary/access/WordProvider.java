@@ -1,24 +1,28 @@
 /*
- * Created by Dariusz Lelek on 9/10/17 9:54 PM
+ * Created by Dariusz Lelek on 9/11/17 10:17 PM
  * Copyright (c) 2017. All rights reserved.
  */
 
-package dictionary.word;
+package dictionary.access;
 
-import dictionary.DictionaryFactory;
-import dictionary.Word;
+import config.DataBaseSchema;
+import dictionary.word.Word;
+import hibernate.provider.DataProvider;
 
 
 import java.util.Arrays;
 import java.util.List;
 import java.util.stream.Collectors;
 
-public class WordProvider {
+public class WordProvider extends DataProvider {
+
+  public WordProvider() {
+    super(DataBaseSchema.DICTIONARY);
+  }
 
   public Word getWord(String wordString){
     wordString = formatWordString(wordString);
-    return validateWord(DictionaryFactory.getDictionaryProvider()
-        .getEntityByUniqueKey(Word.class, "word", wordString), wordString);
+    return validateWord(getEntityByUniqueKey(Word.class, "word", wordString), wordString);
   }
 
   public List<Word> getWords(String[] wordStrings){

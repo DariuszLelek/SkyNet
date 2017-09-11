@@ -5,9 +5,7 @@
 package processing.message;
 
 import dictionary.DictionaryFactory;
-import dictionary.Word;
-import processing.message.model.Message;
-import processing.message.model.MessageType;
+import dictionary.word.Word;
 
 import java.util.Arrays;
 import java.util.LinkedList;
@@ -27,7 +25,7 @@ public class MessageCreator {
   }
 
   private void dequeueWordsIntoMessage(final Queue<Word> messageWords, final Message message){
-    messageWords.forEach(message::addWord);
+    messageWords.forEach(word -> message.addWord(word.getWord()));
   }
 
   private Queue<Word> getWordsFromChunks(final Queue<String> messageChunks) {

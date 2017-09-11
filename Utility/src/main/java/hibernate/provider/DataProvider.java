@@ -1,9 +1,9 @@
 /*
- * Created by Dariusz Lelek on 9/10/17 9:54 PM
+ * Created by Dariusz Lelek on 9/11/17 10:08 PM
  * Copyright (c) 2017. All rights reserved.
  */
 
-package dictionary;
+package hibernate.provider;
 
 import config.DataBaseSchema;
 import hibernate.HibernateUtility;
@@ -15,10 +15,21 @@ import org.hibernate.criterion.Restrictions;
 
 import java.util.List;
 
-// TODO move to utils/hibernate
-public class DictionaryProvider {
-  private final HibernateUtility hibernateUtility = HibernateUtilityFactory.getBySchema(DataBaseSchema.DICTIONARY);
+public class DataProvider implements Provide{
+  private final HibernateUtility hibernateUtility;
+  private final DataBaseSchema schema;
 
+  public DataProvider(DataBaseSchema schema) {
+    this.schema = schema;
+
+    hibernateUtility = HibernateUtilityFactory.getBySchema(schema);
+  }
+
+  public DataBaseSchema getSchema() {
+    return schema;
+  }
+
+  @Override
   public int getNumberOfEntities(Class clazz) {
     Session session = hibernateUtility.getSession();
     Transaction tx = session.beginTransaction();
@@ -27,6 +38,7 @@ public class DictionaryProvider {
     return result;
   }
 
+  @Override
   public Object getEntityByUniqueKey(Class clazz, String criterion, String value) {
     Session session = hibernateUtility.getSession();
     Transaction tx = session.beginTransaction();
@@ -35,6 +47,7 @@ public class DictionaryProvider {
     return object;
   }
 
+  @Override
   public List getEntitiesByUniqueKeys(Class clazz, String criterion, String[] values) {
     Session session = hibernateUtility.getSession();
     Transaction tx = session.beginTransaction();
@@ -43,6 +56,7 @@ public class DictionaryProvider {
     return list;
   }
 
+  @Override
   public List getAllEntities(Class clazz) {
     Session session = hibernateUtility.getSession();
     Transaction tx = session.beginTransaction();

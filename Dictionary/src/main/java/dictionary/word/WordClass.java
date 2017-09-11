@@ -1,9 +1,9 @@
 /*
- * Created by Dariusz Lelek on 9/10/17 9:54 PM
+ * Created by Dariusz Lelek on 9/11/17 10:09 PM
  * Copyright (c) 2017. All rights reserved.
  */
 
-package dictionary;
+package dictionary.word;
 
 public enum WordClass {
   UNKNOWN("unknown"),

@@ -14,7 +14,6 @@ public class TestClass {
   public static void main(String[] args) {
     Add add = new Add();
 
-
     //System.out.println(add.getInfo());
 
     System.out.println(SkillFactory.getSkillProvider().hasSkill("add"));

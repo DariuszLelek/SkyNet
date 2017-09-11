@@ -1,15 +1,13 @@
 /*
- * Created by Dariusz Lelek on 9/10/17 9:53 PM
+ * Created by Dariusz Lelek on 9/11/17 10:47 PM
  * Copyright (c) 2017. All rights reserved.
  */
 
-package processing.message.model;
+package processing.message;
 
 import java.util.LinkedList;
 import java.util.Queue;
-import java.util.stream.Collectors;
 
-import dictionary.Word;
 import org.joda.time.DateTime;
 
 import processable.Processable;
@@ -19,7 +17,7 @@ public class Message extends Processable {
   private final MessageType type;
   private final DateTime messageTime = DateTime.now();
 
-  private final Queue<Word> words = new LinkedList<>();
+  private final Queue<String> words = new LinkedList<>();
 
   public Message(MessageType type) {
     this.type = type;
@@ -33,11 +31,11 @@ public class Message extends Processable {
     return messageTime;
   }
 
-  public Queue<Word> getWords() {
+  public Queue<String> getWords() {
     return words;
   }
 
-  public void addWord(Word word){
+  public void addWord(String word){
     words.add(word);
   }
 
@@ -54,14 +52,5 @@ public class Message extends Processable {
   @Override
   public int getPriorityValue() {
     return type.getPriority().getValue();
-  }
-
-  @Override
-  public String toString() {
-    return "Message: " + type.toString() + ", words: " + getWordsString();
-  }
-
-  private String getWordsString(){
-    return words.stream().map(Word::getWord).collect(Collectors.joining(", "));
   }
 }

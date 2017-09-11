@@ -5,7 +5,7 @@
 
 package processing;
 
-import processing.message.model.MessageType;
+import processing.message.MessageType;
 
 public class ProcessorFactory {
   private final static Processor voiceMessageProcessor = new VoiceMessageProcessor();

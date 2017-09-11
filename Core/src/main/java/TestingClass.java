@@ -3,13 +3,14 @@
  * Copyright (c) 2017. All rights reserved.
  */
 
+
 import config.DataBaseSchema;
 import hibernate.HibernateUtilityFactory;
 import processing.ProcessorFactory;
 import processing.executor.ProcessableExecutor;
 import processing.message.MessageCreator;
-import processing.message.model.Message;
-import processing.message.model.MessageType;
+import processing.message.Message;
+import processing.message.MessageType;
 
 public class TestingClass {
   public static void main(String[] args) throws InterruptedException {

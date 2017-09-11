@@ -1,9 +1,9 @@
 /*
- * Created by Dariusz Lelek on 9/10/17 9:53 PM
+ * Created by Dariusz Lelek on 9/11/17 10:47 PM
  * Copyright (c) 2017. All rights reserved.
  */
 
-package processing.message.model;
+package processing.message;
 
 public enum MessageType {
   EMPTY("Empty", MessagePriority.NONE),
