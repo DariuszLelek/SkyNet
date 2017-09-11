@@ -12,6 +12,7 @@ import org.apache.log4j.Logger;
 import org.hibernate.Session;
 import org.hibernate.Transaction;
 
+// TODO move to Utils/hibernate
 public class DictionaryPreserver {
   private final static Logger logger = Logger.getLogger(DictionaryProvider.class);
 

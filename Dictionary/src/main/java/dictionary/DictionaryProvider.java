@@ -15,6 +15,7 @@ import org.hibernate.criterion.Restrictions;
 
 import java.util.List;
 
+// TODO move to utils/hibernate
 public class DictionaryProvider {
   private final HibernateUtility hibernateUtility = HibernateUtilityFactory.getBySchema(DataBaseSchema.DICTIONARY);
 
