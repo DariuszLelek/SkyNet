@@ -28,8 +28,6 @@ public class Instruction {
 
   @Override
   public String toString() {
-    return "Instruction{" +
-        "instructions=" + String.join(",",instructions.stream().collect(Collectors.toList())) +
-        '}';
+    return "Instruction{" + String.join(",", instructions.stream().collect(Collectors.toList())) + '}';
   }
 }
