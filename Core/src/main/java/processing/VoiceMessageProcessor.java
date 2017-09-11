@@ -49,7 +49,7 @@ public class VoiceMessageProcessor implements Processor {
     logger.info("handleMessageAsSkill() - " + skillName);
 
     Skill skill = skillProvider.getSkill(skillName);
-    skill.setInstruction(new Instruction(message.getWords(), null));
+    skill.setInstruction(new Instruction(message.getWords()));
     ProcessableExecutor.addProcessable(skill);
   }
 
