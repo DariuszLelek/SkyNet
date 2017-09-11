@@ -5,7 +5,7 @@
 package processing.message;
 
 import dictionary.DictionaryFactory;
-import hibernate.Word;
+import dictionary.Word;
 import processing.message.model.Message;
 import processing.message.model.MessageType;
 

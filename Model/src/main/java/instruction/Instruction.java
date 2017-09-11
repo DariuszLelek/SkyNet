@@ -5,7 +5,7 @@
 
 package instruction;
 
-import hibernate.Word;
+import dictionary.Word;
 
 import java.util.LinkedList;
 import java.util.Queue;

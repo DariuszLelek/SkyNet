@@ -9,7 +9,7 @@ import java.util.LinkedList;
 import java.util.Queue;
 import java.util.stream.Collectors;
 
-import hibernate.Word;
+import dictionary.Word;
 import org.joda.time.DateTime;
 
 import processable.Processable;

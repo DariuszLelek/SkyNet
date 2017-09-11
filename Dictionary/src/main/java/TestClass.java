@@ -4,9 +4,9 @@
  */
 
 import dictionary.DictionaryFactory;
-import dictionary.DictionaryPreserver;
-import hibernate.HibernateUtility;
-import hibernate.Word;
+import config.DataBaseSchema;
+import dictionary.Word;
+import hibernate.HibernateUtilityFactory;
 
 
 public class TestClass {
@@ -21,6 +21,7 @@ public class TestClass {
     System.out.println(DictionaryFactory.getWordProvider().getWord("add").getWordClass());
     System.out.println(DictionaryFactory.getWordProvider().getWords(words).size());
 
-    HibernateUtility.stopConnectionProvider();
+
+    HibernateUtilityFactory.getBySchema(DataBaseSchema.DICTIONARY).closeSessionFactory();
   }
 }

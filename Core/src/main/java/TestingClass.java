@@ -3,7 +3,8 @@
  * Copyright (c) 2017. All rights reserved.
  */
 
-import hibernate.HibernateUtility;
+import config.DataBaseSchema;
+import hibernate.HibernateUtilityFactory;
 import processing.ProcessorFactory;
 import processing.executor.ProcessableExecutor;
 import processing.message.MessageCreator;
@@ -23,6 +24,6 @@ public class TestingClass {
 
     ProcessableExecutor.stopExecutorThread();
 
-    HibernateUtility.stopConnectionProvider();
+    HibernateUtilityFactory.getBySchema(DataBaseSchema.DICTIONARY).closeSessionFactory();
   }
 }

@@ -5,7 +5,8 @@
 
 package dictionary;
 
-import hibernate.HibernateUtility;
+import config.DataBaseSchema;
+import hibernate.HibernateUtilityFactory;
 import hibernate.TransactionType;
 import org.apache.log4j.Logger;
 import org.hibernate.Session;
@@ -32,10 +33,10 @@ public class DictionaryPreserver {
 
   private <T> int performTransaction(T entity, TransactionType type) {
     int id = -1;
-    Session localSession = HibernateUtility.getSession();
+    Session localSession = HibernateUtilityFactory.getBySchema(DataBaseSchema.DICTIONARY).getSession();
     Transaction tx = null;
     try {
-      tx = HibernateUtility.getSession().getTransaction();
+      tx = localSession.getTransaction();
       tx.begin();
       switch (type) {
         case SAVE:

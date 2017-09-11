@@ -3,7 +3,7 @@
  * Copyright (c) 2017. All rights reserved.
  */
 
-package hibernate;
+package dictionary;
 
 
 import config.GlobalStrings;
