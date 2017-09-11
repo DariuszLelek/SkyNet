@@ -1,3 +1,5 @@
 /target
 /logs
 /lib
+
+/src/main/java/credentials/Credentials.java

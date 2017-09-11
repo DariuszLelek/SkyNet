@@ -14,5 +14,3 @@
 /.idea
 
 *.iml
-Utility/src/main/java/config/HibernateConfig.java
-Utility/src/main/java/credentials/Credentials.java
