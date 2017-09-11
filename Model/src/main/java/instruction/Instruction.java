@@ -5,29 +5,29 @@
 
 package instruction;
 
+import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.Queue;
-import java.util.stream.Collectors;
 
 public class Instruction {
   public final static Instruction EMPTY = new Instruction();
 
   private final Queue<String> instructions;
 
-  public Instruction(Queue<String> instructions, Queue<Number> numbers) {
+  public Instruction(Queue<String> instructions) {
     this.instructions = instructions;
   }
 
   public Instruction() {
-    this.instructions = null;
+    this.instructions = new LinkedList<>();
   }
 
   public Queue<String> getInstructions() {
-    return instructions != null ? instructions : new LinkedList<>();
+    return instructions;
   }
 
   @Override
   public String toString() {
-    return "Instruction{" + String.join(",", instructions.stream().collect(Collectors.toList())) + '}';
+    return "Instruction{" + String.join(",", new ArrayList<>(instructions)) + '}';
   }
 }
