@@ -23,7 +23,8 @@ public class Remind extends Skill {
 
   @Override
   public boolean process() {
-    System.out.println("reminder 1s");
+    // TODO process repeat here?
+
     return true;
   }
 

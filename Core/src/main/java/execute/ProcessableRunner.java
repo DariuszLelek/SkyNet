@@ -32,10 +32,11 @@ public class ProcessableRunner implements Runnable {
   @Override
   public void run() {
     while (isRunning()) {
-      if (repeatable) {
-        handleAsRepeatable();
+      if (processable.process()) {
+        logger.debug("handleAsNotRepeatable() - SUCCESS - " + processable.toString());
+        stop();
       } else {
-        handleAsNotRepeatable();
+        retryTimes++;
       }
 
       checkMaxRetryCounter();
