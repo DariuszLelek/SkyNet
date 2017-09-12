@@ -16,7 +16,7 @@ public class Remind extends Skill {
   }
 
   @Override
-  public boolean execute() {
+  public boolean process() {
     return true;
   }
 

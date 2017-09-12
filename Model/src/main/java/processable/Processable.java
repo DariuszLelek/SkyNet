@@ -14,7 +14,7 @@ public abstract class Processable {
   // TODO check if needed
   protected int retryTimeoutMS = Integer.MIN_VALUE;  // Run once
 
-  public abstract boolean execute();
+  public abstract boolean process();
 
   public abstract boolean canProcess();
 

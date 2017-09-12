@@ -43,7 +43,7 @@ public class Message extends Processable {
   }
 
   @Override
-  public boolean execute() {
+  public boolean process() {
     final String chunk = words.poll();
 
     if(SkillFactory.getSkillProvider().hasSkill(chunk)){
@@ -64,5 +64,11 @@ public class Message extends Processable {
   @Override
   public int getPriority() {
     return type.getPriority().getValue();
+  }
+
+  @Override
+  public String toString() {
+    return "Message [" + type.toString() + "] , " +
+        "words{" + String.join("," + words) + "}";
   }
 }

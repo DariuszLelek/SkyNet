@@ -27,22 +27,18 @@ public class ProcessableRunner implements Runnable {
   @Override
   public void run() {
     while (running){
-      if(processable.execute()){
+      if(processable.process()){
+        logger.info("run() - SUCCESS - " + processable.toString());
         stop();
       }else{
         if(++ retryTimes >= MAX_RETRY_TIMES){
-          logFail();
+          logger.error("run() - FAIL (MAX RETRY) - " + processable.toString());
           stop();
           break;
         }
         sleep();
       }
     }
-  }
-
-  private void logFail(){
-    logger.warn("run() - failed to execute: " + processable.toString()
-        + " reached Maximum Retry Counter:" + MAX_RETRY_TIMES);
   }
 
   private void sleep(){

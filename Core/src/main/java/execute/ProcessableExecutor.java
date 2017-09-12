@@ -12,14 +12,12 @@ import processable.Processable;
 import java.util.ArrayList;
 import java.util.List;
 
-public class ProcessableExecutor extends Executor {
+public class ProcessableExecutor {
   private final static Logger logger = Logger.getLogger(ProcessableExecutor.class);
-
-  private final static List<Processable> pendingProcessables = new ArrayList<>();
-  private final static List<Processable> runningProcessables = new ArrayList<>();
 
   private final static EmptyProcessable emptyProcessable = EmptyProcessable.INSTANCE;
 
+  private final static List<Processable> pendingProcessables = new ArrayList<>();
   private final static List<ProcessableRunner> ACTIVE_RUNNERS = new ArrayList<>();
 
   private static boolean running = true;
@@ -72,10 +70,11 @@ public class ProcessableExecutor extends Executor {
   private synchronized static void startProcessableRunner(final Processable processable) {
     if(processable.isNotEmpty()){
       removeFromPending(processable);
-      logger.info("startProcessableRunner() - " + processable.toString());
 
       ProcessableRunner runner = new ProcessableRunner(processable);
-      (new Thread(runner)).start();
+
+      Thread thread = new Thread(runner);
+      thread.start();
 
       addRunner(runner);
     }
