@@ -12,7 +12,7 @@ public abstract class Processable {
   protected Priority priority;
 
   // TODO check if needed
-  protected int retryTimeoutMS = Integer.MIN_VALUE;  // Run once
+  private int repeatDelayMS = Integer.MIN_VALUE;  // Run once
 
   public abstract boolean process();
 
@@ -22,6 +22,10 @@ public abstract class Processable {
 
   public boolean isNotEmpty(){
     return true;
+  }
+
+  public int getRepeatDelayMS(){
+    return repeatDelayMS;
   }
 
 }

@@ -17,13 +17,17 @@ public class TestingClass {
 
     MessageCreator messageCreator = new MessageCreator();
 
-    Message m1 = messageCreator.create("remove add", MessageType.VOICE);
+    Message m1 = messageCreator.create("remove remind", MessageType.VOICE);
+    Message m2 = messageCreator.create("remove remind", MessageType.VOICE);
+    Message m3 = messageCreator.create("add remind", MessageType.VOICE);
 
     ProcessorFactory.getMessageProcessor().process(m1);
+    ProcessorFactory.getMessageProcessor().process(m2);
+    ProcessorFactory.getMessageProcessor().process(m3);
 
     Thread.sleep(5000);
 
-    ProcessableExecutor.stopExecutor();
+    //ProcessableExecutor.stopExecutor();
 
     HibernateUtilityFactory.getBySchema(DataBaseSchema.DICTIONARY).closeSessionFactory();
   }
