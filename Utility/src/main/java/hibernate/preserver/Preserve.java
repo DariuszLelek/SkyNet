@@ -5,9 +5,11 @@
 
 package hibernate.preserver;
 
+import hibernate.entity.DAO;
+
 public interface Preserve {
-  <T> int saveEntity(T entity);
-  <T> void updateEntity(T entity);
-  <T> void saveOrUpdateEntity(T entity);
-  <T> void deleteEntity(T entity);
+  int save(DAO dao);
+  void update(DAO dao);
+  void saveOrUpdate(DAO dao);
+  void delete(DAO dao);
 }

@@ -9,6 +9,7 @@ import config.DataBaseSchema;
 import hibernate.HibernateUtility;
 import hibernate.HibernateUtilityFactory;
 import hibernate.TransactionType;
+import hibernate.entity.DAO;
 import org.apache.log4j.Logger;
 import org.hibernate.Session;
 import org.hibernate.Transaction;
@@ -29,27 +30,26 @@ public class DataPreserver implements Preserve {
     return schema;
   }
 
-  @Override
-  public <T> int saveEntity(T entity) {
-    return performTransaction(entity, TransactionType.SAVE);
+  public int save(DAO dao) {
+    return performTransaction(dao, TransactionType.SAVE);
   }
 
   @Override
-  public <T> void updateEntity(T entity) {
-    performTransaction(entity, TransactionType.UPDATE);
+  public void update(DAO dao) {
+    performTransaction(dao, TransactionType.UPDATE);
   }
 
   @Override
-  public <T> void saveOrUpdateEntity(T entity) {
-    performTransaction(entity, TransactionType.SAVE_OR_UPDATE);
+  public void saveOrUpdate(DAO dao) {
+    performTransaction(dao, TransactionType.SAVE_OR_UPDATE);
   }
 
   @Override
-  public <T> void deleteEntity(T entity) {
-    performTransaction(entity, TransactionType.DELETE);
+  public void delete(DAO dao) {
+    performTransaction(dao, TransactionType.DELETE);
   }
 
-  private <T> int performTransaction(T entity, TransactionType type) {
+  private int performTransaction(DAO dao, TransactionType type) {
     int id = -1;
     Session localSession = hibernateUtility.getSession();
     Transaction tx = null;
@@ -58,16 +58,16 @@ public class DataPreserver implements Preserve {
       tx.begin();
       switch (type) {
         case SAVE:
-          id = (Integer) localSession.save(entity);
+          id = (Integer) localSession.save(dao);
           break;
         case UPDATE:
-          localSession.update(entity);
+          localSession.update(dao);
           break;
         case SAVE_OR_UPDATE:
-          localSession.saveOrUpdate(entity);
+          localSession.saveOrUpdate(dao);
           break;
         case DELETE:
-          localSession.delete(entity);
+          localSession.delete(dao);
           break;
         default:
           break;

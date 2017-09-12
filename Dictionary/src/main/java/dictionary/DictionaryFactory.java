@@ -5,12 +5,17 @@
 
 package dictionary;
 
+import dictionary.access.WordPreserver;
 import dictionary.access.WordProvider;
 
 public class  DictionaryFactory {
   private final static WordProvider wordProvider = new WordProvider();
+  private final static WordPreserver wordPreserver = new WordPreserver();
 
   public static WordProvider getWordProvider(){
     return wordProvider;
+  }
+  public static WordPreserver getWordPreserver(){
+    return wordPreserver;
   }
 }

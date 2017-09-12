@@ -12,9 +12,9 @@ import hibernate.HibernateUtilityFactory;
 public class TestClass {
 
   public static void main(String[] args) {
-    Word w = new Word("remove", "noun", "del");
+    Word w = new Word("helaatlou", "noun", "del");
 
-    //DictionaryFactory.getDictionaryPreserver().saveEntity(w);
+    DictionaryFactory.getWordPreserver().save(w);
 
     String[] words = {"none", "none2"};
 
