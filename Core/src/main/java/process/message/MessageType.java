@@ -3,7 +3,7 @@
  * Copyright (c) 2017. All rights reserved.
  */
 
-package processing.message;
+package process.message;
 
 public enum MessageType {
   EMPTY("Empty", MessagePriority.NONE),

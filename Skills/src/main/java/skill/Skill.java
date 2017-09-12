@@ -6,10 +6,13 @@
 package skill;
 
 import instruction.Instruction;
+import org.apache.log4j.Logger;
 import processable.Processable;
 
 
 public class Skill extends Processable {
+  protected final static Logger logger = Logger.getLogger(Skill.class);
+
   private SkillPriority priority = SkillPriority.NONE;
   private Instruction instruction = Instruction.EMPTY;
 
@@ -34,12 +37,12 @@ public class Skill extends Processable {
   }
 
   @Override
-  public boolean canBeProcessed() {
+  public boolean canProcess() {
     return false;
   }
 
   @Override
-  public int getPriorityValue() {
+  public int getPriority() {
     return priority.getValue();
   }
 

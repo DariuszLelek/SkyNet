@@ -2,7 +2,7 @@
  * Created by Dariusz Lelek on 9/10/17 9:53 PM
  * Copyright (c) 2017. All rights reserved.
  */
-package processing.message;
+package process.message;
 
 import java.util.Arrays;
 import java.util.LinkedList;
@@ -11,7 +11,7 @@ import java.util.stream.Collectors;
 
 public class MessageCreator {
 
-  public Message getMessage(final String messageText, final MessageType messageType) {
+  public Message create(final String messageText, final MessageType messageType) {
     final Message message = new Message(messageType);
 
     dequeueTextIntoMessage(validateMessageText(messageText), message);

@@ -14,11 +14,10 @@ public class Add extends Skill {
 
   @Override
   public void execute() {
-
   }
 
   @Override
-  public boolean canBeProcessed() {
+  public boolean canProcess() {
     return true;
   }
 }

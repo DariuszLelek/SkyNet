@@ -2,7 +2,7 @@
  * Created by Dariusz Lelek on 9/10/17 9:53 PM
  * Copyright (c) 2017. All rights reserved.
  */
-package processing.message;
+package process.message;
 
 import org.junit.Test;
 
@@ -27,24 +27,24 @@ public class MessageCreatorTest {
   public void testGetMessagesNonNull() {
     System.out.println("testGetMessagesNonNull");
 
-    assertNotNull(INSTANCE.getMessage(null, DEFAULT_TYPE));
-    assertNotNull(INSTANCE.getMessage(EMPTY_TEXT, DEFAULT_TYPE));
-    assertNotNull(INSTANCE.getMessage(VALID_TEXT, DEFAULT_TYPE));
+    assertNotNull(INSTANCE.create(null, DEFAULT_TYPE));
+    assertNotNull(INSTANCE.create(EMPTY_TEXT, DEFAULT_TYPE));
+    assertNotNull(INSTANCE.create(VALID_TEXT, DEFAULT_TYPE));
   }
 
   @Test
   public void testGetMessagesNonAlphanumeric() {
     System.out.println("testGetMessagesNonAlphanumeric");
 
-    assertEquals(0, INSTANCE.getMessage(INVALID_TEXT, DEFAULT_TYPE).getWords().size());
+    assertEquals(0, INSTANCE.create(INVALID_TEXT, DEFAULT_TYPE).getWords().size());
   }
 
   @Test
   public void testGetMessagesFromValidText() {
     System.out.println("testGetMessagesFromValidText");
 
-    assertEquals(1, INSTANCE.getMessage(VALID_TEXT_NUMERIC, DEFAULT_TYPE).getWords().size());
-    assertEquals(3, INSTANCE.getMessage(VALID_TEXT, DEFAULT_TYPE).getWords().size());
+    assertEquals(1, INSTANCE.create(VALID_TEXT_NUMERIC, DEFAULT_TYPE).getWords().size());
+    assertEquals(3, INSTANCE.create(VALID_TEXT, DEFAULT_TYPE).getWords().size());
   }
 
   @Test
@@ -54,7 +54,7 @@ public class MessageCreatorTest {
     String messageText = VALID_TEXT + " " + INVALID_TEXT;
     int expected = 3;
 
-    assertEquals(expected, INSTANCE.getMessage(messageText, DEFAULT_TYPE).getWords().size());
+    assertEquals(expected, INSTANCE.create(messageText, DEFAULT_TYPE).getWords().size());
   }
 
   @Test
@@ -62,17 +62,17 @@ public class MessageCreatorTest {
     System.out.println("testGetMessagesWords");
 
     assertEquals(VALID_TEXT_NUMERIC,
-        INSTANCE.getMessage(VALID_TEXT_NUMERIC, DEFAULT_TYPE).getWords().peek());
+        INSTANCE.create(VALID_TEXT_NUMERIC, DEFAULT_TYPE).getWords().peek());
 
     String messageText = "some message text";
-    Message message = INSTANCE.getMessage(messageText, DEFAULT_TYPE);
+    Message message = INSTANCE.create(messageText, DEFAULT_TYPE);
 
     assertEquals("some", message.getWords().poll());
     assertEquals("message", message.getWords().poll());
     assertEquals("text", message.getWords().poll());
 
     messageText = "some d<i$stor&ted 2 !!";
-    message = INSTANCE.getMessage(messageText, DEFAULT_TYPE);
+    message = INSTANCE.create(messageText, DEFAULT_TYPE);
 
     assertEquals("some", message.getWords().poll());
     assertEquals("distorted", message.getWords().poll());
@@ -83,8 +83,8 @@ public class MessageCreatorTest {
   public void testGetMessagesType() {
     System.out.println("testGetMessagesType");
 
-    assertEquals(DEFAULT_TYPE, INSTANCE.getMessage(null, DEFAULT_TYPE).getType());
-    assertEquals(DEFAULT_TYPE, INSTANCE.getMessage(EMPTY_TEXT, DEFAULT_TYPE).getType());
-    assertEquals(MessageType.VOICE, INSTANCE.getMessage(VALID_TEXT, MessageType.VOICE).getType());
+    assertEquals(DEFAULT_TYPE, INSTANCE.create(null, DEFAULT_TYPE).getType());
+    assertEquals(DEFAULT_TYPE, INSTANCE.create(EMPTY_TEXT, DEFAULT_TYPE).getType());
+    assertEquals(MessageType.VOICE, INSTANCE.create(VALID_TEXT, MessageType.VOICE).getType());
   }
 }

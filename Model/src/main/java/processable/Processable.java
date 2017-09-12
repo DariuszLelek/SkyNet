@@ -6,36 +6,15 @@
 package processable;
 
 public abstract class Processable {
-  public static final Processable EMPTY = new Processable() {
-    @Override
-    public void execute() {
-
-    }
-
-    @Override
-    public boolean canBeProcessed() {
-      return false;
-    }
-
-    @Override
-    public int getPriorityValue() {
-      return Integer.MIN_VALUE;
-    }
-
-    @Override
-    public String toString() {
-      return "EmptyProcessable";
-    }
-  };
-
-  public boolean isNotEmpty(){
-    return !EMPTY.equals(this);
-  }
 
   public abstract void execute();
 
-  public abstract boolean canBeProcessed();
+  public abstract boolean canProcess();
 
-  public abstract int getPriorityValue();
+  public abstract int getPriority();
+
+  public boolean isNotEmpty(){
+    return true;
+  }
 
 }

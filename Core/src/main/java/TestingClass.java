@@ -6,20 +6,24 @@
 
 import config.DataBaseSchema;
 import hibernate.HibernateUtilityFactory;
-import processing.ProcessorFactory;
-import processing.executor.ProcessableExecutor;
-import processing.message.MessageCreator;
-import processing.message.Message;
-import processing.message.MessageType;
+import process.ProcessorFactory;
+import execute.ProcessableExecutor;
+import process.message.MessageCreator;
+import process.message.Message;
+import process.message.MessageType;
+import processable.Processable;
+import skill.Skill;
 
 public class TestingClass {
   public static void main(String[] args) throws InterruptedException {
 
+    Processable p = new Skill();
+
     MessageCreator messageCreator = new MessageCreator();
 
-    Message m1 = messageCreator.getMessage("remove add", MessageType.VOICE);
+    Message m1 = messageCreator.create("remove add", MessageType.VOICE);
 
-    ProcessorFactory.getMessageProcessor(MessageType.VOICE).process(m1);
+    ProcessorFactory.getMessageProcessor().process(m1);
 
     Thread.sleep(5000);
 

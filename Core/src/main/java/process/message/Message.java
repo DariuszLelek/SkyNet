@@ -3,13 +3,12 @@
  * Copyright (c) 2017. All rights reserved.
  */
 
-package processing.message;
+package process.message;
 
 import java.util.LinkedList;
 import java.util.Queue;
 
 import org.joda.time.DateTime;
-
 import processable.Processable;
 
 public class Message extends Processable {
@@ -45,12 +44,12 @@ public class Message extends Processable {
   }
 
   @Override
-  public boolean canBeProcessed() {
+  public boolean canProcess() {
     return !words.isEmpty();
   }
 
   @Override
-  public int getPriorityValue() {
+  public int getPriority() {
     return type.getPriority().getValue();
   }
 }
