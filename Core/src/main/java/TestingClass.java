@@ -12,12 +12,11 @@ import process.message.MessageCreator;
 import process.message.Message;
 import process.message.MessageType;
 import processable.Processable;
+import skill.EmptySkill;
 import skill.Skill;
 
 public class TestingClass {
   public static void main(String[] args) throws InterruptedException {
-
-    Processable p = new Skill();
 
     MessageCreator messageCreator = new MessageCreator();
 

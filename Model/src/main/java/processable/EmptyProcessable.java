@@ -1,11 +1,9 @@
 /*
- * Created by Dariusz Lelek on 9/12/17 1:13 AM
+ * Created by Dariusz Lelek on 9/12/17 7:00 PM
  * Copyright (c) 2017. All rights reserved.
  */
 
-package process;
-
-import processable.Processable;
+package processable;
 
 public class EmptyProcessable extends Processable{
   public static final EmptyProcessable INSTANCE = new EmptyProcessable();

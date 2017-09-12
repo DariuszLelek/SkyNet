@@ -5,7 +5,11 @@
 
 package processable;
 
+import priority.Priority;
+
 public abstract class Processable {
+
+  protected Priority priority;
 
   public abstract void execute();
 

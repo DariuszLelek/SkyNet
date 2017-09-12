@@ -5,16 +5,18 @@
 
 package process.message;
 
-public enum MessageType {
-  EMPTY("Empty", MessagePriority.NONE),
+import priority.Priority;
 
-  VOICE("Voice", MessagePriority.HIGH),
-  SYSTEM("System", MessagePriority.HIGH);
+public enum MessageType {
+  EMPTY("Empty", Priority.NONE),
+
+  VOICE("Voice", Priority.HIGH),
+  SYSTEM("System", Priority.HIGH);
 
   private final String type;
-  private final MessagePriority priority;
+  private final Priority priority;
 
-  MessageType(String type, MessagePriority priority) {
+  MessageType(String type, Priority priority) {
     this.type = type;
     this.priority = priority;
   }
@@ -23,7 +25,7 @@ public enum MessageType {
     return type;
   }
 
-  public MessagePriority getPriority() {
+  public Priority getPriority() {
     return priority;
   }
 

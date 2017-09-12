@@ -8,6 +8,9 @@ package provider;
 import dictionary.DictionaryFactory;
 import file.FileUtility;
 import org.apache.log4j.Logger;
+import processable.EmptyProcessable;
+import processable.Processable;
+import skill.EmptySkill;
 import skill.Skill;
 
 
@@ -33,19 +36,13 @@ public class SkillProvider implements SkillProvide {
 
   @Override
   public Skill getSkill(String skillName) {
-    Object object = tryGetObjectFromConstructor(tryGetClassConstructor(tryGetSkillClass(skillName)));
-
-    Skill skill = new Skill();
-    if(object instanceof Skill){
-      skill = (Skill) object;
-    }
-
-    return skill;
+    final Object object = tryGetObjectFromConstructor(tryGetClassConstructor(tryGetSkillClass(skillName)));
+    return Skill.class.isInstance(object) ? (Skill) object : new EmptySkill();
   }
 
   @Override
   public boolean hasSkill(String skillName) {
-    return skillSynonymCache.keySet().stream().anyMatch(skill -> skill.equalsIgnoreCase(skillName));
+    return skillSynonymCache.keySet().stream().anyMatch(synonym -> synonym.equalsIgnoreCase(skillName));
   }
 
   private Object tryGetObjectFromConstructor(Constructor<?> constructor){

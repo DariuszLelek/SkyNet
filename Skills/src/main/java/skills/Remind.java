@@ -1,5 +1,5 @@
 /*
- * Created by Dariusz Lelek on 9/11/17 10:59 PM
+ * Created by Dariusz Lelek on 9/12/17 6:49 PM
  * Copyright (c) 2017. All rights reserved.
  */
 
@@ -9,14 +9,15 @@ import instruction.Instruction;
 import priority.Priority;
 import skill.Skill;
 
-public class Add extends Skill {
+public class Remind extends Skill {
 
-  public Add() {
+  public Remind() {
     super(Priority.MEDIUM);
   }
 
   @Override
   public void execute() {
+
   }
 
   @Override

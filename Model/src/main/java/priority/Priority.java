@@ -1,11 +1,11 @@
 /*
- * Created by Dariusz Lelek on 9/11/17 10:47 PM
+ * Created by Dariusz Lelek on 9/12/17 6:51 PM
  * Copyright (c) 2017. All rights reserved.
  */
 
-package process.message;
+package priority;
 
-public enum MessagePriority {
+public enum Priority {
   NONE(0),
   LOW(1),
   MEDIUM(2),
@@ -13,7 +13,7 @@ public enum MessagePriority {
 
   private final int value;
 
-  MessagePriority(int value) {
+  Priority(int value) {
     this.value = value;
   }
 

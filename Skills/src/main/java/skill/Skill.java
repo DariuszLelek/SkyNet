@@ -7,42 +7,35 @@ package skill;
 
 import instruction.Instruction;
 import org.apache.log4j.Logger;
+import priority.Priority;
 import processable.Processable;
 
 
-public class Skill extends Processable {
+public abstract class Skill extends Processable {
   protected final static Logger logger = Logger.getLogger(Skill.class);
 
-  private SkillPriority priority = SkillPriority.NONE;
   private Instruction instruction = Instruction.EMPTY;
 
-  public Skill() {
-  }
-
-  void setPriority(SkillPriority priority) {
-    this.priority = priority;
-  }
-
-  public Instruction getInstruction() {
-    return instruction;
+  public Skill(Priority priority) {
+    super.priority = priority;
   }
 
   public void setInstruction(Instruction instruction) {
     this.instruction = instruction;
   }
 
-
-  @Override
-  public void execute() {
+  public Instruction getInstruction() {
+    return instruction;
   }
 
   @Override
-  public boolean canProcess() {
-    return false;
-  }
+  public abstract void execute();
 
   @Override
-  public int getPriority() {
+  public abstract boolean canProcess();
+
+  @Override
+  public int getPriority(){
     return priority.getValue();
   }
 
