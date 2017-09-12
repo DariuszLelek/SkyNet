@@ -20,13 +20,15 @@ public class ProcessableExecutor extends Executor {
 
   private final static EmptyProcessable emptyProcessable = EmptyProcessable.INSTANCE;
 
+  private final static List<ProcessableRunner> ACTIVE_RUNNERS = new ArrayList<>();
+
   private static boolean running = true;
 
   private static final int PENDING_CHECK_DELAY = 1 * 1000;
   private static final int PROCESS_NEXT_DELAY = 100;
 
   static {
-    startExecutorThread();
+    startExecutor();
   }
 
   public synchronized static void addProcessable(Processable processable) {
@@ -35,20 +37,21 @@ public class ProcessableExecutor extends Executor {
     }
   }
 
-  public static void stopExecutorThread() {
+  public static void stopExecutor() {
     running = false;
+    stopActiveRunners();
   }
 
-  private static void startExecutorThread() {
+  private static void startExecutor() {
     Thread thread = new Thread(() -> {
       while (running) {
         synchronized (pendingProcessables) {
           if (!pendingProcessables.isEmpty()) {
-            executeProcessable(getHighestPriorityProcessable());
+            startProcessableRunner(getHighestPriorityProcessable());
             try {
               Thread.sleep(PROCESS_NEXT_DELAY);
             } catch (InterruptedException e) {
-              logger.error("startExecutorThread()", e);
+              logger.error("startExecutor()", e);
             }
           } else {
             // TODO change to heart beat
@@ -56,7 +59,7 @@ public class ProcessableExecutor extends Executor {
             try {
               Thread.sleep(PENDING_CHECK_DELAY);
             } catch (InterruptedException e) {
-              logger.error("startExecutorThread()", e);
+              logger.error("startExecutor()", e);
             }
           }
         }
@@ -66,14 +69,24 @@ public class ProcessableExecutor extends Executor {
     thread.start();
   }
 
-  private static void executeProcessable(final Processable processable) {
+  private synchronized static void startProcessableRunner(final Processable processable) {
     if(processable.isNotEmpty()){
       removeFromPending(processable);
-      logger.info("executeProcessable() - " + processable.toString());
+      logger.info("startProcessableRunner() - " + processable.toString());
 
-      // TODO execute in new thread
-      processable.execute();
+      ProcessableRunner runner = new ProcessableRunner(processable);
+      (new Thread(runner)).start();
+
+      addRunner(runner);
     }
+  }
+
+  private synchronized static void addRunner(ProcessableRunner runner){
+    ACTIVE_RUNNERS.add(runner);
+  }
+
+  private synchronized static void stopActiveRunners(){
+    ACTIVE_RUNNERS.stream().filter(ProcessableRunner::isRunning).forEach(ProcessableRunner::stop);
   }
 
   private synchronized static Processable getHighestPriorityProcessable() {

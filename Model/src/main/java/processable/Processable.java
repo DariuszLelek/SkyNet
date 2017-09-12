@@ -11,7 +11,10 @@ public abstract class Processable {
 
   protected Priority priority;
 
-  public abstract void execute();
+  // TODO check if needed
+  protected int retryTimeoutMS = Integer.MIN_VALUE;  // Run once
+
+  public abstract boolean execute();
 
   public abstract boolean canProcess();
 

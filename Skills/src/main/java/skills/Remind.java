@@ -16,8 +16,8 @@ public class Remind extends Skill {
   }
 
   @Override
-  public void execute() {
-
+  public boolean execute() {
+    return true;
   }
 
   @Override

@@ -11,9 +11,6 @@ import execute.ProcessableExecutor;
 import process.message.MessageCreator;
 import process.message.Message;
 import process.message.MessageType;
-import processable.Processable;
-import skill.EmptySkill;
-import skill.Skill;
 
 public class TestingClass {
   public static void main(String[] args) throws InterruptedException {
@@ -26,7 +23,7 @@ public class TestingClass {
 
     Thread.sleep(5000);
 
-    ProcessableExecutor.stopExecutorThread();
+    ProcessableExecutor.stopExecutor();
 
     HibernateUtilityFactory.getBySchema(DataBaseSchema.DICTIONARY).closeSessionFactory();
   }

@@ -9,14 +9,14 @@ import process.message.MessageProcessor;
 import process.skill.SkillProcessor;
 
 public class ProcessorFactory {
-  private final static Processor messageProcessor = new MessageProcessor();
-  private final static Processor skillProcessor = new SkillProcessor();
+  private final static MessageProcessor messageProcessor = new MessageProcessor();
+  private final static SkillProcessor skillProcessor = new SkillProcessor();
 
-  public static Processor getMessageProcessor() {
+  public static MessageProcessor getMessageProcessor() {
     return messageProcessor;
   }
 
-  public static Processor getSkillProcessor() {
+  public static SkillProcessor getSkillProcessor() {
     return skillProcessor;
   }
 }

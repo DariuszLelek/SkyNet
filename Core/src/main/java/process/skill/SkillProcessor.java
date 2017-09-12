@@ -5,14 +5,21 @@
 
 package process.skill;
 
-import processable.Processable;
+import instruction.Instruction;
+import org.apache.log4j.Logger;
 import process.Processor;
-import execute.ProcessableExecutor;
+import skill.Skill;
 
 public class SkillProcessor extends Processor{
 
-  @Override
-  public void process(Processable processable) {
-    ProcessableExecutor.addProcessable(processable);
+  private final static Logger logger = Logger.getLogger(SkillProcessor.class);
+
+  public void process(Skill skill) {
+    super.process(skill);
+  }
+
+  public void process(Skill skill, Instruction instruction) {
+    skill.setInstruction(instruction);
+    process(skill);
   }
 }

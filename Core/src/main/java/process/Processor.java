@@ -4,10 +4,22 @@
  */
 package process;
 
+import execute.ProcessableExecutor;
+import instruction.Instruction;
+import org.apache.log4j.Logger;
+import process.message.MessageProcessor;
 import processable.Processable;
 
 public abstract class Processor {
 
-  public abstract void process(Processable processable);
+  private final static Logger logger = Logger.getLogger(Processor.class);
+
+  public final void process(Processable processable){
+    if(processable.canProcess()){
+      ProcessableExecutor.addProcessable(processable);
+    }else{
+      logger.warn("process() - Can't process - " + processable.toString());
+    }
+  }
 
 }

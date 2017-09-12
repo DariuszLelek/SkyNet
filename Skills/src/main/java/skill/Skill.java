@@ -29,7 +29,7 @@ public abstract class Skill extends Processable {
   }
 
   @Override
-  public abstract void execute();
+  public abstract boolean execute();
 
   @Override
   public abstract boolean canProcess();

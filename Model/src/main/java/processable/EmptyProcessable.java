@@ -9,8 +9,8 @@ public class EmptyProcessable extends Processable{
   public static final EmptyProcessable INSTANCE = new EmptyProcessable();
 
   @Override
-  public void execute() {
-
+  public boolean execute() {
+    return true;
   }
 
   @Override

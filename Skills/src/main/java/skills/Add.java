@@ -16,7 +16,9 @@ public class Add extends Skill {
   }
 
   @Override
-  public void execute() {
+  public boolean execute() {
+    // TODO for thread testing
+    return false;
   }
 
   @Override

@@ -8,8 +8,12 @@ package process.message;
 import java.util.LinkedList;
 import java.util.Queue;
 
+import instruction.Instruction;
 import org.joda.time.DateTime;
+import process.ProcessorFactory;
 import processable.Processable;
+import provider.SkillFactory;
+import skill.Skill;
 
 public class Message extends Processable {
 
@@ -39,8 +43,17 @@ public class Message extends Processable {
   }
 
   @Override
-  public void execute() {
-    //TODO
+  public boolean execute() {
+    final String chunk = words.poll();
+
+    if(SkillFactory.getSkillProvider().hasSkill(chunk)){
+      final Skill skill = SkillFactory.getSkillProvider().getSkill(chunk);
+      ProcessorFactory.getSkillProcessor().process(skill, new Instruction(words));
+    }else{
+      ProcessorFactory.getMessageProcessor().process(this);
+    }
+
+    return true;
   }
 
   @Override
