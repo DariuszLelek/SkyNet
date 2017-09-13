@@ -5,6 +5,7 @@
 
 package dictionary;
 
+
 import dictionary.access.WordPreserver;
 import dictionary.access.WordProvider;
 

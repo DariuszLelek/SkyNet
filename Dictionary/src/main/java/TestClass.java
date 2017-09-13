@@ -14,14 +14,13 @@ import java.util.Arrays;
 public class TestClass {
 
   public static void main(String[] args) {
-    Word w = new Word("verb", "verb", "v");
 
-    DictionaryFactory.getWordPreserver().save(w);
+    DictionaryFactory.getWordPreserver().save(new Word("send", "verb", "v"));
+    DictionaryFactory.getWordPreserver().save(new Word("email", "noun", "v"));
+    DictionaryFactory.getWordPreserver().save(new Word("daro", "noun", "v"));
 
-    String[] words = {"none", "none2"};
 
-    System.out.println(DictionaryFactory.getWordProvider().getWord("add").getWordClass());
-    System.out.println(DictionaryFactory.getWordProvider().getWords(Arrays.asList(words)).size());
+    System.out.println(DictionaryFactory.getWordProvider().getWord("email").getWordClass());
 
     HibernateUtilityFactory.getBySchema(DataBaseSchema.DICTIONARY).closeSessionFactory();
   }

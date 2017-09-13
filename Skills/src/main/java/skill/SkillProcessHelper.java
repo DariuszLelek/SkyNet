@@ -16,7 +16,7 @@ import java.util.stream.Collectors;
 class SkillProcessHelper {
 
   private static Collection<Word> getWordsFromInstruction(final Instruction instruction){
-    return DictionaryFactory.getWordProvider().getWords(instruction.getInstructions());
+    return DictionaryFactory.getWordProvider().getWords(instruction.getQueue());
   }
 
   private static Collection<WordClass> getWordClassesFromWords(final Collection<Word> words){

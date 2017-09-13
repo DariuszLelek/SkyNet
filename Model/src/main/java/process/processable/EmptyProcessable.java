@@ -17,9 +17,4 @@ public class EmptyProcessable extends Processable{
   public int getPriority() {
     return Integer.MIN_VALUE;
   }
-
-  @Override
-  public boolean hasInstructions() {
-    return false;
-  }
 }

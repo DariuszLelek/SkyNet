@@ -12,26 +12,38 @@ import java.util.Queue;
 public class Instruction {
   public final static Instruction EMPTY = new Instruction();
 
-  private final Queue<String> instructions;
+  private final Queue<String> queue;
 
-  public Instruction(Queue<String> instructions) {
-    this.instructions = instructions;
+  public Instruction(Queue<String> queue) {
+    this.queue = queue;
   }
 
   public Instruction() {
-    this.instructions = new LinkedList<>();
+    this.queue = new LinkedList<>();
   }
 
-  public Queue<String> getInstructions() {
-    return instructions;
+  public final String poll(){
+    return queue.poll();
   }
 
-  public final boolean hasInstructions(){
-    return !instructions.isEmpty();
+  public Queue<String> getQueue() {
+    return queue;
+  }
+
+  public final boolean isEmpty(){
+    return queue.isEmpty();
+  }
+
+  public final void clearInstructions(){
+    this.queue.clear();
+  }
+
+  public final void add(String text){
+    queue.add(text);
   }
 
   @Override
   public final String toString() {
-    return "Instruction{" + String.join(",", new ArrayList<>(instructions)) + '}';
+    return "Instruction{" + String.join(",", new ArrayList<>(queue)) + '}';
   }
 }

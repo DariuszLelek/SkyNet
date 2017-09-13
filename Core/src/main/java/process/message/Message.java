@@ -20,8 +20,6 @@ public class Message extends Processable {
   private final MessageType type;
   private final DateTime messageTime = DateTime.now();
 
-  private final Queue<String> words = new LinkedList<>();
-
   public Message(MessageType type) {
     this.type = type;
   }
@@ -34,31 +32,19 @@ public class Message extends Processable {
     return messageTime;
   }
 
-  public Queue<String> getWords() {
-    return words;
-  }
-
-  public void addWord(String word){
-    words.add(word);
-  }
 
   @Override
   public boolean process() {
-    final String chunk = words.poll();
+    final String chunk = getInstruction().poll();
 
     if(SkillFactory.getSkillProvider().hasSkill(chunk)){
       final Skill skill = SkillFactory.getSkillProvider().getSkill(chunk);
-      ProcessorFactory.getSkillProcessor().process(skill, new Instruction(words));
+      ProcessorFactory.getSkillProcessor().process(skill, getInstruction());
     }else{
       ProcessorFactory.getMessageProcessor().process(this);
     }
 
     return true;
-  }
-
-  @Override
-  public boolean hasInstructions() {
-    return !words.isEmpty();
   }
 
   @Override
@@ -68,7 +54,6 @@ public class Message extends Processable {
 
   @Override
   public String toString() {
-    return "Message [" + type.toString() + "] , " +
-        "words{" + String.join("," + words) + "}";
+    return "Message{" + type + ", " + getInstruction() + "}";
   }
 }

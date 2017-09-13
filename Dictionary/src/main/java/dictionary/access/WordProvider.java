@@ -6,11 +6,11 @@
 package dictionary.access;
 
 import config.DataBaseSchema;
+import dao.dictionary.WordDAO;
 import dictionary.word.Word;
 import hibernate.provider.DataProvider;
 
 
-import java.util.Arrays;
 import java.util.Collection;
 import java.util.List;
 import java.util.stream.Collectors;

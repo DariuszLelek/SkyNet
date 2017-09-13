@@ -13,4 +13,5 @@ public class WordPreserver extends DataPreserver{
   public WordPreserver() {
     super(DataBaseSchema.DICTIONARY);
   }
+
 }

@@ -25,8 +25,8 @@ public enum MessageType {
 
   @Override
   public String toString() {
-    return "{" +
-        ", core.process.priority=" + priority.getValue() +
+    return "MessageType{" +
+        "priority=" + priority +
         '}';
   }
 }

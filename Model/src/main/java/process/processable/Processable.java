@@ -5,16 +5,34 @@
 
 package process.processable;
 
+import process.instruction.Instruction;
+import process.instruction.InstructionValidator;
 import process.priority.Priority;
 
 public abstract class Processable {
 
+  private Instruction instruction = new Instruction();
+
   protected Priority priority;
+
+  public final Instruction getInstruction(){
+    return instruction;
+  }
+
+  public final boolean hasInstructions(){
+    return !instruction.isEmpty();
+  }
+
+  public void setInstruction(final Instruction instruction){
+    this.instruction = instruction;
+  }
 
   public abstract boolean process();
 
   public abstract int getPriority();
 
-  public abstract boolean hasInstructions();
-
+  @Override
+  public String toString() {
+    return "Processable{" + this.getClass().getName() + ", " + instruction + "}";
+  }
 }

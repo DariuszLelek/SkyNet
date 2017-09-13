@@ -16,7 +16,7 @@ public class TestClass {
 
     //System.out.println(add.getInfo());
 
-    System.out.println(SkillFactory.getSkillProvider().hasSkill("add"));
+    System.out.println(SkillFactory.getSkillProvider().hasSkill("email"));
     System.out.println(SkillFactory.getSkillProvider().hasSkill("iNSert"));
     SkillFactory.getSkillProvider().getSkill("add");
 

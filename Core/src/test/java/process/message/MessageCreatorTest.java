@@ -36,15 +36,15 @@ public class MessageCreatorTest {
   public void testGetMessagesNonAlphanumeric() {
     System.out.println("testGetMessagesNonAlphanumeric");
 
-    assertEquals(0, INSTANCE.create(INVALID_TEXT, DEFAULT_TYPE).getWords().size());
+    assertEquals(0, INSTANCE.create(INVALID_TEXT, DEFAULT_TYPE).getInstruction().getQueue().size());
   }
 
   @Test
   public void testGetMessagesFromValidText() {
     System.out.println("testGetMessagesFromValidText");
 
-    assertEquals(1, INSTANCE.create(VALID_TEXT_NUMERIC, DEFAULT_TYPE).getWords().size());
-    assertEquals(3, INSTANCE.create(VALID_TEXT, DEFAULT_TYPE).getWords().size());
+    assertEquals(1, INSTANCE.create(VALID_TEXT_NUMERIC, DEFAULT_TYPE).getInstruction().getQueue().size());
+    assertEquals(3, INSTANCE.create(VALID_TEXT, DEFAULT_TYPE).getInstruction().getQueue().size());
   }
 
   @Test
@@ -54,7 +54,7 @@ public class MessageCreatorTest {
     String messageText = VALID_TEXT + " " + INVALID_TEXT;
     int expected = 3;
 
-    assertEquals(expected, INSTANCE.create(messageText, DEFAULT_TYPE).getWords().size());
+    assertEquals(expected, INSTANCE.create(messageText, DEFAULT_TYPE).getInstruction().getQueue().size());
   }
 
   @Test
@@ -62,21 +62,21 @@ public class MessageCreatorTest {
     System.out.println("testGetMessagesWords");
 
     assertEquals(VALID_TEXT_NUMERIC,
-        INSTANCE.create(VALID_TEXT_NUMERIC, DEFAULT_TYPE).getWords().peek());
+        INSTANCE.create(VALID_TEXT_NUMERIC, DEFAULT_TYPE).getInstruction().getQueue().peek());
 
     String messageText = "some message text";
     Message message = INSTANCE.create(messageText, DEFAULT_TYPE);
 
-    assertEquals("some", message.getWords().poll());
-    assertEquals("message", message.getWords().poll());
-    assertEquals("text", message.getWords().poll());
+    assertEquals("some", message.getInstruction().poll());
+    assertEquals("message", message.getInstruction().poll());
+    assertEquals("text", message.getInstruction().poll());
 
     messageText = "some d<i$stor&ted 2 !!";
     message = INSTANCE.create(messageText, DEFAULT_TYPE);
 
-    assertEquals("some", message.getWords().poll());
-    assertEquals("distorted", message.getWords().poll());
-    assertEquals("2", message.getWords().poll());
+    assertEquals("some", message.getInstruction().poll());
+    assertEquals("distorted", message.getInstruction().poll());
+    assertEquals("2", message.getInstruction().poll());
   }
 
   @Test

@@ -12,7 +12,7 @@ import javax.persistence.*;
 @MappedSuperclass
 @Table(name = "word", catalog = "dictionary")
 public class WordDAO extends DAO implements java.io.Serializable {
-  @Id
+  @Id()
   @GeneratedValue(strategy = GenerationType.AUTO)
   @Column(name = "WORD_ID", unique = true, nullable = false)
   private int wordId;

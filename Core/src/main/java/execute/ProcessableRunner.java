@@ -28,7 +28,6 @@ public class ProcessableRunner implements Runnable {
   public void run() {
     while (isRunning()) {
       if (processable.process()) {
-        logger.debug("handleAsNotRepeatable() - SUCCESS - " + processable.toString());
         stop();
       } else {
         retryTimes++;

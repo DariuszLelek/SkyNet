@@ -20,7 +20,8 @@ public class MessageCreator {
   }
 
   private void dequeueTextIntoMessage(final String messageText, final Message message) {
-    getMessageChunks(messageText).stream().filter(text -> !text.isEmpty()).forEach(message::addWord);
+    getMessageChunks(messageText).stream().filter(text -> !text.isEmpty())
+        .forEach(text -> message.getInstruction().add(text));
   }
 
   private Queue<String> getMessageChunks(String messageText) {

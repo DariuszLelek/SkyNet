@@ -21,38 +21,40 @@ public abstract class Skill extends Processable {
   private final Collection<WordClass> expectedWordClasses;
 
   private InstructionValidator instructionValidator = InstructionValidator.UNKNOWN;
-  private Instruction instruction = Instruction.EMPTY;
 
-  public Skill(Priority priority, Collection<WordClass> expectedWordClasses) {
+  protected Skill(Priority priority, Collection<WordClass> expectedWordClasses) {
     super.priority = priority;
     this.expectedWordClasses = expectedWordClasses;
   }
 
   public final void setInstruction(Instruction instruction) {
-    this.instruction = instruction;
+    super.setInstruction(instruction);
 
-    if(instruction.hasInstructions()){
+    if(!instruction.isEmpty()){
       setInstructionValidator();
     }
   }
 
-  private void setInstructionValidator(){
-    instructionValidator = SkillProcessHelper
-        .instructionHasAllExpectedWordClasses(instruction, expectedWordClasses)
-        ? InstructionValidator.VALID : InstructionValidator.INVALID;
+  public final void logSuccess(String message){
+    logger.info(this.getClass().getName() + " SUCCESS " + message);
   }
 
-  public Instruction getInstruction() {
-    return instruction;
+  public final void logFail(String message){
+    logger.warn(this.getClass().getName() + " FAIL " + message);
+  }
+
+  public final void logFail(String message, Throwable t){
+    logger.error(this.getClass().getName() + " FAIL " + message, t);
+  }
+
+  private void setInstructionValidator(){
+    instructionValidator = SkillProcessHelper
+        .instructionHasAllExpectedWordClasses(getInstruction(), expectedWordClasses)
+        ? InstructionValidator.VALID : InstructionValidator.INVALID;
   }
 
   public final boolean hasValidInstruction(){
     return instructionValidator == InstructionValidator.VALID;
-  }
-
-  @Override
-  public boolean hasInstructions() {
-    return instruction.hasInstructions();
   }
 
   @Override
@@ -61,13 +63,6 @@ public abstract class Skill extends Processable {
   @Override
   public int getPriority(){
     return priority.getValue();
-  }
-
-  @Override
-  public String toString() {
-    return "Skill: " + this.getClass().getName()
-        + " " + priority.toString()
-        + " " + instruction.toString();
   }
 
 }
