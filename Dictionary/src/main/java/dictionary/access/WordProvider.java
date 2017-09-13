@@ -11,6 +11,7 @@ import hibernate.provider.DataProvider;
 
 
 import java.util.Arrays;
+import java.util.Collection;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -25,8 +26,8 @@ public class WordProvider extends DataProvider {
     return validateWord(getEntityByUniqueKey(Word.class, "word", wordString), wordString);
   }
 
-  public List<Word> getWords(String[] wordStrings){
-    return Arrays.stream(wordStrings)
+  public List<Word> getWords(Collection<String> wordStrings){
+    return wordStrings.stream()
         .map(this::getWord)
         .collect(Collectors.toList());
   }

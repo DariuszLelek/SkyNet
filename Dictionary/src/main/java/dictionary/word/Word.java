@@ -7,10 +7,10 @@ package dictionary.word;
 
 
 import config.GlobalStrings;
-import hibernate.entity.dictionary.WordDAO;
+import dictionary.WordClass;
+import dao.dictionary.WordDAO;
 
 import javax.persistence.*;
-import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 import java.util.stream.Collectors;

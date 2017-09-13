@@ -5,7 +5,7 @@
 
 package hibernate.preserver;
 
-import hibernate.entity.DAO;
+import dao.DAO;
 
 public interface Preserve {
   int save(DAO dao);

@@ -8,9 +8,10 @@ import config.DataBaseSchema;
 import hibernate.HibernateUtilityFactory;
 import process.ProcessorFactory;
 import execute.ProcessableExecutor;
-import process.message.MessageCreator;
 import process.message.Message;
+import process.message.MessageCreator;
 import process.message.MessageType;
+
 
 public class TestingClass {
   public static void main(String[] args) throws InterruptedException {
@@ -19,7 +20,7 @@ public class TestingClass {
 
     Message m1 = messageCreator.create("remove remind", MessageType.VOICE);
     Message m2 = messageCreator.create("remove remind", MessageType.VOICE);
-    Message m3 = messageCreator.create("add remind", MessageType.VOICE);
+    Message m3 = messageCreator.create("remind verb me man add remove", MessageType.VOICE);
 
     ProcessorFactory.getMessageProcessor().process(m1);
     ProcessorFactory.getMessageProcessor().process(m2);

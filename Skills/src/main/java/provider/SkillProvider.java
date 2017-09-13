@@ -8,8 +8,6 @@ package provider;
 import dictionary.DictionaryFactory;
 import file.FileUtility;
 import org.apache.log4j.Logger;
-import processable.EmptyProcessable;
-import processable.Processable;
 import skill.EmptySkill;
 import skill.Skill;
 

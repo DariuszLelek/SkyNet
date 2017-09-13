@@ -5,7 +5,7 @@
 
 package process.skill;
 
-import instruction.Instruction;
+import process.instruction.Instruction;
 import org.apache.log4j.Logger;
 import process.Processor;
 import skill.Skill;
@@ -22,4 +22,5 @@ public class SkillProcessor extends Processor{
     skill.setInstruction(instruction);
     process(skill);
   }
+
 }

@@ -1,9 +1,9 @@
 /*
- * Created by Dariusz Lelek on 9/12/17 6:51 PM
+ * Created by Dariusz Lelek on 9/12/17 11:50 PM
  * Copyright (c) 2017. All rights reserved.
  */
 
-package priority;
+package process.priority;
 
 public enum Priority {
   NONE(0),

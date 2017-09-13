@@ -23,8 +23,7 @@ public enum SkillPriority {
 
   @Override
   public String toString() {
-    return "SkillPriority{" +
-        "value=" + value +
+    return "SkillPriority{" + value +
         '}';
   }
 }

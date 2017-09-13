@@ -6,8 +6,8 @@
 package execute;
 
 import org.apache.log4j.Logger;
-import processable.EmptyProcessable;
-import processable.Processable;
+import process.processable.EmptyProcessable;
+import process.processable.Processable;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -68,7 +68,7 @@ public class ProcessableExecutor {
   }
 
   private synchronized static void startProcessableRunner(final Processable processable) {
-    if(processable.isNotEmpty()){
+    if(processable.hasInstructions()){
       removeFromPending(processable);
 
       ProcessableRunner runner = new ProcessableRunner(processable);
@@ -93,7 +93,7 @@ public class ProcessableExecutor {
 
     for (Processable processable : pendingProcessables) {
       if (processable.getPriority() > highestPriorityProcessable.getPriority() &&
-          processable.canProcess()) {
+          processable.hasInstructions()) {
         highestPriorityProcessable = processable;
       }
     }

@@ -5,31 +5,31 @@
 
 package skills;
 
-import instruction.Instruction;
-import priority.Priority;
+import dictionary.WordClass;
+import process.priority.Priority;
 import skill.Skill;
 
+import java.util.ArrayList;
+
 public class Remind extends Skill {
-  private final int repeatDelay = 1* 1000;
 
   public Remind() {
-    super(Priority.MEDIUM);
-  }
-
-  @Override
-  public int getRepeatDelayMS() {
-    return repeatDelay;
+    super(Priority.MEDIUM, new ArrayList<WordClass>(){{
+      add(WordClass.NOUN);
+      add(WordClass.VERB);
+      add(WordClass.NOUN);
+    }});
   }
 
   @Override
   public boolean process() {
-    // TODO process repeat here?
+    if(hasValidInstruction()){
+      // TODO process
+      logger.info("process() - processing Remind: " + getInstruction().toString());
 
-    return true;
-  }
+      return true;
+    }
 
-  @Override
-  public boolean canProcess() {
-    return true;
+    return false;
   }
 }

@@ -9,7 +9,7 @@ import config.DataBaseSchema;
 import hibernate.HibernateUtility;
 import hibernate.HibernateUtilityFactory;
 import hibernate.TransactionType;
-import hibernate.entity.DAO;
+import dao.DAO;
 import org.apache.log4j.Logger;
 import org.hibernate.Session;
 import org.hibernate.Transaction;

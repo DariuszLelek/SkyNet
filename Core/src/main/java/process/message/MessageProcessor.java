@@ -15,4 +15,5 @@ public class MessageProcessor extends Processor{
   public void process(Message message) {
     super.process(message);
   }
+
 }

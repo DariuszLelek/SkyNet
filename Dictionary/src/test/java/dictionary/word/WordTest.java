@@ -5,6 +5,7 @@
 
 package dictionary.word;
 
+import dictionary.WordClass;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;

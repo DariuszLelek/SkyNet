@@ -5,22 +5,19 @@
 
 package skill;
 
-import instruction.Instruction;
-import priority.Priority;
+import dictionary.WordClass;
+import process.priority.Priority;
+
+import java.util.ArrayList;
 
 public class EmptySkill extends Skill {
 
   public EmptySkill() {
-    super(Priority.NONE);
+    super(Priority.NONE, new ArrayList<>());
   }
 
   @Override
   public boolean process() {
     return true;
-  }
-
-  @Override
-  public boolean canProcess() {
-    return false;
   }
 }

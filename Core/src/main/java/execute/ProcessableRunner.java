@@ -6,8 +6,7 @@
 package execute;
 
 import org.apache.log4j.Logger;
-import org.joda.time.DateTime;
-import processable.Processable;
+import process.processable.Processable;
 
 public class ProcessableRunner implements Runnable {
 
@@ -17,16 +16,12 @@ public class ProcessableRunner implements Runnable {
   private final static int MAX_RETRY_TIMES = 10;
 
   private final Processable processable;
-  private final boolean repeatable;
-
-  private DateTime lastProcessed = DateTime.now();
 
   private boolean running = true;
   private int retryTimes = 0;
 
   public ProcessableRunner(Processable processable) {
     this.processable = processable;
-    this.repeatable = processable.getRepeatDelayMS() > 0;
   }
 
   @Override
@@ -49,31 +44,6 @@ public class ProcessableRunner implements Runnable {
       logger.error("checkMaxRetryCounter() - FAIL - Max retry limit - " + processable.toString());
       stop();
     }
-  }
-
-  private void handleAsNotRepeatable() {
-    if (processable.process()) {
-      logger.debug("handleAsNotRepeatable() - SUCCESS - " + processable.toString());
-      stop();
-    } else {
-      retryTimes++;
-    }
-  }
-
-  private void handleAsRepeatable() {
-    if (isTimeToRepeat()) {
-      if (processable.process()) {
-        retryTimes = 0;
-        lastProcessed = DateTime.now();
-        logger.debug("handleAsRepeatable() - SUCCESS - " + processable.toString());
-      } else {
-        retryTimes++;
-      }
-    }
-  }
-
-  private boolean isTimeToRepeat() {
-    return DateTime.now().isAfter(lastProcessed.plus(processable.getRepeatDelayMS()));
   }
 
   private void sleep() {

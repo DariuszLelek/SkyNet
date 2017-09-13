@@ -5,17 +5,15 @@
 package process;
 
 import execute.ProcessableExecutor;
-import instruction.Instruction;
 import org.apache.log4j.Logger;
-import process.message.MessageProcessor;
-import processable.Processable;
+import process.processable.Processable;
 
 public abstract class Processor {
 
   private final static Logger logger = Logger.getLogger(Processor.class);
 
   public final void process(Processable processable){
-    if(processable.canProcess()){
+    if(processable.hasInstructions()){
       ProcessableExecutor.addProcessable(processable);
     }else{
       logger.warn("process() - Can't process - " + processable.toString());

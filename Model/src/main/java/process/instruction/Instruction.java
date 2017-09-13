@@ -1,9 +1,9 @@
 /*
- * Created by Dariusz Lelek on 9/11/17 10:41 PM
+ * Created by Dariusz Lelek on 9/12/17 11:50 PM
  * Copyright (c) 2017. All rights reserved.
  */
 
-package instruction;
+package process.instruction;
 
 import java.util.ArrayList;
 import java.util.LinkedList;
@@ -26,8 +26,12 @@ public class Instruction {
     return instructions;
   }
 
+  public final boolean hasInstructions(){
+    return !instructions.isEmpty();
+  }
+
   @Override
-  public String toString() {
+  public final String toString() {
     return "Instruction{" + String.join(",", new ArrayList<>(instructions)) + '}';
   }
 }

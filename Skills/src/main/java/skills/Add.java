@@ -5,24 +5,23 @@
 
 package skills;
 
-import instruction.Instruction;
-import priority.Priority;
+import dictionary.WordClass;
+import process.priority.Priority;
 import skill.Skill;
+
+import java.util.ArrayList;
 
 public class Add extends Skill {
 
   public Add() {
-    super(Priority.MEDIUM);
+    super(Priority.MEDIUM, new ArrayList<WordClass>(){{
+      add(WordClass.NOUN);
+    }});
   }
 
   @Override
   public boolean process() {
     // TODO for thread testing
     return false;
-  }
-
-  @Override
-  public boolean canProcess() {
-    return true;
   }
 }

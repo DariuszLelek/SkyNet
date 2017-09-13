@@ -1,11 +1,11 @@
 /*
- * Created by Dariusz Lelek on 9/12/17 10:13 PM
+ * Created by Dariusz Lelek on 9/12/17 11:50 PM
  * Copyright (c) 2017. All rights reserved.
  */
 
-package hibernate.entity.dictionary;
+package dao.dictionary;
 
-import hibernate.entity.DAO;
+import dao.DAO;
 
 import javax.persistence.*;
 

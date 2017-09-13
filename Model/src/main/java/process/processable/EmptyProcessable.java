@@ -1,9 +1,9 @@
 /*
- * Created by Dariusz Lelek on 9/12/17 7:00 PM
+ * Created by Dariusz Lelek on 9/12/17 11:50 PM
  * Copyright (c) 2017. All rights reserved.
  */
 
-package processable;
+package process.processable;
 
 public class EmptyProcessable extends Processable{
   public static final EmptyProcessable INSTANCE = new EmptyProcessable();
@@ -14,17 +14,12 @@ public class EmptyProcessable extends Processable{
   }
 
   @Override
-  public boolean canProcess() {
-    return false;
-  }
-
-  @Override
   public int getPriority() {
     return Integer.MIN_VALUE;
   }
 
   @Override
-  public boolean isNotEmpty() {
+  public boolean hasInstructions() {
     return false;
   }
 }
