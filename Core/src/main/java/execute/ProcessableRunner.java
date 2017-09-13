@@ -27,6 +27,11 @@ public class ProcessableRunner implements Runnable {
   @Override
   public void run() {
     while (isRunning()) {
+      if(!processable.isActive()){
+        running = false;
+        return;
+      }
+
       if (processable.process()) {
         stop();
       } else {

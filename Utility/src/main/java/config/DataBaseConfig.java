@@ -7,27 +7,32 @@ package config;
 
 import credentials.Credentials;
 
-public enum HibernateConfig {
-
-  EMPTY(DataBaseSchema.NONE,
-      "",
+public enum DataBaseConfig {
+  EMPTY("",
       "",
       "",
       "",
       "",
       ""),
 
-  DICTIONARY(
-      DataBaseSchema.DICTIONARY,
-      Credentials.DB_DICTIONARY_USER.getValue(),
-      Credentials.DB_DICTIONARY_PASSWORD.getValue(),
+  PROD(
+      Credentials.PROD_DB_USER.getValue(),
+      Credentials.PROD_DB_PASSWORD.getValue(),
       "jdbc:mysql://localhost:3306",
       "com.mysql.jdbc.Driver",
-      "dictionary",
+      "entity",
+      "org.hibernate.dialect.MySQLDialect"
+  ),
+
+  TEST(
+      Credentials.TEST_DB_USER.getValue(),
+      Credentials.TEST_DB_PASSWORD.getValue(),
+      "jdbc:mysql://localhost:3306/test?createDatabaseIfNotExist=true",
+      "com.mysql.jdbc.Driver",
+      "test",
       "org.hibernate.dialect.MySQLDialect"
   );
 
-  private final DataBaseSchema schema;
   private final String userName;
   private final String password;
   private final String url;
@@ -35,18 +40,13 @@ public enum HibernateConfig {
   private final String catalog;
   private final String dialect;
 
-  HibernateConfig(DataBaseSchema schema, String userName, String password, String url, String driver, String catalog, String dialect) {
-    this.schema = schema;
+  DataBaseConfig(String userName, String password, String url, String driver, String catalog, String dialect) {
     this.userName = userName;
     this.password = password;
     this.url = url;
     this.driver = driver;
     this.catalog = catalog;
     this.dialect = dialect;
-  }
-
-  public DataBaseSchema getSchema() {
-    return schema;
   }
 
   public String getUserName() {
@@ -73,12 +73,4 @@ public enum HibernateConfig {
     return dialect;
   }
 
-  public static HibernateConfig getBySchema(DataBaseSchema schema){
-    for (HibernateConfig credentials : values()){
-      if(schema == credentials.getSchema()){
-        return credentials;
-      }
-    }
-    return EMPTY;
-  }
 }

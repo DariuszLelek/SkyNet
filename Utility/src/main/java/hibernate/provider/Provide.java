@@ -5,11 +5,12 @@
 
 package hibernate.provider;
 
+import java.util.Collection;
 import java.util.List;
 
 public interface Provide {
   int getNumberOfEntities(Class clazz);
   Object getEntityByUniqueKey(Class clazz, String criterion, String value);
-  List getEntitiesByUniqueKeys(Class clazz, String criterion, String[] values);
-  List getAllEntities(Class clazz);
+  Collection getEntitiesByUniqueKeys(Class clazz, String criterion, String[] values);
+  Collection getAllEntities(Class clazz);
 }

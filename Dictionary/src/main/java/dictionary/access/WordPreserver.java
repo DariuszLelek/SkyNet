@@ -5,13 +5,13 @@
 
 package dictionary.access;
 
-import config.DataBaseSchema;
+import config.DataBaseConfig;
 import hibernate.preserver.DataPreserver;
 
 public class WordPreserver extends DataPreserver{
 
   public WordPreserver() {
-    super(DataBaseSchema.DICTIONARY);
+    super(DataBaseConfig.PROD);
   }
 
 }

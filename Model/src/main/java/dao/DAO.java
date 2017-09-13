@@ -5,6 +5,5 @@
 
 package dao;
 
-public abstract class DAO {
-  //public abstract DAO getDAO();
+public class DAO {
 }

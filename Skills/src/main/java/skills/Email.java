@@ -7,6 +7,8 @@ package skills;
 
 import credentials.Credentials;
 import dictionary.WordClass;
+import helper.HelperFactory;
+import helper.HelperType;
 import process.priority.Priority;
 import skill.Skill;
 
@@ -30,31 +32,42 @@ public class Email extends Skill {
 
   public Email() {
     super(Priority.LOW, new ArrayList<WordClass>(){{
-      add(WordClass.NOUN);
-      add(WordClass.NOUN);
     }});
   }
 
   @Override
   public boolean process() {
     if(hasValidInstruction()){
-      setMailServerProperties();
-
-      // TODO get recipient from DB
-      String recipient = "dariusz.lelek@gmail.com";
-      // TODO change to Content object storing text, audio, picture etc
+      String recipient = HelperFactory.getHelper(HelperType.EMAIL).getValid(getInstruction().getQueue());
+      // TODO get from content helper
       String content = "some content";
 
-      try {
-        sendEmail(getMessage(recipient, content));
-      } catch (javax.mail.MessagingException e) {
-        logFail("Failed to send Email.", e);
+      if(recipient.isEmpty()){
+        logFail("Failed to send Email - Cannot get valid recipient.");
+        disable();
         return false;
+      }else{
+        setMailServerProperties();
+        if(trySendMail(recipient, content)){
+          logSuccess("Email sent to:" + recipient + ", content:" + content + ".");
+          return true;
+        }else{
+          disable();
+          return false;
+        }
       }
-      logSuccess("Email sent to:" + recipient + ", content:" + content + ".");
-      return true;
     }
     return false;
+  }
+
+  private boolean trySendMail(String recipient, String content){
+    try {
+      sendEmail(getMessage(recipient, content));
+      return true;
+    } catch (javax.mail.MessagingException e) {
+      logFail("Failed to send Email.", e);
+      return false;
+    }
   }
 
   private void setMailServerProperties()

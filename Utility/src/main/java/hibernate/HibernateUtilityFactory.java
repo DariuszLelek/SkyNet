@@ -5,35 +5,28 @@
 
 package hibernate;
 
-import config.DataBaseSchema;
+import config.DataBaseConfig;
 
 import java.util.HashMap;
 import java.util.Map;
 
 public class HibernateUtilityFactory {
 
-  private static final Map<DataBaseSchema, HibernateUtility> CACHE = new HashMap<>();
+  private static final Map<DataBaseConfig, HibernateUtility> CACHE = new HashMap<>();
 
-  public static HibernateUtility getBySchema(DataBaseSchema schema) {
+  static {
+    CACHE.put(DataBaseConfig.PROD, new HibernateUtility(DataBaseConfig.PROD));
+  }
+
+  public static HibernateUtility getByDatabaseConfig(DataBaseConfig schema) {
     return getFromCache(schema);
   }
 
-  private static HibernateUtility getFromCache(DataBaseSchema schema){
-    if(!CACHE.containsKey(schema)){
-      CACHE.put(schema, new HibernateUtility(schema));
-    }
-    return CACHE.get(schema);
+  private static HibernateUtility getFromCache(DataBaseConfig dataBaseConfig){
+    return CACHE.getOrDefault(dataBaseConfig, CACHE.get(DataBaseConfig.PROD));
   }
 
-
-  // TODO provide a way to close session factory for each active DB connection from one place
-  private static void closeSessionFactory(DataBaseSchema schema){
-    if(CACHE.containsKey(schema)){
-      CACHE.get(schema).closeSessionFactory();
-    }
-  }
-
-  private static void closeAllSessionFactories(){
+  public static void closeAllSessionFactories(){
     CACHE.values().forEach(HibernateUtility::closeSessionFactory);
   }
 }

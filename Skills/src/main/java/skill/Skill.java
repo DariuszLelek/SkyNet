@@ -20,7 +20,7 @@ public abstract class Skill extends Processable {
 
   private final Collection<WordClass> expectedWordClasses;
 
-  private InstructionValidator instructionValidator = InstructionValidator.UNKNOWN;
+  private InstructionValidator validator = InstructionValidator.UNKNOWN;
 
   protected Skill(Priority priority, Collection<WordClass> expectedWordClasses) {
     super.priority = priority;
@@ -31,7 +31,7 @@ public abstract class Skill extends Processable {
     super.setInstruction(instruction);
 
     if(!instruction.isEmpty()){
-      setInstructionValidator();
+      validateInstruction();
     }
   }
 
@@ -47,14 +47,18 @@ public abstract class Skill extends Processable {
     logger.error(this.getClass().getName() + " FAIL " + message, t);
   }
 
-  private void setInstructionValidator(){
-    instructionValidator = SkillProcessHelper
-        .instructionHasAllExpectedWordClasses(getInstruction(), expectedWordClasses)
-        ? InstructionValidator.VALID : InstructionValidator.INVALID;
+  private void validateInstruction(){
+    if(expectedWordClasses.isEmpty() ||
+        SkillProcessHelper.instructionHasAllExpectedWordClasses(getInstruction(), expectedWordClasses)){
+      validator = InstructionValidator.VALID;
+    }else{
+      logger.warn(this.toString() + " has invalid instruction.");
+      validator = InstructionValidator.INVALID;
+    }
   }
 
   public final boolean hasValidInstruction(){
-    return instructionValidator == InstructionValidator.VALID;
+    return validator == InstructionValidator.VALID;
   }
 
   @Override

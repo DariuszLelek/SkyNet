@@ -5,8 +5,7 @@
 
 package hibernate;
 
-import config.DataBaseSchema;
-import config.HibernateConfig;
+import config.DataBaseConfig;
 import org.apache.log4j.Logger;
 import org.hibernate.HibernateException;
 import org.hibernate.Session;
@@ -26,15 +25,15 @@ public class HibernateUtility {
   private static final String dialectProperty = "hibernate.dialect";
 
   private final Configuration configuration;
-  private final HibernateConfig hibernateConfig;
+  private final DataBaseConfig databaseConfig;
 
   private SessionFactory sessionFactory;
   private ServiceRegistry serviceRegistry;
   private Session session;
 
-  HibernateUtility(DataBaseSchema schema) {
+  HibernateUtility(DataBaseConfig databaseConfig) {
     configuration = new Configuration();
-    hibernateConfig = HibernateConfig.getBySchema(schema);
+    this.databaseConfig = databaseConfig;
 
     configure();
     buildSessionFactory();
@@ -43,12 +42,12 @@ public class HibernateUtility {
   private void configure(){
     configuration.configure();
 
-    configuration.setProperty(urlProperty, hibernateConfig.getUrl());
-    configuration.setProperty(driverProperty, hibernateConfig.getDriver());
-    configuration.setProperty(usernameProperty, hibernateConfig.getUserName());
-    configuration.setProperty(passwordProperty, hibernateConfig.getPassword());
-    configuration.setProperty(catalogProperty, hibernateConfig.getCatalog());
-    configuration.setProperty(dialectProperty, hibernateConfig.getDialect());
+    configuration.setProperty(urlProperty, databaseConfig.getUrl());
+    configuration.setProperty(driverProperty, databaseConfig.getDriver());
+    configuration.setProperty(usernameProperty, databaseConfig.getUserName());
+    configuration.setProperty(passwordProperty, databaseConfig.getPassword());
+    configuration.setProperty(catalogProperty, databaseConfig.getCatalog());
+    configuration.setProperty(dialectProperty, databaseConfig.getDialect());
   }
 
   private void buildSessionFactory(){
@@ -58,7 +57,7 @@ public class HibernateUtility {
     sessionFactory = configuration.configure().buildSessionFactory(serviceRegistry);
   }
 
-  public Session getSession() {
+  public synchronized Session getSession() {
     if (session == null || !session.isOpen()) {
       try {
         session = sessionFactory.getCurrentSession();

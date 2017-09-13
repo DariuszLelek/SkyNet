@@ -5,7 +5,7 @@
 
 package hibernate.preserver;
 
-import config.DataBaseSchema;
+import config.DataBaseConfig;
 import hibernate.HibernateUtility;
 import hibernate.HibernateUtilityFactory;
 import hibernate.TransactionType;
@@ -18,15 +18,15 @@ public class DataPreserver implements Preserve {
   private final static Logger logger = Logger.getLogger(DataPreserver.class);
 
   private final HibernateUtility hibernateUtility;
-  private final DataBaseSchema schema;
+  private final DataBaseConfig schema;
 
-  public DataPreserver(DataBaseSchema schema) {
+  public DataPreserver(DataBaseConfig schema) {
     this.schema = schema;
 
-    hibernateUtility = HibernateUtilityFactory.getBySchema(schema);
+    hibernateUtility = HibernateUtilityFactory.getByDatabaseConfig(schema);
   }
 
-  public DataBaseSchema getSchema() {
+  public DataBaseConfig getSchema() {
     return schema;
   }
 

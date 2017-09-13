@@ -7,37 +7,47 @@ package dictionary.word;
 
 
 import config.GlobalStrings;
+import dao.DAO;
+import dao.DAOProvide;
 import dictionary.WordClass;
-import dao.dictionary.WordDAO;
+import dao.entity.WordDAO;
 
-import javax.persistence.*;
 import java.util.Arrays;
 import java.util.List;
 import java.util.stream.Collectors;
 
-@Entity
-public class Word extends WordDAO {
+public class Word implements DAOProvide{
+  private final WordDAO wordDAO;
 
-  public Word() {
-    super();
+  public Word(WordDAO wordDAO) {
+    this.wordDAO = wordDAO;
   }
 
-  public Word(String word, String wordClassString, String synonyms) {
-    super(word, wordClassString, synonyms);
+  public Word(String word, WordClass wordClass) {
+    this.wordDAO = new WordDAO();
+
+    this.wordDAO.setWordClassString(wordClass.getValue());
+    this.wordDAO.setWord(word);
   }
 
   public WordClass getWordClass() {
-    return WordClass.getEnumByValue(getWordClassString());
+    return WordClass.getEnumByValue(wordDAO.getWordClassString());
   }
 
   public List<String> getSynonymsList() {
-    return Arrays.stream(getSynonyms().split(GlobalStrings.SYNONYM_SPLITTER.getValue()))
+    return Arrays.stream(wordDAO.getSynonyms().split(GlobalStrings.SYNONYM_SPLITTER.getValue()))
         .collect(Collectors.toList());
   }
+
 
   @Override
   public String toString() {
     return super.toString();
+  }
+
+  @Override
+  public DAO getDAO() {
+    return wordDAO;
   }
 }
 

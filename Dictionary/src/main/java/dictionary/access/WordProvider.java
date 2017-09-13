@@ -5,8 +5,9 @@
 
 package dictionary.access;
 
-import config.DataBaseSchema;
-import dao.dictionary.WordDAO;
+import config.DataBaseConfig;
+import dao.entity.WordDAO;
+import dictionary.WordClass;
 import dictionary.word.Word;
 import hibernate.provider.DataProvider;
 
@@ -18,12 +19,12 @@ import java.util.stream.Collectors;
 public class WordProvider extends DataProvider {
 
   public WordProvider() {
-    super(DataBaseSchema.DICTIONARY);
+    super(DataBaseConfig.PROD);
   }
 
   public Word getWord(String wordString){
     wordString = formatWordString(wordString);
-    return validateWord(getEntityByUniqueKey(Word.class, "word", wordString), wordString);
+    return validateWord(getEntityByUniqueKey(WordDAO.class, "word", wordString), wordString);
   }
 
   public List<Word> getWords(Collection<String> wordStrings){
@@ -39,11 +40,10 @@ public class WordProvider extends DataProvider {
   private Word validateWord(Object object, String wordString){
     Word word;
 
-    if(Word.class.isInstance(object)){
-      word = (Word) object;
+    if(WordDAO.class.isInstance(object)){
+      word = new Word((WordDAO) object);
     }else{
-      word = new Word();
-      word.setWord(wordString);
+      word = new Word(wordString, WordClass.UNKNOWN);
     }
 
     return word;

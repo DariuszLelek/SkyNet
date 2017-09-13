@@ -16,7 +16,7 @@
     <property name="hibernate.current_session_context_class">thread</property>
 
     <!--MAPPINGS-->
-    <mapping class="dictionary.word.Word"></mapping>
-
+    <mapping class="dao.entity.WordDAO"></mapping>
+    <mapping class="dao.entity.PersonDAO"></mapping>
   </session-factory>
 </hibernate-configuration>

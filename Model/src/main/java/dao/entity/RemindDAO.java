@@ -1,17 +1,18 @@
 /*
- * Created by Dariusz Lelek on 9/12/17 11:50 PM
+ * Created by Dariusz Lelek on 9/13/17 7:24 PM
  * Copyright (c) 2017. All rights reserved.
  */
 
-package dao.reminder;
+package dao.entity;
 
+import dao.DAO;
 import org.joda.time.DateTime;
 
 import javax.persistence.*;
 
 @Entity
-@Table(name = "remind", catalog = "skill")
-public class RemindDAO {
+@Table(name = "remind", catalog = "entity")
+public class RemindDAO extends DAO implements java.io.Serializable{
   @Id
   @GeneratedValue(strategy = GenerationType.AUTO)
   @Column(name = "REMIND_ID", unique = true, nullable = false)
@@ -67,4 +68,5 @@ public class RemindDAO {
   public void setTime(DateTime time) {
     this.time = time;
   }
+
 }

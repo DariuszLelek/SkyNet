@@ -15,6 +15,16 @@ public abstract class Processable {
 
   protected Priority priority;
 
+  boolean active = true;
+
+  public final boolean isActive(){
+    return this.active;
+  }
+
+  public final void disable(){
+    this.active = false;
+  }
+
   public final Instruction getInstruction(){
     return instruction;
   }

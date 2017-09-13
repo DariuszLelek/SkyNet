@@ -3,7 +3,7 @@
  * Copyright (c) 2017. All rights reserved.
  */
 
-import config.DataBaseSchema;
+import config.DataBaseConfig;
 import hibernate.HibernateUtilityFactory;
 import provider.SkillFactory;
 import skills.Add;
@@ -20,6 +20,6 @@ public class TestClass {
     System.out.println(SkillFactory.getSkillProvider().hasSkill("iNSert"));
     SkillFactory.getSkillProvider().getSkill("add");
 
-    HibernateUtilityFactory.getBySchema(DataBaseSchema.DICTIONARY).closeSessionFactory();
+    HibernateUtilityFactory.getByDatabaseConfig(DataBaseConfig.PROD).closeSessionFactory();
   }
 }
