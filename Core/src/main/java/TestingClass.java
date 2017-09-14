@@ -4,14 +4,17 @@
  */
 
 
-import config.DataBaseConfig;
-import dao.entity.PersonDAO;
-import hibernate.HibernateUtility;
-import hibernate.preserver.DataPreserver;
+import dao.WordDAO;
+import hibernate.preserver.DAOPreserver;
+import hibernate.preserver.Preserver;
+import hibernate.provider.DAOProvider;
+import hibernate.provider.Provider;
 import process.ProcessorFactory;
 import process.message.Message;
 import process.message.MessageCreator;
 import process.message.MessageType;
+
+import java.util.Collection;
 
 
 public class TestingClass {
@@ -23,10 +26,7 @@ public class TestingClass {
     Message m2 = messageCreator.create("send email to DARIUS lele", MessageType.VOICE);
     Message m3 = messageCreator.create("remind verb me man add remove", MessageType.VOICE);
 
-    //ProcessorFactory.getMessageProcessor().process(m1);
     ProcessorFactory.getMessageProcessor().process(m2);
-    //ProcessorFactory.getMessageProcessor().process(m3);
-
 
     Thread.sleep(5000);
 

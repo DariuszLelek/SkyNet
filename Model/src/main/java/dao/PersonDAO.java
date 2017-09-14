@@ -1,9 +1,9 @@
 /*
- * Created by Dariusz Lelek on 9/13/17 6:12 PM
+ * Created by Dariusz Lelek on 9/14/17 10:46 PM
  * Copyright (c) 2017. All rights reserved.
  */
 
-package dao.entity;
+package dao;
 
 import dao.DAO;
 
@@ -15,13 +15,13 @@ public class PersonDAO extends DAO implements java.io.Serializable {
   @Id
   @GeneratedValue(strategy = GenerationType.AUTO)
   @Column(name = "PERSON_ID", unique = true, nullable = false)
-  private int personId = 0;
+  private int personId;
   @Column(name = "FIRST_NAME")
   private String firstName;
   @Column(name = "LAST_NAME")
   private String lastName;
   @Column(name = "EMAIL")
-  private String email = "";
+  private String email;
   @Column(name = "PHONE")
   private String phone;
 
@@ -34,7 +34,7 @@ public class PersonDAO extends DAO implements java.io.Serializable {
   }
 
   public String getFirstName() {
-    return firstName;
+    return getString(firstName);
   }
 
   public void setFirstName(String firstName) {
@@ -42,7 +42,7 @@ public class PersonDAO extends DAO implements java.io.Serializable {
   }
 
   public String getLastName() {
-    return lastName;
+    return getString(lastName);
   }
 
   public void setLastName(String lastName) {
@@ -50,7 +50,7 @@ public class PersonDAO extends DAO implements java.io.Serializable {
   }
 
   public String getEmail() {
-    return email;
+    return getString(email);
   }
 
   public void setEmail(String email) {
@@ -58,7 +58,7 @@ public class PersonDAO extends DAO implements java.io.Serializable {
   }
 
   public String getPhone() {
-    return phone;
+    return getString(phone);
   }
 
   public void setPhone(String phone) {

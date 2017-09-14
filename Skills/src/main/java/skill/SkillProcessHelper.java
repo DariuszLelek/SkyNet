@@ -5,25 +5,30 @@
 
 package skill;
 
-import dictionary.DictionaryFactory;
-import dictionary.WordClass;
-import dictionary.word.Word;
+import dao.WordDAO;
+import entity.WordClass;
+import hibernate.provider.DAOProvider;
 import process.instruction.Instruction;
 
 import java.util.Collection;
 import java.util.stream.Collectors;
 
 class SkillProcessHelper {
+  private static final DAOProvider<WordDAO> wordProvider = new DAOProvider<>(WordDAO.class);
 
-  private static Collection<Word> getWordsFromInstruction(final Instruction instruction){
-    return DictionaryFactory.getWordProvider().getWords(instruction.getQueue());
+
+  private static Collection<WordDAO> getWordsFromInstruction(final Instruction instruction){
+    return wordProvider.getByUniqueKeys("word", instruction.getQueue());
   }
 
-  private static Collection<WordClass> getWordClassesFromWords(final Collection<Word> words){
-    return words.stream().map(Word::getWordClass).collect(Collectors.toList());
+  private static Collection<WordClass> getWordClassesFromWords(final Collection<WordDAO> wordDAOImpls){
+    return wordDAOImpls.stream()
+        .map(WordDAO::getWordClassString)
+        .map(WordClass::getEnumByValue)
+        .collect(Collectors.toList());
   }
 
-  private static boolean wordsHaveAllExpectedWordClasses(final Collection<Word> words,
+  private static boolean wordsHaveAllExpectedWordClasses(final Collection<WordDAO> words,
                                                          final Collection<WordClass> expectedWordClasses){
     final Collection<WordClass> wordClasses = getWordClassesFromWords(words);
 

@@ -1,55 +1,45 @@
 /*
- * Created by Dariusz Lelek on 9/11/17 9:57 PM
+ * Created by Dariusz Lelek on 9/14/17 9:16 PM
  * Copyright (c) 2017. All rights reserved.
  */
 
 package hibernate.preserver;
 
 import config.DataBaseConfig;
+import dao.DAO;
 import hibernate.HibernateUtility;
 import hibernate.HibernateUtilityFactory;
 import hibernate.TransactionType;
-import dao.DAO;
 import org.apache.log4j.Logger;
 import org.hibernate.Session;
 import org.hibernate.Transaction;
 
-public class DataPreserver implements Preserve {
-  private final static Logger logger = Logger.getLogger(DataPreserver.class);
+public class DAOPreserver<T extends DAO> implements Preserver<T> {
+  private final static Logger logger = Logger.getLogger(DAOPreserver.class);
 
   private final HibernateUtility hibernateUtility;
-  private final DataBaseConfig schema;
 
-  public DataPreserver(DataBaseConfig schema) {
-    this.schema = schema;
-
-    hibernateUtility = HibernateUtilityFactory.getByDatabaseConfig(schema);
+  public DAOPreserver() {
+    hibernateUtility = HibernateUtilityFactory.getByDatabaseConfig(DataBaseConfig.PROD);
   }
 
-  public DataBaseConfig getSchema() {
-    return schema;
-  }
-
-  public int save(DAO dao) {
+  public int save(T dao) {
     return performTransaction(dao, TransactionType.SAVE);
   }
 
-  @Override
-  public void update(DAO dao) {
+  public void update(T dao) {
     performTransaction(dao, TransactionType.UPDATE);
   }
 
-  @Override
-  public void saveOrUpdate(DAO dao) {
+  public void saveOrUpdate(T dao) {
     performTransaction(dao, TransactionType.SAVE_OR_UPDATE);
   }
 
-  @Override
-  public void delete(DAO dao) {
+  public void delete(T dao) {
     performTransaction(dao, TransactionType.DELETE);
   }
 
-  private int performTransaction(DAO dao, TransactionType type) {
+  private int performTransaction(T dao, TransactionType type) {
     int id = -1;
     Session localSession = hibernateUtility.getSession();
     Transaction tx = null;

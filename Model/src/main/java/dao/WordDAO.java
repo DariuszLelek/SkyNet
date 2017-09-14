@@ -1,13 +1,16 @@
 /*
- * Created by Dariusz Lelek on 9/13/17 7:24 PM
+ * Created by Dariusz Lelek on 9/14/17 10:46 PM
  * Copyright (c) 2017. All rights reserved.
  */
 
-package dao.entity;
+package dao;
 
 import dao.DAO;
+import entity.WordClass;
 
 import javax.persistence.*;
+import java.util.Arrays;
+import java.util.Collection;
 
 @Entity
 @Table(name = "word", catalog = "entity")
@@ -23,6 +26,14 @@ public class WordDAO extends DAO implements java.io.Serializable {
   @Column(name = "SYNONYMS")
   private String synonyms;
 
+  public WordDAO() {
+  }
+
+  public WordDAO(String word, String wordClassString) {
+    this.word = word;
+    this.wordClassString = wordClassString;
+  }
+
   public int getWordId() {
     return wordId;
   }
@@ -32,7 +43,7 @@ public class WordDAO extends DAO implements java.io.Serializable {
   }
 
   public String getWord() {
-    return word;
+    return getString(word);
   }
 
   public void setWord(String word) {
@@ -40,7 +51,7 @@ public class WordDAO extends DAO implements java.io.Serializable {
   }
 
   public String getWordClassString() {
-    return wordClassString;
+    return getString(wordClassString);
   }
 
   public void setWordClassString(String wordClassString) {
@@ -48,11 +59,19 @@ public class WordDAO extends DAO implements java.io.Serializable {
   }
 
   public String getSynonyms() {
-    return synonyms != null ? synonyms : "";
+    return getString(synonyms);
   }
 
   public void setSynonyms(String synonyms) {
     this.synonyms = synonyms;
+  }
+
+  public WordClass getWordClass(){
+    return WordClass.getEnumByValue(getWordClassString());
+  }
+
+  public Collection<String> getSynonymsList(){
+    return Arrays.asList(getSynonyms().split(","));
   }
 
   @Override

@@ -1,9 +1,9 @@
 /*
- * Created by Dariusz Lelek on 9/13/17 7:24 PM
+ * Created by Dariusz Lelek on 9/14/17 10:46 PM
  * Copyright (c) 2017. All rights reserved.
  */
 
-package dao.entity;
+package dao;
 
 import dao.DAO;
 import org.joda.time.DateTime;
@@ -38,7 +38,7 @@ public class RemindDAO extends DAO implements java.io.Serializable{
   }
 
   public String getText() {
-    return text;
+    return getString(text);
   }
 
   public void setText(String text) {

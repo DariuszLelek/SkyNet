@@ -16,8 +16,8 @@ public class TestClass {
 
     //System.out.println(add.getInfo());
 
-    System.out.println(SkillFactory.getSkillProvider().hasSkill("email"));
-    System.out.println(SkillFactory.getSkillProvider().hasSkill("iNSert"));
+    System.out.println(SkillFactory.getSkillProvider().hasSkill("maiL"));
+    System.out.println(SkillFactory.getSkillProvider().hasSkill("Remind"));
     SkillFactory.getSkillProvider().getSkill("add");
 
     HibernateUtilityFactory.getByDatabaseConfig(DataBaseConfig.PROD).closeSessionFactory();

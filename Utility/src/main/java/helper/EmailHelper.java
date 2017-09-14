@@ -5,39 +5,31 @@
 
 package helper;
 
-import config.DataBaseConfig;
-import dao.entity.PersonDAO;
+import dao.PersonDAO;
 import helper.entity.PersonHelper;
-import hibernate.provider.DataProvider;
+import hibernate.provider.DAOProvider;
 import validator.skill.EmailValidator;
 
 
-import javax.mail.internet.AddressException;
-import javax.mail.internet.InternetAddress;
 import java.util.ArrayList;
 import java.util.Collection;
 
 public class EmailHelper {
-  private final DataProvider personDataProvider = new DataProvider(DataBaseConfig.PROD);
   private final EmailValidator emailValidator = new EmailValidator();
   private final float MATCH_PERCENT = 0.8F;
+  private final DAOProvider<PersonDAO> personProvider = new DAOProvider<>(PersonDAO.class);
 
   private final String[] MAIL_AT = {"at", "@"};
   private final String[] MAIL_DOT = {".", "dot"};
 
-  public String getEmail(String object) {
-    // TODO try get from person
-    return emailValidator.isValid(object) ? object : "";
-  }
-
-  public String getEmail(Collection<String> objects) {
-    String candidate = tryGetMailFromChunks(objects);
+  public String getEmail(Collection<String> chunks) {
+    String candidate = tryGetMailFromChunks(chunks);
 
     // TODO implement strategy pattern
     if (emailValidator.isValid(candidate)) {
       return candidate;
     } else {
-      candidate = tryGetValidMailFromPersons(objects);
+      candidate = tryGetValidMailFromPersons(chunks);
       if (emailValidator.isValid(candidate)) {
         return candidate;
       } else {
@@ -47,13 +39,8 @@ public class EmailHelper {
     }
   }
 
-  private String tryGetValidMailFromChunks(Collection<String> chunks){
-    // TODO
-    return "";
-  }
-
   private String tryGetValidMailFromPersons(Collection<String> chunks){
-    final Collection<PersonDAO> persons = personDataProvider.getAllEntities(PersonDAO.class);
+    final Collection<PersonDAO> persons = personProvider.getAll();
     final Collection<PersonDAO> foundPersons = new ArrayList<>();
 
     chunks.forEach(chunk -> {

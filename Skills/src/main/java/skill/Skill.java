@@ -5,7 +5,7 @@
 
 package skill;
 
-import dictionary.WordClass;
+import entity.WordClass;
 import process.instruction.Instruction;
 import org.apache.log4j.Logger;
 import process.instruction.InstructionValidator;
@@ -47,11 +47,11 @@ public abstract class Skill extends Processable {
     logger.error(this.getClass().getName() + " FAIL " + message, t);
   }
 
-  private void validateInstruction(){
-    if(expectedWordClasses.isEmpty() ||
-        SkillProcessHelper.instructionHasAllExpectedWordClasses(getInstruction(), expectedWordClasses)){
+  private void validateInstruction() {
+    if (expectedWordClasses.isEmpty() ||
+        SkillProcessHelper.instructionHasAllExpectedWordClasses(getInstruction(), expectedWordClasses)) {
       validator = InstructionValidator.VALID;
-    }else{
+    } else {
       logger.warn(this.toString() + " has invalid instruction.");
       validator = InstructionValidator.INVALID;
     }

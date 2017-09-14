@@ -5,7 +5,7 @@
 
 package helper.entity;
 
-import dao.entity.PersonDAO;
+import dao.PersonDAO;
 import utilities.StringUtilities;
 
 import java.util.Collection;

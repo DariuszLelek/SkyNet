@@ -6,7 +6,7 @@
 package skills;
 
 import credentials.Credentials;
-import dictionary.WordClass;
+import entity.WordClass;
 import helper.EmailHelper;
 import process.priority.Priority;
 import skill.Skill;

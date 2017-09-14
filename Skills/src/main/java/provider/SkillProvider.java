@@ -5,12 +5,14 @@
 
 package provider;
 
-import dictionary.DictionaryFactory;
+
+import dao.WordDAO;
 import file.FileUtility;
+import hibernate.provider.DAOProvider;
 import org.apache.log4j.Logger;
 import skill.EmptySkill;
 import skill.Skill;
-
+import utilities.StringUtilities;
 
 import java.lang.reflect.Constructor;
 import java.lang.reflect.InvocationTargetException;
@@ -27,6 +29,8 @@ public class SkillProvider implements SkillProvide {
 
   private final Map<String, String> skillSynonymCache = new HashMap<>();
   private final FileUtility fileUtility = new FileUtility();
+
+  private final DAOProvider<WordDAO> wordProvider = new DAOProvider<>(WordDAO.class);
 
   SkillProvider() {
     loadSkills();
@@ -91,16 +95,23 @@ public class SkillProvider implements SkillProvide {
     insertSkillsToSynonymCache(fileUtility.getFileNamesInDirectory(SKILLS_LOCATION));
   }
 
-  private void insertSkillsToSynonymCache(Collection<String> skills) {
+  private void insertSkillsToSynonymCache(Collection<String> skillCLasses) {
     skillSynonymCache.clear();
 
-    skills.forEach(skill -> {
-      skillSynonymCache.put(skill.toLowerCase(), skill);
-      getSynonymsForSkillName(skill).forEach(skillSynonym -> skillSynonymCache.put(skillSynonym, skill));
+    skillCLasses.forEach(skillClass -> {
+      insertToCache(skillClass.toLowerCase(), skillClass);
+      getSynonymsForSkillName(skillClass).forEach(synonym -> insertToCache(synonym, skillClass));
     });
   }
 
+  private void insertToCache(String skillName, String skillClass){
+    if(!skillName.isEmpty() && StringUtilities.isAlphabetic(skillName)){
+      skillSynonymCache.put(skillName, skillClass);
+    }
+  }
+
   private Collection<String> getSynonymsForSkillName(String skillName){
-    return DictionaryFactory.getWordProvider().getWord(skillName).getSynonymsList();
+    WordDAO word = wordProvider.getByUniqueKey("word", skillName);
+    return word != null ? word.getSynonymsList() : new ArrayList<>();
   }
 }

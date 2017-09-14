@@ -5,7 +5,7 @@
 
 package skills;
 
-import dictionary.WordClass;
+import entity.WordClass;
 import process.priority.Priority;
 import skill.Skill;
 

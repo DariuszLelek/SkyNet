@@ -5,7 +5,6 @@
 
 package skill;
 
-import dictionary.WordClass;
 import process.priority.Priority;
 
 import java.util.ArrayList;

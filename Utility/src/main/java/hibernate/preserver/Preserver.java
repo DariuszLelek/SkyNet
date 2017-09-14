@@ -7,9 +7,9 @@ package hibernate.preserver;
 
 import dao.DAO;
 
-public interface Preserve {
-  int save(DAO dao);
-  void update(DAO dao);
-  void saveOrUpdate(DAO dao);
-  void delete(DAO dao);
+public interface Preserver<T> {
+  int save(T dao);
+  void update(T dao);
+  void saveOrUpdate(T dao);
+  void delete(T dao);
 }

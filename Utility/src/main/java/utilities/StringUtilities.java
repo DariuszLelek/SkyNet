@@ -40,4 +40,16 @@ public class StringUtilities {
     return result;
   }
 
+  public static boolean isAlphabetic(String name) {
+    char[] chars = name.toCharArray();
+
+    for (char c : chars) {
+      if(!Character.isLetter(c)) {
+        return false;
+      }
+    }
+
+    return true;
+  }
+
 }
