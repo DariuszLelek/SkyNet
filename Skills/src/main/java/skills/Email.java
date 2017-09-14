@@ -7,8 +7,7 @@ package skills;
 
 import credentials.Credentials;
 import dictionary.WordClass;
-import helper.HelperFactory;
-import helper.HelperType;
+import helper.EmailHelper;
 import process.priority.Priority;
 import skill.Skill;
 
@@ -30,6 +29,8 @@ public class Email extends Skill {
   private final static String EMAIL_FOOTER = "<br><br>Sent by SkyNet in behalf of "
       + Credentials.ROOT_USER_NAME.getValue() + ".";
 
+  private final EmailHelper emailHelper = new EmailHelper();
+
   public Email() {
     super(Priority.LOW, new ArrayList<WordClass>(){{
     }});
@@ -38,7 +39,7 @@ public class Email extends Skill {
   @Override
   public boolean process() {
     if(hasValidInstruction()){
-      String recipient = HelperFactory.getHelper(HelperType.EMAIL).getValid(getInstruction().getQueue());
+      String recipient = emailHelper.getEmail(getInstruction().getQueue());
       // TODO get from content helper
       String content = "some content";
 

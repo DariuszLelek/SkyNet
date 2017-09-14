@@ -17,7 +17,7 @@ import javax.mail.internet.InternetAddress;
 import java.util.ArrayList;
 import java.util.Collection;
 
-public class EmailHelper implements Helper<String> {
+public class EmailHelper {
   private final DataProvider personDataProvider = new DataProvider(DataBaseConfig.PROD);
   private final EmailValidator emailValidator = new EmailValidator();
   private final float MATCH_PERCENT = 0.8F;
@@ -25,14 +25,12 @@ public class EmailHelper implements Helper<String> {
   private final String[] MAIL_AT = {"at", "@"};
   private final String[] MAIL_DOT = {".", "dot"};
 
-  @Override
-  public String get(String object) {
+  public String getEmail(String object) {
     // TODO try get from person
     return emailValidator.isValid(object) ? object : "";
   }
 
-  @Override
-  public String get(Collection<String> objects) {
+  public String getEmail(Collection<String> objects) {
     String candidate = tryGetMailFromChunks(objects);
 
     // TODO implement strategy pattern
