@@ -17,23 +17,27 @@ public class StringUtilities {
     return collection.stream().anyMatch(string::equalsIgnoreCase);
   }
 
-  public static float percentMatchFirstInSecond(String first, String second){
+  public static float firstInSecondPercent(String first, String second){
     float result = 0F;
-    float diff = 1F / (first.length() > 0 ? first.length() : 1);
 
-    int idx = 0;
-    for(char c : first.toCharArray()) {
-      if (second != null && second.length() > idx) {
-        if (Character.toLowerCase(second.charAt(idx)) == Character.toLowerCase(c)) {
-          result += diff;
+    if(first != null){
+      float diff = 1F / (first.length() > 0 ? first.length() : 1);
+
+      int idx = 0;
+      for(char c : first.toCharArray()) {
+        if (second != null && second.length() > idx) {
+          if (Character.toLowerCase(second.charAt(idx)) == Character.toLowerCase(c)) {
+            result += diff;
+          }
+          idx++;
+        } else {
+          break;
         }
-        idx++;
-      } else {
-        break;
       }
-    }
 
-    return result > 1F ? 1F : result;
+      result = result > 1F ? 1F : result;
+    }
+    return result;
   }
 
 }

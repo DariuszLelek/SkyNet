@@ -7,8 +7,7 @@ package helper;
 
 import java.util.Collection;
 
-public interface Helper {
-  public abstract boolean isValid(String text);
-  public abstract String getValid(String text);
-  public abstract String getValid(Collection<String> texts);
+public interface Helper<T> {
+  public abstract T get(T object);
+  public abstract T get(Collection<T> objects);
 }

@@ -9,48 +9,40 @@ import config.DataBaseConfig;
 import dao.entity.PersonDAO;
 import helper.entity.PersonHelper;
 import hibernate.provider.DataProvider;
+import validator.skill.EmailValidator;
+
 
 import javax.mail.internet.AddressException;
 import javax.mail.internet.InternetAddress;
 import java.util.ArrayList;
 import java.util.Collection;
 
-public class EmailHelper implements Helper {
+public class EmailHelper implements Helper<String> {
   private final DataProvider personDataProvider = new DataProvider(DataBaseConfig.PROD);
+  private final EmailValidator emailValidator = new EmailValidator();
   private final float MATCH_PERCENT = 0.8F;
 
   private final String[] MAIL_AT = {"at", "@"};
   private final String[] MAIL_DOT = {".", "dot"};
 
   @Override
-  public boolean isValid(String text) {
-    boolean result = true;
-    try {
-      InternetAddress emailAddress = new InternetAddress(text);
-      emailAddress.validate();
-    } catch (AddressException ex) {
-      result = false;
-    }
-    return result;
+  public String get(String object) {
+    // TODO try get from person
+    return emailValidator.isValid(object) ? object : "";
   }
 
   @Override
-  public String getValid(String text) {
-    return isValid(text) ? text : "";
-  }
-
-  @Override
-  public String getValid(Collection<String> chunks) {
-    String candidate = tryGetMailFromChunks(chunks);
+  public String get(Collection<String> objects) {
+    String candidate = tryGetMailFromChunks(objects);
 
     // TODO implement strategy pattern
-    if(isValid(candidate)){
+    if (emailValidator.isValid(candidate)) {
       return candidate;
-    }else{
-      candidate = tryGetValidMailFromPersons(chunks);
-      if(isValid(candidate)){
+    } else {
+      candidate = tryGetValidMailFromPersons(objects);
+      if (emailValidator.isValid(candidate)) {
         return candidate;
-      }else{
+      } else {
         // TODO tryGetValidMailFromChunks()
         return "";
       }
@@ -103,7 +95,7 @@ public class EmailHelper implements Helper {
   }
 
   private String tryGetMailFromChunks(Collection<String> chunks){
-    return chunks.stream().filter(this::isValid).findFirst().orElse("");
+    return chunks.stream().filter(emailValidator::isValid).findFirst().orElse("");
   }
 
 }

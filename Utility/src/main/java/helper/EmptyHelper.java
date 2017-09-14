@@ -10,19 +10,14 @@ import java.util.Collection;
 public class EmptyHelper implements Helper {
   static final EmptyHelper INSTANCE = new EmptyHelper();
 
+
   @Override
-  public boolean isValid(String text) {
-    return false;
+  public Object get(Object object) {
+    return null;
   }
 
   @Override
-  public String getValid(String text) {
-    return "";
+  public Object get(Collection objects) {
+    return null;
   }
-
-  @Override
-  public String getValid(Collection<String> texts) {
-    return "";
-  }
-
 }

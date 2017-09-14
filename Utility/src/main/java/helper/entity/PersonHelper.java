@@ -17,7 +17,7 @@ public class PersonHelper {
       final String name,
       final Collection<PersonDAO> persons) {
     return persons.stream()
-        .filter(p -> StringUtilities.percentMatchFirstInSecond(name, p.getFirstName()) >= probability)
+        .filter(p -> StringUtilities.firstInSecondPercent(name, p.getFirstName()) >= probability)
         .collect(Collectors.toList());
   }
 
@@ -26,7 +26,7 @@ public class PersonHelper {
       final String lastName,
       final Collection<PersonDAO> persons) {
     return persons.stream()
-        .filter(p -> StringUtilities.percentMatchFirstInSecond(lastName, p.getLastName()) >= probability)
+        .filter(p -> StringUtilities.firstInSecondPercent(lastName, p.getLastName()) >= probability)
         .collect(Collectors.toList());
   }
 }
