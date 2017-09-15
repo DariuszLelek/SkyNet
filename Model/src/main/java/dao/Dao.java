@@ -5,11 +5,8 @@
 
 package dao;
 
-import validator.StringValidator;
-
-public class Dao implements StringValidator {
-  @Override
-  public String getNonNull(String string) {
+public class Dao {
+  String getNonNull(String string) {
     return string != null ? string : "";
   }
 }

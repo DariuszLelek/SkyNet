@@ -8,7 +8,6 @@ package hibernate.builder;
 import dao.WordDao;
 import entity.WordClass;
 import utilities.StringUtilities;
-import validator.StringValidator;
 
 public class WordDaoBuilder implements DaoBuilder<WordDao> {
   private static final int maxDescLength = WordDao.DESCRIPTION_LENGTH;
