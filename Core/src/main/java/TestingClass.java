@@ -4,17 +4,9 @@
  */
 
 
-import dao.TimeDAO;
-import dao.WordDAO;
+import dao.WordDao;
 import file.FileUtility;
-import hibernate.preserver.DAOPreserver;
-import hibernate.preserver.Preserver;
-import hibernate.provider.DAOProvider;
-import hibernate.provider.Provider;
-import process.ProcessorFactory;
-import process.message.Message;
-import process.message.MessageCreator;
-import process.message.MessageType;
+import hibernate.preserver.DaoPreserver;
 
 import java.io.File;
 import java.util.ArrayList;
@@ -34,9 +26,9 @@ public class TestingClass {
 //
 //    Thread.sleep(5000);
 //
-//    DAOPreserver<TimeDAO> timeSave = new DAOPreserver<>();
+//    DaoPreserver<TimeDao> timeSave = new DaoPreserver<>();
 //
-//    TimeDAO t = new TimeDAO();
+//    TimeDao t = new TimeDao();
 //    t.setName("day");
 //
 //
@@ -52,14 +44,14 @@ public class TestingClass {
       e.printStackTrace();
     }
 
-    DAOPreserver<WordDAO> wordSaver = new DAOPreserver<>();
+    DaoPreserver<WordDao> wordSaver = new DaoPreserver<>();
 
-    Collection<WordDAO> words = new ArrayList<>();
+    Collection<WordDao> words = new ArrayList<>();
 
     if(!fileContent.isEmpty()){
       for(String line : fileContent){
         if(!line.isEmpty()){
-          WordDAO w = new WordDAO();
+          WordDao w = new WordDao();
           String[] chunks = line.split("##");
 
           if(chunks.length>0){

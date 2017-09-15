@@ -5,13 +5,11 @@
 
 package dao;
 
-import dao.DAO;
-
 import javax.persistence.*;
 
 @Entity
 @Table(name = "person", catalog = "entity")
-public class PersonDAO extends DAO implements java.io.Serializable {
+public class PersonDao extends Dao implements java.io.Serializable {
   @Id
   @GeneratedValue(strategy = GenerationType.AUTO)
   @Column(name = "PERSON_ID", unique = true, nullable = false)

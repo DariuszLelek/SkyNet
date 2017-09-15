@@ -9,7 +9,7 @@ import javax.persistence.*;
 
 @Entity
 @Table(name = "time", catalog = "entity")
-public class TimeDAO extends DAO {
+public class TimeDao extends Dao {
   @Id
   @GeneratedValue(strategy = GenerationType.AUTO)
   @Column(name = "TIME_ID", unique = true, nullable = false)
@@ -21,7 +21,7 @@ public class TimeDAO extends DAO {
   @Column(name = "REPEATABLE")
   private boolean repeatable;
 
-  public TimeDAO() {
+  public TimeDao() {
   }
 
   public int getTimeId() {

@@ -6,7 +6,7 @@
 package hibernate.provider;
 
 import config.DataBaseConfig;
-import dao.DAO;
+import dao.Dao;
 import hibernate.HibernateUtility;
 import hibernate.HibernateUtilityFactory;
 import org.hibernate.Session;
@@ -17,11 +17,11 @@ import org.hibernate.criterion.Restrictions;
 import java.util.ArrayList;
 import java.util.Collection;
 
-public class DAOProvider <T extends DAO> implements Provider<T> {
+public class DaoProvider<T extends Dao> implements Provider<T> {
   private final HibernateUtility hibernateUtility;
   private final Class<T> daoClass;
 
-  public DAOProvider(Class<T> daoClass) {
+  public DaoProvider(Class<T> daoClass) {
     this.daoClass = daoClass;
     this.hibernateUtility = HibernateUtilityFactory.getByDatabaseConfig(DataBaseConfig.PROD);
   }
@@ -68,7 +68,7 @@ public class DAOProvider <T extends DAO> implements Provider<T> {
     Collection<T> result = new ArrayList<>();
 
     for(Object object : collection){
-      if(DAO.class.isInstance(object)){
+      if(Dao.class.isInstance(object)){
         result.add(daoClass.cast(object));
       }
     }

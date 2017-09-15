@@ -5,9 +5,9 @@
 
 package entity;
 
-import dao.PersonDAO;
+import dao.PersonDao;
 
-public class Person extends PersonDAO{
+public class Person extends PersonDao {
 
 
 }

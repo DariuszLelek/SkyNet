@@ -13,7 +13,7 @@ import java.util.Collection;
 
 @Entity
 @Table(name = "word", catalog = "entity")
-public class WordDAO extends DAO implements java.io.Serializable {
+public class WordDao extends Dao implements java.io.Serializable {
   @Id()
   @GeneratedValue(strategy = GenerationType.AUTO)
   @Column(name = "WORD_ID", unique = true, nullable = false)
@@ -27,10 +27,10 @@ public class WordDAO extends DAO implements java.io.Serializable {
   @Column(name = "DESCRIPTION")
   private String description;
 
-  public WordDAO() {
+  public WordDao() {
   }
 
-  public WordDAO(String word, String wordClassString) {
+  public WordDao(String word, String wordClassString) {
     this.word = word;
     this.wordClassString = wordClassString;
   }

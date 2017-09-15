@@ -5,26 +5,26 @@
 
 package helper.entity;
 
-import dao.PersonDAO;
+import dao.PersonDao;
 import utilities.StringUtilities;
 
 import java.util.Collection;
 import java.util.stream.Collectors;
 
 public class PersonHelper {
-  public static Collection<PersonDAO> filterPersonsByNameWithProbability(
+  public static Collection<PersonDao> filterPersonsByNameWithProbability(
       final float probability,
       final String name,
-      final Collection<PersonDAO> persons) {
+      final Collection<PersonDao> persons) {
     return persons.stream()
         .filter(p -> StringUtilities.firstInSecondPercent(name, p.getFirstName()) >= probability)
         .collect(Collectors.toList());
   }
 
-  public static Collection<PersonDAO> filterPersonsByLastNameWithProbability(
+  public static Collection<PersonDao> filterPersonsByLastNameWithProbability(
       final float probability,
       final String lastName,
-      final Collection<PersonDAO> persons) {
+      final Collection<PersonDao> persons) {
     return persons.stream()
         .filter(p -> StringUtilities.firstInSecondPercent(lastName, p.getLastName()) >= probability)
         .collect(Collectors.toList());

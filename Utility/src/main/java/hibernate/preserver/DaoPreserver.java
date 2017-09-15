@@ -6,7 +6,7 @@
 package hibernate.preserver;
 
 import config.DataBaseConfig;
-import dao.DAO;
+import dao.Dao;
 import hibernate.HibernateUtility;
 import hibernate.HibernateUtilityFactory;
 import hibernate.TransactionType;
@@ -17,12 +17,12 @@ import org.hibernate.Transaction;
 import java.util.Collection;
 import java.util.Collections;
 
-public class DAOPreserver<T extends DAO> implements Preserver<T> {
-  private final static Logger logger = Logger.getLogger(DAOPreserver.class);
+public class DaoPreserver<T extends Dao> implements Preserver<T> {
+  private final static Logger logger = Logger.getLogger(DaoPreserver.class);
 
   private final HibernateUtility hibernateUtility;
 
-  public DAOPreserver() {
+  public DaoPreserver() {
     hibernateUtility = HibernateUtilityFactory.getByDatabaseConfig(DataBaseConfig.PROD);
   }
 

@@ -5,9 +5,9 @@
 
 package helper;
 
-import dao.PersonDAO;
+import dao.PersonDao;
 import helper.entity.PersonHelper;
-import hibernate.provider.DAOProvider;
+import hibernate.provider.DaoProvider;
 import validator.skill.EmailValidator;
 
 
@@ -17,7 +17,7 @@ import java.util.Collection;
 public class EmailHelper {
   private final EmailValidator emailValidator = new EmailValidator();
   private final float MATCH_PERCENT = 0.8F;
-  private final DAOProvider<PersonDAO> personProvider = new DAOProvider<>(PersonDAO.class);
+  private final DaoProvider<PersonDao> personProvider = new DaoProvider<>(PersonDao.class);
 
   private final String[] MAIL_AT = {"at", "@"};
   private final String[] MAIL_DOT = {".", "dot"};
@@ -44,8 +44,8 @@ public class EmailHelper {
   }
 
   private String tryGetValidMailFromPersons(Collection<String> chunks){
-    final Collection<PersonDAO> persons = personProvider.getAll();
-    final Collection<PersonDAO> foundPersons = new ArrayList<>();
+    final Collection<PersonDao> persons = personProvider.getAll();
+    final Collection<PersonDao> foundPersons = new ArrayList<>();
 
     chunks.forEach(chunk -> {
       addAllProbablePersonsToFoundPersons(
@@ -70,13 +70,13 @@ public class EmailHelper {
     return getEmailFromFirstFoundPersonOrDefault(foundPersons);
   }
 
-  private String getEmailFromFirstFoundPersonOrDefault(Collection<PersonDAO> persons){
-    return persons.stream().findFirst().orElse(new PersonDAO()).getEmail();
+  private String getEmailFromFirstFoundPersonOrDefault(Collection<PersonDao> persons){
+    return persons.stream().findFirst().orElse(new PersonDao()).getEmail();
   }
 
-  private static void addAllProbablePersonsToFoundPersons(final Collection<PersonDAO> probablePersons,
-                                                          final Collection<PersonDAO> foundPersons){
-    for(PersonDAO probablePerson : probablePersons){
+  private static void addAllProbablePersonsToFoundPersons(final Collection<PersonDao> probablePersons,
+                                                          final Collection<PersonDao> foundPersons){
+    for(PersonDao probablePerson : probablePersons){
       if(!foundPersons.contains(probablePerson)){
         foundPersons.add(probablePerson);
       }

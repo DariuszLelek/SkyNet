@@ -5,8 +5,6 @@
 
 package hibernate.preserver;
 
-import dao.DAO;
-
 import java.util.Collection;
 
 public interface Preserver<T> {

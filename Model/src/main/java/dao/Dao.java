@@ -5,7 +5,7 @@
 
 package dao;
 
-public class DAO {
+public class Dao {
   protected final String getString(String string){
     return string != null ? string : "";
   }

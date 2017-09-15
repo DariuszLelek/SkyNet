@@ -5,14 +5,13 @@
 
 package dao;
 
-import dao.DAO;
 import org.joda.time.DateTime;
 
 import javax.persistence.*;
 
 @Entity
 @Table(name = "remind", catalog = "entity")
-public class RemindDAO extends DAO implements java.io.Serializable{
+public class RemindDao extends Dao implements java.io.Serializable{
   @Id
   @GeneratedValue(strategy = GenerationType.AUTO)
   @Column(name = "REMIND_ID", unique = true, nullable = false)
@@ -26,7 +25,7 @@ public class RemindDAO extends DAO implements java.io.Serializable{
   @Column(name = "TIME")
   private DateTime time;
 
-  public RemindDAO() {
+  public RemindDao() {
   }
 
   public int getRemindId() {
