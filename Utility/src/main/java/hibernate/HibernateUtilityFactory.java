@@ -19,7 +19,9 @@ public class HibernateUtilityFactory {
   }
 
   private static HibernateUtility getFromCache(DataBaseConfig dataBaseConfig){
-    return CACHE.computeIfAbsent(dataBaseConfig, (key) -> new HibernateUtility(dataBaseConfig));
+    synchronized (CACHE){
+      return CACHE.computeIfAbsent(dataBaseConfig, (key) -> new HibernateUtility(dataBaseConfig));
+    }
   }
 
   public static void closeAllSessionFactories(){
