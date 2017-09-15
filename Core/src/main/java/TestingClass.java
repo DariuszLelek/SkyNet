@@ -41,16 +41,12 @@ public class TestingClass {
 //
 //
 //    timeSave.save(t);
-    DataBaseLoader dictionaryLoader = new DictionaryDataBaseLoader();
 
-    dictionaryLoader.loadToDataBase();
+//    // save dictionary to db
+//    DataBaseLoader dictionaryLoader = new DictionaryDataBaseLoader();
+//    dictionaryLoader.loadToDataBase();
+
 
     HibernateUtilityFactory.closeAllSessionFactories();
-
-    //DictionaryDataBaseLoader loader = new DictionaryDataBaseLoader(new File(DictionaryDataBaseLoader.class.getResourceAsStream("dictionary-EN.txt")).getPath());
-
-    //ProcessableExecutor.stopExecutor();
-
-    //HibernateUtilityFactory.getByDatabaseConfig(DataBaseConfig.DICTIONARY).closeSessionFactory();
   }
 }

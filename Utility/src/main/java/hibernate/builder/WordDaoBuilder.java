@@ -5,7 +5,6 @@
 
 package hibernate.builder;
 
-import dao.Dao;
 import dao.WordDao;
 import entity.WordClass;
 import utilities.StringUtilities;
@@ -27,15 +26,15 @@ public class WordDaoBuilder implements DaoBuilder<WordDao> {
   private boolean validate() {
     if(chunks.length == validChunkLength){
       for(int i=0; i<validChunkLength; i++){
-        chunks[i] = getValidStringByIdx(i, chunks[i]);
+        chunks[i] = getValidStringByIndex(i, chunks[i]);
       }
       return !chunks[0].isEmpty();
     }
     return false;
   }
 
-  private String getValidStringByIdx(int idx, String chunk) {
-    switch (idx) {
+  private String getValidStringByIndex(final int index, final String chunk) {
+    switch (index) {
       case 0:
         return getValidWordString(chunk);
       case 1:

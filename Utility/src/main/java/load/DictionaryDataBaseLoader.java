@@ -29,8 +29,9 @@ public class DictionaryDataBaseLoader implements DataBaseLoader {
 
   @Override
   public void loadToDataBase() {
-    Collection<WordDao> uniqueWords = getUniqueWords(FileUtility.getFileLines(fileInputStream));
-    wordPreserver.save(uniqueWords);
+    logger.info("loadToDataBase - start");
+    wordPreserver.save(getUniqueWords(FileUtility.getFileLines(fileInputStream)));
+    logger.info("loadToDataBase - finish");
   }
 
   private Collection<WordDao> getUniqueWords(final Collection<String> fileContent) {
@@ -39,7 +40,8 @@ public class DictionaryDataBaseLoader implements DataBaseLoader {
         .filter(word -> !word.getWord().isEmpty())
         .collect(Collectors
             .collectingAndThen(Collectors
-                .toCollection(() -> new TreeSet<>(Comparator.comparing(WordDao::getWord))), ArrayList::new));
+                .toCollection(() ->
+                    new TreeSet<>(Comparator.comparing(WordDao::getWord))), ArrayList::new));
   }
 
 }
