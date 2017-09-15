@@ -13,6 +13,10 @@ public class StringUtilities {
     return false;
   }
 
+  public static String getNotNull(String string){
+    return string!= null ? string : "";
+  }
+
   public static boolean containsStringIgnoreCase(Collection<String> collection, String string){
     return collection.stream().anyMatch(string::equalsIgnoreCase);
   }

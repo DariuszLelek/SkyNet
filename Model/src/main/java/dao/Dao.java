@@ -5,8 +5,11 @@
 
 package dao;
 
-public class Dao {
-  protected final String getString(String string){
+import validator.StringValidator;
+
+public class Dao implements StringValidator {
+  @Override
+  public String getNonNull(String string) {
     return string != null ? string : "";
   }
 }

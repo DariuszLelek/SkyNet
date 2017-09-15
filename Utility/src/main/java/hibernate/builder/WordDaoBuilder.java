@@ -8,6 +8,7 @@ package hibernate.builder;
 import dao.WordDao;
 import entity.WordClass;
 import utilities.StringUtilities;
+import validator.StringValidator;
 
 public class WordDaoBuilder implements DaoBuilder<WordDao> {
   private static final int maxDescLength = WordDao.DESCRIPTION_LENGTH;
@@ -47,8 +48,8 @@ public class WordDaoBuilder implements DaoBuilder<WordDao> {
   }
 
   private String getValidDescriptionString(String chunk){
-    return chunk.length() > maxDescLength ?
-        chunk.substring(0, maxDescLength) : chunk;
+    return chunk != null ? (chunk.length() > maxDescLength ?
+        chunk.substring(0, maxDescLength) : chunk) : "";
   }
 
   private String getValidWordString(String chunk){

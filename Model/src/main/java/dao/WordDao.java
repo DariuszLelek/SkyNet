@@ -53,7 +53,7 @@ public class WordDao extends Dao implements java.io.Serializable {
   }
 
   public String getWord() {
-    return getString(word);
+    return getNonNull(word);
   }
 
   public void setWord(String word) {
@@ -61,7 +61,7 @@ public class WordDao extends Dao implements java.io.Serializable {
   }
 
   public String getWordClassString() {
-    return getString(wordClassString);
+    return getNonNull(wordClassString);
   }
 
   public void setWordClassString(String wordClassString) {
@@ -69,7 +69,7 @@ public class WordDao extends Dao implements java.io.Serializable {
   }
 
   public String getSynonyms() {
-    return getString(synonyms);
+    return getNonNull(synonyms);
   }
 
   public void setSynonyms(String synonyms) {
@@ -77,7 +77,7 @@ public class WordDao extends Dao implements java.io.Serializable {
   }
 
   public String getDescription() {
-    return getString(description);
+    return getNonNull(description);
   }
 
   public void setDescription(String description) {

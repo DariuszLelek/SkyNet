@@ -32,7 +32,7 @@ public class PersonDao extends Dao implements java.io.Serializable {
   }
 
   public String getFirstName() {
-    return getString(firstName);
+    return getNonNull(firstName);
   }
 
   public void setFirstName(String firstName) {
@@ -40,7 +40,7 @@ public class PersonDao extends Dao implements java.io.Serializable {
   }
 
   public String getLastName() {
-    return getString(lastName);
+    return getNonNull(lastName);
   }
 
   public void setLastName(String lastName) {
@@ -48,7 +48,7 @@ public class PersonDao extends Dao implements java.io.Serializable {
   }
 
   public String getEmail() {
-    return getString(email);
+    return getNonNull(email);
   }
 
   public void setEmail(String email) {
@@ -56,7 +56,7 @@ public class PersonDao extends Dao implements java.io.Serializable {
   }
 
   public String getPhone() {
-    return getString(phone);
+    return getNonNull(phone);
   }
 
   public void setPhone(String phone) {

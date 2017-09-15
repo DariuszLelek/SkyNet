@@ -37,7 +37,7 @@ public class RemindDao extends Dao implements java.io.Serializable{
   }
 
   public String getText() {
-    return getString(text);
+    return getNonNull(text);
   }
 
   public void setText(String text) {

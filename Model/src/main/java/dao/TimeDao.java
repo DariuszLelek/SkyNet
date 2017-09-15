@@ -33,7 +33,7 @@ public class TimeDao extends Dao {
   }
 
   public String getName() {
-    return getString(name);
+    return getNonNull(name);
   }
 
   public void setName(String name) {
