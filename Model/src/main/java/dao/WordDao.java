@@ -5,6 +5,7 @@
 
 package dao;
 
+import com.sun.deploy.util.StringUtils;
 import entity.WordClass;
 
 import javax.persistence.*;
@@ -14,20 +15,28 @@ import java.util.Collection;
 @Entity
 @Table(name = "word", catalog = "entity")
 public class WordDao extends Dao implements java.io.Serializable {
+  public static final int DESCRIPTION_LENGTH = 500;
+
   @Id()
   @GeneratedValue(strategy = GenerationType.AUTO)
   @Column(name = "WORD_ID", unique = true, nullable = false)
   private int wordId;
   @Column(name = "WORD", unique = true, nullable = false)
   private String word;
-  @Column(name = "WORD_CLASS", nullable = false)
+  @Column(name = "WORD_CLASS")
   private String wordClassString;
   @Column(name = "SYNONYMS")
   private String synonyms;
-  @Column(name = "DESCRIPTION")
+  @Column(name = "DESCRIPTION", length = DESCRIPTION_LENGTH)
   private String description;
 
   public WordDao() {
+  }
+
+  public WordDao(String word, String wordClassString, String description) {
+    this.word = word;
+    this.wordClassString = wordClassString;
+    this.description = description;
   }
 
   public WordDao(String word, String wordClassString) {

@@ -4,9 +4,15 @@
  */
 
 
+import config.DataBaseConfig;
+import config.GlobalStrings;
 import dao.WordDao;
 import file.FileUtility;
+import hibernate.HibernateUtilityFactory;
 import hibernate.preserver.DaoPreserver;
+import javassist.Loader;
+import load.DataBaseLoader;
+import load.DictionaryDataBaseLoader;
 
 import java.io.File;
 import java.util.ArrayList;
@@ -35,45 +41,13 @@ public class TestingClass {
 //
 //
 //    timeSave.save(t);
+    DataBaseLoader dictionaryLoader = new DictionaryDataBaseLoader();
 
-    Collection<String> fileContent = new ArrayList<>();
+    dictionaryLoader.loadToDataBase();
 
-    try {
-      fileContent = FileUtility.getFileLines(new File("C:\\development\\SkyNet\\Model\\raw\\test.txt"));
-    } catch (Exception e) {
-      e.printStackTrace();
-    }
+    HibernateUtilityFactory.closeAllSessionFactories();
 
-    DaoPreserver<WordDao> wordSaver = new DaoPreserver<>();
-
-    Collection<WordDao> words = new ArrayList<>();
-
-    if(!fileContent.isEmpty()){
-      for(String line : fileContent){
-        if(!line.isEmpty()){
-          WordDao w = new WordDao();
-          String[] chunks = line.split("##");
-
-          if(chunks.length>0){
-            w.setWord(chunks[0]);
-            if(chunks.length>1){
-              w.setWordClassString(chunks[1]);
-              if(chunks.length>2){
-                w.setDescription(chunks[2]);
-              }
-            }
-          }else{
-            w.setWord(line);
-          }
-          words.add(w);
-
-          //wordSaver.save(w);
-        }
-      }
-    }
-
-    wordSaver.save(words);
-
+    //DictionaryDataBaseLoader loader = new DictionaryDataBaseLoader(new File(DictionaryDataBaseLoader.class.getResourceAsStream("dictionary-EN.txt")).getPath());
 
     //ProcessableExecutor.stopExecutor();
 

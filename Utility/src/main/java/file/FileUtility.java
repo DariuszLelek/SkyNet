@@ -5,6 +5,9 @@
 
 package file;
 
+import load.DictionaryDataBaseLoader;
+import org.apache.log4j.Logger;
+
 import java.io.*;
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -13,6 +16,8 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 public class FileUtility {
+  private static final Logger logger = Logger.getLogger(FileUtility.class);
+
   public static List<String> getFileNamesInDirectory(String directory) {
     return Arrays.stream(getValidFileArray(new File(directory))).
         filter(f -> !f.isDirectory())
@@ -27,6 +32,21 @@ public class FileUtility {
 
   private static String trimFileExtension(String fileName) {
     return fileName.contains(".") ? fileName.substring(0, fileName.lastIndexOf('.')) : fileName;
+  }
+
+  public static Collection<String> getFileLines(InputStream fileInputStream){
+    Collection<String> content = new ArrayList<>();
+    String line;
+
+    try (BufferedReader br = new BufferedReader( new InputStreamReader(fileInputStream))) {
+      while ((line = br.readLine()) != null) {
+        content.add(line);
+      }
+    } catch (IOException e) {
+      logger.error("getFileLines(InputStream fileInputStream)", e);
+    }
+
+    return content;
   }
 
   public static Collection<String> getFileLines(File file) throws Exception {

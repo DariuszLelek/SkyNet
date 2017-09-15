@@ -5,8 +5,14 @@
 
 package config;
 
+import load.DictionaryDataBaseLoader;
+
 public enum GlobalStrings {
-  SYNONYM_SPLITTER(",");
+  SPLITTER_SYNONYM(","),
+  SPLITTER_DB_RAW_FILE("\\[SPLIT]"),
+
+  //DB_FILE_DICTIONARY_TEST("/dictionary-EN-test.txt"),
+  DB_FILE_DICTIONARY("/dictionary-EN.txt");
 
   private final String value;
 
