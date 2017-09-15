@@ -5,7 +5,6 @@
 
 package dao;
 
-import dao.DAO;
 import entity.WordClass;
 
 import javax.persistence.*;
@@ -25,6 +24,8 @@ public class WordDAO extends DAO implements java.io.Serializable {
   private String wordClassString;
   @Column(name = "SYNONYMS")
   private String synonyms;
+  @Column(name = "DESCRIPTION")
+  private String description;
 
   public WordDAO() {
   }
@@ -64,6 +65,14 @@ public class WordDAO extends DAO implements java.io.Serializable {
 
   public void setSynonyms(String synonyms) {
     this.synonyms = synonyms;
+  }
+
+  public String getDescription() {
+    return getString(description);
+  }
+
+  public void setDescription(String description) {
+    this.description = description;
   }
 
   public WordClass getWordClass(){

@@ -6,6 +6,7 @@
 
 import dao.TimeDAO;
 import dao.WordDAO;
+import file.FileUtility;
 import hibernate.preserver.DAOPreserver;
 import hibernate.preserver.Preserver;
 import hibernate.provider.DAOProvider;
@@ -15,6 +16,8 @@ import process.message.Message;
 import process.message.MessageCreator;
 import process.message.MessageType;
 
+import java.io.File;
+import java.util.ArrayList;
 import java.util.Collection;
 
 
@@ -30,14 +33,52 @@ public class TestingClass {
 //    ProcessorFactory.getMessageProcessor().process(m1);
 //
 //    Thread.sleep(5000);
+//
+//    DAOPreserver<TimeDAO> timeSave = new DAOPreserver<>();
+//
+//    TimeDAO t = new TimeDAO();
+//    t.setName("day");
+//
+//
+//
+//
+//    timeSave.save(t);
 
-    DAOPreserver<TimeDAO> timeSave = new DAOPreserver<>();
+    Collection<String> fileContent = new ArrayList<>();
 
-    TimeDAO t = new TimeDAO();
-    t.setName("day");
+    try {
+      fileContent = FileUtility.getFileLines(new File("C:\\development\\SkyNet\\Model\\raw\\test.txt"));
+    } catch (Exception e) {
+      e.printStackTrace();
+    }
 
+    DAOPreserver<WordDAO> wordSaver = new DAOPreserver<>();
 
-    timeSave.save(t);
+    if(!fileContent.isEmpty()){
+      for(String line : fileContent){
+        if(!line.isEmpty()){
+          WordDAO w = new WordDAO();
+          String[] chunks = line.split("##");
+
+          if(chunks.length>0){
+            w.setWord(chunks[0]);
+            if(chunks.length>1){
+              w.setWordClassString(chunks[1]);
+              if(chunks.length>2){
+                w.setDescription(chunks[2]);
+              }
+            }
+          }else{
+            w.setWord(line);
+          }
+
+          wordSaver.save(w);
+
+        }
+      }
+
+    }
+
 
     //ProcessableExecutor.stopExecutor();
 

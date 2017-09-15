@@ -5,25 +5,40 @@
 
 package file;
 
-import java.io.File;
+import java.io.*;
+import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Collection;
 import java.util.List;
 import java.util.stream.Collectors;
 
 public class FileUtility {
-  public List<String> getFileNamesInDirectory(String directory) {
+  public static List<String> getFileNamesInDirectory(String directory) {
     return Arrays.stream(getValidFileArray(new File(directory))).
         filter(f -> !f.isDirectory())
         .map(f -> trimFileExtension(f.getName()))
         .collect(Collectors.toList());
   }
 
-  private File[] getValidFileArray(File file) {
+  private static File[] getValidFileArray(File file) {
     File[] fileArray = file.listFiles();
     return fileArray != null ? fileArray : new File[0];
   }
 
-  private String trimFileExtension(String fileName) {
+  private static String trimFileExtension(String fileName) {
     return fileName.contains(".") ? fileName.substring(0, fileName.lastIndexOf('.')) : fileName;
+  }
+
+  public static Collection<String> getFileLines(File file) throws Exception {
+    Collection<String> content = new ArrayList<>();
+    String line;
+
+    try (BufferedReader br = new BufferedReader(new FileReader(file))) {
+      while ((line = br.readLine()) != null) {
+        content.add(line);
+      }
+    }
+
+    return content;
   }
 }
