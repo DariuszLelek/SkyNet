@@ -24,6 +24,9 @@ public class ProcessableExecutor {
 
   private static final int PENDING_CHECK_DELAY = 1 * 1000;
   private static final int PROCESS_NEXT_DELAY = 100;
+  private static final int LOG_IDLE_FREQUENCY = 10;
+
+  private static int logIdleCounter = LOG_IDLE_FREQUENCY;
 
   static {
     startExecutor();
@@ -52,8 +55,10 @@ public class ProcessableExecutor {
               logger.error("startExecutor()", e);
             }
           } else {
-            // TODO change to heart beat
-            logger.info("No pending processables, sleeping " + PENDING_CHECK_DELAY);
+            if(logIdleCounter++ >= LOG_IDLE_FREQUENCY){
+              logIdleCounter = 0;
+              logger.info("Running... - No pending processables");
+            }
             try {
               Thread.sleep(PENDING_CHECK_DELAY);
             } catch (InterruptedException e) {

@@ -45,7 +45,7 @@ public class ProcessableRunner implements Runnable {
 
   private void checkMaxRetryCounter() {
     if (retryTimes >= MAX_RETRY_TIMES) {
-      logger.error("checkMaxRetryCounter() - FAIL - Max retry limit - " + processable.toString());
+      logger.warn("checkMaxRetryCounter() - FAIL - Max retry limit - " + processable.toString());
       stop();
     }
   }

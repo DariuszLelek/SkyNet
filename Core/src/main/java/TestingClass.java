@@ -34,7 +34,7 @@ public class TestingClass {
     Message m2 = messageCreator.create("email to DARIUS cat", MessageType.VOICE);
     Message m3 = messageCreator.create("add cat to dog and then do something else", MessageType.VOICE);
 
-    //ProcessorFactory.getMessageProcessor().process(m3);
+    ProcessorFactory.getMessageProcessor().process(m3);
 
 
 //    DaoPreserver<TimeDao> timeSave = new DaoPreserver<>();
@@ -47,9 +47,9 @@ public class TestingClass {
 //
 //    timeSave.save(t);
 
-    // save dictionary to db
-    DataBaseLoader dictionaryLoader = new DictionaryDataBaseLoader();
-    dictionaryLoader.loadToDataBase();
+//    // save dictionary to db
+//    DataBaseLoader dictionaryLoader = new DictionaryDataBaseLoader();
+//    dictionaryLoader.loadToDataBase();
 
 
     HibernateUtilityFactory.closeAllSessionFactories();
