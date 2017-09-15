@@ -69,6 +69,10 @@ public class WordDaoBuilder implements DaoBuilder<WordDao> {
       return WordClass.VERB.getValue();
     }else if(chunk.contains("imp.")){
       return WordClass.VERB.getValue();
+    }else if(chunk.contains("conj.")){
+      return WordClass.CONJUNCTION.getValue();
+    }else if(chunk.contains("prep.")){
+      return WordClass.PREPOSITION.getValue();
     }
 
     return chunk;

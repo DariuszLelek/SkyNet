@@ -29,9 +29,10 @@ public class DictionaryDataBaseLoader implements DataBaseLoader {
 
   @Override
   public void loadToDataBase() {
-    logger.info("loadToDataBase - start");
-    wordPreserver.save(getUniqueWords(FileUtility.getFileLines(fileInputStream)));
-    logger.info("loadToDataBase - finish");
+    Collection<WordDao> words = getUniqueWords(FileUtility.getFileLines(fileInputStream));
+    logger.info("loadToDataBase - start - " + words.size() + " records of WordDao.");
+    wordPreserver.save(words);
+    logger.info("loadToDataBase - finish.");
   }
 
   private Collection<WordDao> getUniqueWords(final Collection<String> fileContent) {

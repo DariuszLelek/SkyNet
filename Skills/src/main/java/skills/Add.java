@@ -16,6 +16,7 @@ public class Add extends Skill {
   public Add() {
     super(Priority.MEDIUM, new ArrayList<WordClass>(){{
       add(WordClass.NOUN);
+      add(WordClass.NOUN);
     }});
   }
 

@@ -33,6 +33,7 @@ public class Email extends Skill {
 
   public Email() {
     super(Priority.LOW, new ArrayList<WordClass>(){{
+
     }});
   }
 
