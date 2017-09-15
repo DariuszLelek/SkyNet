@@ -14,16 +14,12 @@ public class HibernateUtilityFactory {
 
   private static final Map<DataBaseConfig, HibernateUtility> CACHE = new HashMap<>();
 
-  static {
-    CACHE.put(DataBaseConfig.PROD, new HibernateUtility(DataBaseConfig.PROD));
-  }
-
   public static HibernateUtility getByDatabaseConfig(DataBaseConfig schema) {
     return getFromCache(schema);
   }
 
   private static HibernateUtility getFromCache(DataBaseConfig dataBaseConfig){
-    return CACHE.getOrDefault(dataBaseConfig, CACHE.get(DataBaseConfig.PROD));
+    return CACHE.computeIfAbsent(dataBaseConfig, (key) -> new HibernateUtility(dataBaseConfig));
   }
 
   public static void closeAllSessionFactories(){
