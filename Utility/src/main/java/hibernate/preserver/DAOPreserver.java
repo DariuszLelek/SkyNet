@@ -14,6 +14,9 @@ import org.apache.log4j.Logger;
 import org.hibernate.Session;
 import org.hibernate.Transaction;
 
+import java.util.Collection;
+import java.util.Collections;
+
 public class DAOPreserver<T extends DAO> implements Preserver<T> {
   private final static Logger logger = Logger.getLogger(DAOPreserver.class);
 
@@ -23,41 +26,66 @@ public class DAOPreserver<T extends DAO> implements Preserver<T> {
     hibernateUtility = HibernateUtilityFactory.getByDatabaseConfig(DataBaseConfig.PROD);
   }
 
-  public int save(T dao) {
-    return performTransaction(dao, TransactionType.SAVE);
+  //TODO add return type int save if needed
+  @Override
+  public void save(T dao) {
+    performTransaction(Collections.singletonList(dao), TransactionType.SAVE);
   }
 
+  @Override
   public void update(T dao) {
-    performTransaction(dao, TransactionType.UPDATE);
+    performTransaction(Collections.singletonList(dao), TransactionType.UPDATE);
   }
 
+  @Override
   public void saveOrUpdate(T dao) {
-    performTransaction(dao, TransactionType.SAVE_OR_UPDATE);
+    performTransaction(Collections.singletonList(dao), TransactionType.SAVE_OR_UPDATE);
   }
 
+  @Override
   public void delete(T dao) {
-    performTransaction(dao, TransactionType.DELETE);
+    performTransaction(Collections.singletonList(dao), TransactionType.DELETE);
   }
 
-  private int performTransaction(T dao, TransactionType type) {
-    int id = -1;
-    Session localSession = hibernateUtility.getSession();
+  @Override
+  public void save(Collection<T> daos) {
+    performTransaction(daos, TransactionType.SAVE);
+  }
+
+  @Override
+  public void update(Collection<T> daos) {
+    performTransaction(daos, TransactionType.UPDATE);
+  }
+
+  @Override
+  public void saveOrUpdate(Collection<T> daos) {
+    performTransaction(daos, TransactionType.SAVE_OR_UPDATE);
+  }
+
+  @Override
+  public void delete(Collection<T> daos) {
+    performTransaction(daos, TransactionType.DELETE);
+  }
+
+
+  private void performTransaction(Collection<T> daos, TransactionType type) {
+    final Session localSession = hibernateUtility.getSession();
     Transaction tx = null;
     try {
       tx = localSession.getTransaction();
       tx.begin();
       switch (type) {
         case SAVE:
-          id = (Integer) localSession.save(dao);
+          daos.forEach(localSession::save);
           break;
         case UPDATE:
-          localSession.update(dao);
+          daos.forEach(localSession::update);
           break;
         case SAVE_OR_UPDATE:
-          localSession.saveOrUpdate(dao);
+          daos.forEach(localSession::saveOrUpdate);
           break;
         case DELETE:
-          localSession.delete(dao);
+          daos.forEach(localSession::delete);
           break;
         default:
           break;
@@ -73,6 +101,5 @@ public class DAOPreserver<T extends DAO> implements Preserver<T> {
         localSession.close();
       }
     }
-    return id;
   }
 }

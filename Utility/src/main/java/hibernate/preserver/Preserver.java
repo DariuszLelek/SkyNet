@@ -7,9 +7,15 @@ package hibernate.preserver;
 
 import dao.DAO;
 
+import java.util.Collection;
+
 public interface Preserver<T> {
-  int save(T dao);
+  void save(T dao);
   void update(T dao);
   void saveOrUpdate(T dao);
   void delete(T dao);
+  void save(Collection<T> daos);
+  void update(Collection<T> daos);
+  void saveOrUpdate(Collection<T> daos);
+  void delete(Collection<T> daos);
 }

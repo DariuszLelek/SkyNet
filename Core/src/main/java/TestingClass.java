@@ -54,6 +54,8 @@ public class TestingClass {
 
     DAOPreserver<WordDAO> wordSaver = new DAOPreserver<>();
 
+    Collection<WordDAO> words = new ArrayList<>();
+
     if(!fileContent.isEmpty()){
       for(String line : fileContent){
         if(!line.isEmpty()){
@@ -71,13 +73,14 @@ public class TestingClass {
           }else{
             w.setWord(line);
           }
+          words.add(w);
 
-          wordSaver.save(w);
-
+          //wordSaver.save(w);
         }
       }
-
     }
+
+    wordSaver.save(words);
 
 
     //ProcessableExecutor.stopExecutor();
