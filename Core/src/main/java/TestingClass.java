@@ -12,6 +12,7 @@ import execute.ProcessableExecutor;
 import file.FileUtility;
 import hibernate.HibernateUtilityFactory;
 import hibernate.preserver.DaoPreserver;
+import hibernate.provider.DaoProvider;
 import javassist.Loader;
 import load.DataBaseLoader;
 import load.DictionaryDataBaseLoader;
@@ -47,12 +48,16 @@ public class TestingClass {
 //
 //    timeSave.save(t);
 
-//    // save dictionary to db
-//    DataBaseLoader dictionaryLoader = new DictionaryDataBaseLoader();
-//    dictionaryLoader.loadToDataBase();
+    // save dictionary to db
+    DataBaseLoader dictionaryLoader = new DictionaryDataBaseLoader();
+    dictionaryLoader.loadToDataBase();
+
+    DaoProvider<WordDao> wordProvider = new DaoProvider<>(WordDao.class);
+
+    //System.out.println(wordProvider.getByUniqueKey("word", "tomorrow"));
 
 
-    HibernateUtilityFactory.closeAllSessionFactories();
+    //HibernateUtilityFactory.closeAllSessionFactories();
     //ProcessableExecutor.stopExecutor();
   }
 }

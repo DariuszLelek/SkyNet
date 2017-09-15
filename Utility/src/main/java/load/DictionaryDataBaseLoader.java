@@ -29,20 +29,17 @@ public class DictionaryDataBaseLoader implements DataBaseLoader {
 
   @Override
   public void loadToDataBase() {
-    Collection<WordDao> words = getUniqueWords(FileUtility.getFileLines(fileInputStream));
+    Collection<WordDao> words = getWords(FileUtility.getFileLines(fileInputStream));
     logger.info("loadToDataBase - start - " + words.size() + " records of WordDao.");
     wordPreserver.save(words);
     logger.info("loadToDataBase - finish.");
   }
 
-  private Collection<WordDao> getUniqueWords(final Collection<String> fileContent) {
+  private Collection<WordDao> getWords(final Collection<String> fileContent) {
     return fileContent.stream()
         .map(line -> new WordDaoBuilder(line.split(splitter)).build())
         .filter(word -> !word.getWord().isEmpty())
-        .collect(Collectors
-            .collectingAndThen(Collectors
-                .toCollection(() ->
-                    new TreeSet<>(Comparator.comparing(WordDao::getWord))), ArrayList::new));
+        .collect(Collectors.toList());
   }
 
 }

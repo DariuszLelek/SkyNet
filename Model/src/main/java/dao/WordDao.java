@@ -21,7 +21,7 @@ public class WordDao extends Dao implements java.io.Serializable {
   @GeneratedValue(strategy = GenerationType.AUTO)
   @Column(name = "WORD_ID", unique = true, nullable = false)
   private int wordId;
-  @Column(name = "WORD", unique = true, nullable = false)
+  @Column(name = "WORD", nullable = false)
   private String word;
   @Column(name = "WORD_CLASS")
   private String wordClassString;
@@ -94,11 +94,13 @@ public class WordDao extends Dao implements java.io.Serializable {
 
   @Override
   public String toString() {
-    return "Word{word='" + word + '\'' +
+    return "WordDao{" +
+        "wordId=" + wordId +
+        ", word='" + word + '\'' +
         ", wordClassString='" + wordClassString + '\'' +
         ", synonyms='" + synonyms + '\'' +
+        ", description='" + description + '\'' +
         '}';
   }
-
 }
 
