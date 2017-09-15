@@ -5,9 +5,10 @@
 
 package helper;
 
+import com.sun.tracing.ProviderFactory;
 import dao.PersonDao;
 import helper.entity.PersonHelper;
-import hibernate.provider.DaoProvider;
+import hibernate.provider.DaoProviderFactory;
 import validator.skill.EmailValidator;
 
 
@@ -17,7 +18,6 @@ import java.util.Collection;
 public class EmailHelper {
   private final EmailValidator emailValidator = new EmailValidator();
   private final float MATCH_PERCENT = 0.8F;
-  private final DaoProvider<PersonDao> personProvider = new DaoProvider<>(PersonDao.class);
 
   private final String[] MAIL_AT = {"at", "@"};
   private final String[] MAIL_DOT = {".", "dot"};
@@ -44,7 +44,7 @@ public class EmailHelper {
   }
 
   private String tryGetValidMailFromPersons(Collection<String> chunks){
-    final Collection<PersonDao> persons = personProvider.getAll();
+    final Collection<PersonDao> persons = DaoProviderFactory.getPersonProvider().getAll();
     final Collection<PersonDao> foundPersons = new ArrayList<>();
 
     chunks.forEach(chunk -> {
@@ -90,5 +90,10 @@ public class EmailHelper {
   private String tryAssembleValidMailFromChunks(Collection<String> chunks){
     // TODO;
     return "";
+  }
+
+  @Override
+  protected void finalize() throws Throwable {
+    System.out.println("destroyed");
   }
 }

@@ -66,7 +66,7 @@ public class HibernateUtility {
         session = sessionFactory.openSession();
       }
     }
-    return session;
+    return sessionFactory.openSession();
   }
 
   public void closeSessionFactory() {

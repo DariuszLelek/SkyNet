@@ -18,11 +18,11 @@ import java.util.*;
 import java.util.regex.Pattern;
 import java.util.stream.Collectors;
 
+// TODO sort out how to store it in DB - now no unique key
 public class DictionaryDataBaseLoader implements DataBaseLoader {
   private static final Logger logger = Logger.getLogger(DictionaryDataBaseLoader.class);
 
   private final String splitter = GlobalStrings.SPLITTER_DB_RAW_FILE.getValue();
-  private final DaoPreserver<WordDao> wordPreserver = new DaoPreserver<>();
 
   private final String resourceName = GlobalStrings.DB_FILE_DICTIONARY.getValue();
   private final InputStream fileInputStream = getClass().getResourceAsStream(resourceName);
@@ -31,7 +31,7 @@ public class DictionaryDataBaseLoader implements DataBaseLoader {
   public void loadToDataBase() {
     Collection<WordDao> words = getWords(FileUtility.getFileLines(fileInputStream));
     logger.info("loadToDataBase - start - " + words.size() + " records of WordDao.");
-    wordPreserver.save(words);
+    (new DaoPreserver<WordDao>()).save(words);
     logger.info("loadToDataBase - finish.");
   }
 

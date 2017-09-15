@@ -5,21 +5,23 @@
 
 package skill;
 
+import dao.DaoType;
 import dao.WordDao;
 import entity.WordClass;
-import hibernate.provider.DaoProvider;
+import hibernate.provider.Provider;
+import hibernate.provider.DaoProviderFactory;
 import process.instruction.Instruction;
 
 import java.util.Collection;
 import java.util.stream.Collectors;
 
 class SkillProcessHelper {
-  private static final DaoProvider<WordDao> wordProvider = new DaoProvider<>(WordDao.class);
-
+  private static final Provider<WordDao> wordProvider = DaoProviderFactory.getWordProvider();
 
   private static Collection<WordDao> getWordsFromInstruction(final Instruction instruction){
-    return wordProvider.getByUniqueKeys("word", instruction.getQueue());
+    return wordProvider.getByKeys("word", instruction.getQueue());
   }
+
 
   private static Collection<WordClass> getWordClassesFromWords(final Collection<WordDao> wordDAOImpls){
     return wordDAOImpls.stream()

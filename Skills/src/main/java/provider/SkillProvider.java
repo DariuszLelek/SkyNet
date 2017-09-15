@@ -5,10 +5,7 @@
 
 package provider;
 
-
-import dao.WordDao;
 import file.FileUtility;
-import hibernate.provider.DaoProvider;
 import org.apache.log4j.Logger;
 import skill.EmptySkill;
 import skill.Skill;
@@ -28,9 +25,6 @@ public class SkillProvider implements SkillProvide {
           + SKILLS_DIRECTORY + "/";
 
   private final Map<String, String> skillSynonymCache = new HashMap<>();
-  private final FileUtility fileUtility = new FileUtility();
-
-  private final DaoProvider<WordDao> wordProvider = new DaoProvider<>(WordDao.class);
 
   SkillProvider() {
     loadSkills();
@@ -92,7 +86,7 @@ public class SkillProvider implements SkillProvide {
   }
 
   private void loadSkills(){
-    insertSkillsToSynonymCache(fileUtility.getFileNamesInDirectory(SKILLS_LOCATION));
+    insertSkillsToSynonymCache(FileUtility.getFileNamesInDirectory(SKILLS_LOCATION));
   }
 
   private void insertSkillsToSynonymCache(Collection<String> skillCLasses) {
@@ -110,8 +104,10 @@ public class SkillProvider implements SkillProvide {
     }
   }
 
-  private Collection<String> getSynonymsForSkillName(String skillName){
-    WordDao word = wordProvider.getByUniqueKey("word", skillName);
-    return word != null ? word.getSynonymsList() : new ArrayList<>();
+  private Collection<String> getSynonymsForSkillName(String skillName) {
+    //TODO
+//    WordDao word = wordProvider.getByUniqueKey("word", skillName);
+//    return word != null ? word.getSynonymsList() : new ArrayList<>();
+    return new ArrayList<>();
   }
 }

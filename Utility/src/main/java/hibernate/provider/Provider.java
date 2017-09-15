@@ -5,12 +5,16 @@
 
 package hibernate.provider;
 
+import dao.Dao;
+
 import java.util.Collection;
 import java.util.List;
 
 public interface Provider<T> {
   int getQuantity();
-  T getByUniqueKey(String criterion, String value);
-  Collection<T> getByUniqueKeys(String criterion, Collection<String> values);
+  T getByUniqueKey(String propertyName, String value);
+  //Collection<T> getByUniqueKeys(String propertyName, Collection<String> values);
+  Collection<T> getByKey(String propertyName, String value);
+  Collection<T> getByKeys(String propertyName, Collection<String> values);
   Collection<T> getAll();
 }
