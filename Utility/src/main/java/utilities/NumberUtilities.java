@@ -6,13 +6,9 @@
 package utilities;
 
 public class NumberUtilities {
-  public static double getRatioMinToMax(int first, int second){
+  public static float getRatioMinToMax(int first, int second){
     int min = Math.min(first, second);
     int max = Math.max(first, second);
-    return (double) min/max;
-  }
-
-  public static void main(String[] args) {
-    System.out.println(getRatioMinToMax(5,3));
+    return (float) min/max;
   }
 }

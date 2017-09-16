@@ -56,7 +56,9 @@ public class WordDaoBuilder implements DaoBuilder<WordDao> {
   }
 
   private String getValidClassString(String chunk){
-    if(chunk.contains("n.")){
+    if(chunk == null){
+      return "";
+    }else if(chunk.contains("n.")){
       return WordClass.NOUN.getValue();
     }else if(chunk.contains("a.")){
       return WordClass.ADJECTIVE.getValue();

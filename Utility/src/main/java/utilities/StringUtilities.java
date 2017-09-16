@@ -8,11 +8,6 @@ package utilities;
 import java.util.Collection;
 
 public class StringUtilities {
-  public static boolean matchingWithProbability(String first, String second, double probability){
-    boolean result = false;
-    return false;
-  }
-
   public static String getNotNull(String string){
     return string!= null ? string : "";
   }
@@ -24,28 +19,30 @@ public class StringUtilities {
   public static float firstInSecondPercent(String first, String second){
     float result = 0F;
 
-    if(first != null){
-      float diff = 1F / (first.length() > 0 ? first.length() : 1);
+    first = getNotNull(first);
+    second = getNotNull(second);
 
-      int idx = 0;
-      for(char c : first.toCharArray()) {
-        if (second != null && second.length() > idx) {
-          if (Character.toLowerCase(second.charAt(idx)) == Character.toLowerCase(c)) {
-            result += diff;
-          }
-          idx++;
+    float diff = 1F / (first.length() > 0 ? first.length() : 1);
+
+    int idx = 0;
+    for (char c : first.toCharArray()) {
+      if (second.length() > idx) {
+        if (Character.toLowerCase(second.charAt(idx)) == Character.toLowerCase(c)) {
+          result += diff;
         } else {
           break;
         }
+        idx++;
+      } else {
+        break;
       }
-
-      result = result > 1F ? 1F : result;
     }
-    return result;
+
+    return result > 1F ? 1F : result;
   }
 
   public static boolean isAlphabetic(String name) {
-    char[] chars = name.toCharArray();
+    char[] chars = getNotNull(name).toCharArray();
 
     for (char c : chars) {
       if(!Character.isLetter(c)) {
@@ -53,7 +50,7 @@ public class StringUtilities {
       }
     }
 
-    return true;
+    return chars.length > 0;
   }
 
 }
