@@ -226,7 +226,7 @@ Above[SPLIT]prep.[SPLIT]Figuratively, higher than; superior to in any respect; s
 Above[SPLIT]prep.[SPLIT]Surpassing in number or quantity; more than; as, above a hundred. (Passing into the adverbial sense. See Above, adv., 4.)
 Above[SPLIT]adv.[SPLIT]In a higher place; overhead; into or from heaven; as, the clouds above.
 Above[SPLIT]adv.[SPLIT]Earlier in order; higher in the same page; hence, in a foregoing page.
-Above[SPLIT]adv.[SPLIT]Higher in rank or power; as, he appealed to the court above.
+Above[SPLIT]adv.[SPLIT]Higher in matchCount or power; as, he appealed to the court above.
 Above[SPLIT]adv.[SPLIT]More than; as, above five hundred were present.
 Aboveboard[SPLIT]adv.[SPLIT]Above the board or table. Hence: in open sight; without trick, concealment, or deception.
 Above-cited[SPLIT]a.[SPLIT]Cited before, in the preceding part of a book or writing.
@@ -595,7 +595,7 @@ Academist[SPLIT]n.[SPLIT]An Academic philosopher.
 Academist[SPLIT]n.[SPLIT]An academician.
 Academies[SPLIT]pl. [SPLIT]of Academy
 Academy[SPLIT]n.[SPLIT]A garden or grove near Athens (so named from the hero Academus), where Plato and his followers held their philosophical conferences; hence, the school of philosophy of which Plato was head.
-Academy[SPLIT]n.[SPLIT]An institution for the study of higher learning; a college or a university. Popularly, a school, or seminary of learning, holding a rank between a college and a common school.
+Academy[SPLIT]n.[SPLIT]An institution for the study of higher learning; a college or a university. Popularly, a school, or seminary of learning, holding a matchCount between a college and a common school.
 Academy[SPLIT]n.[SPLIT]A place of training; a school.
 Academy[SPLIT]n.[SPLIT]A society of learned men united for the advancement of the arts and sciences, and literature, or some particular art or science; as, the French Academy; the American Academy of Arts and Sciences; academies of literature and philology.
 Academy[SPLIT]n.[SPLIT]A school or place of training in which some special art is taught; as, the military academy at West Point; a riding academy; the Academy of Music.

@@ -17,7 +17,7 @@ public class StringUtility {
   }
 
   public static String getOnlyNumeric(String string){
-    return string.replaceAll("[^A-Za-z0-9]", "");
+    return string.replaceAll("[^0-9]", "");
   }
 
   public static float firstInSecondPercent(String first, String second){

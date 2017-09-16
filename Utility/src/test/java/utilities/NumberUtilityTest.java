@@ -7,9 +7,28 @@ package utilities;
 
 import org.junit.Test;
 
-import static org.junit.Assert.*;
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.List;
+
+import static org.junit.Assert.assertEquals;
 
 public class NumberUtilityTest {
+  @Test
+  public void tryGetNumber() throws Exception {
+    assertEquals((Integer) 5, NumberUtility.tryGetNumberFromWord("5"));
+    assertEquals((Integer) 1000000, NumberUtility.tryGetNumberFromWord("1000000"));
+    assertEquals((Integer) 20, NumberUtility.tryGetNumberFromWord("twenty"));
+
+    List<String> words = new ArrayList<String>(){{
+      add("twenty");
+      add("five");
+    }};
+
+    assertEquals((Integer) 22, NumberUtility.tryGetNumberFromWords(words));
+    //assertNull(NumberUtility.tryGetNumberFromWord("a5"));
+  }
+
   @Test
   public void getRatioMinToMax() throws Exception {
     float delta = 0.01F;
