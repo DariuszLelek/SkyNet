@@ -5,8 +5,6 @@
 
 package config;
 
-import load.DictionaryDataBaseLoader;
-
 public enum GlobalStrings {
   SPLITTER_SYNONYM(","),
   SPLITTER_DB_RAW_FILE("\\[SPLIT]"),

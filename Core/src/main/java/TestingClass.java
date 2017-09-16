@@ -4,20 +4,11 @@
  */
 
 
-import dao.WordDao;
-import execute.ProcessableExecutor;
-import hibernate.HibernateUtilityFactory;
-import hibernate.preserver.DaoPreserverFactory;
-import hibernate.provider.Provider;
 import hibernate.provider.DaoProviderFactory;
-import load.DataBaseLoader;
-import load.DictionaryDataBaseLoader;
 import org.apache.log4j.Logger;
-import process.ProcessorFactory;
 import process.message.Message;
 import process.message.MessageCreator;
 import process.message.MessageType;
-import process.skill.SkillProcessor;
 
 
 public class TestingClass {
@@ -45,8 +36,8 @@ public class TestingClass {
 //    timeSave.save(t);
 //
 //    // save dictionary to db
-//    DataBaseLoader dictionaryLoader = new DictionaryDataBaseLoader();
-//    dictionaryLoader.loadToDataBase();
+//    DataBaseSaver dictionaryLoader = new DictionaryDataBaseSaver();
+//    dictionaryLoader.saveToDataBase();
 
     System.out.println(DaoProviderFactory.getWordProvider()
         .getByKey("word", "a"));

@@ -5,7 +5,6 @@
 
 package file;
 
-import load.DictionaryDataBaseLoader;
 import org.apache.log4j.Logger;
 
 import java.io.*;

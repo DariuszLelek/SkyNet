@@ -3,8 +3,8 @@
  * Copyright (c) 2017. All rights reserved.
  */
 
-package load;
+package database;
 
-public interface DataBaseLoader {
-  void loadToDataBase();
+public interface DataBaseSaver {
+  void saveToDataBase();
 }
