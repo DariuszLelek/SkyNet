@@ -5,7 +5,7 @@
 
 import config.DataBaseConfig;
 import hibernate.HibernateUtilityFactory;
-import provider.SkillFactory;
+import skill.SkillFactory;
 import skills.Add;
 
 public class TestClass {
@@ -16,9 +16,11 @@ public class TestClass {
 
     //System.out.println(add.getInfo());
 
-    System.out.println(SkillFactory.getSkillProvider().hasSkill("maiL"));
-    System.out.println(SkillFactory.getSkillProvider().hasSkill("Remind"));
-    SkillFactory.getSkillProvider().getSkill("add");
+    System.out.println(SkillFactory.hasSkill("maiL"));
+    System.out.println(SkillFactory.hasSkill("Remind"));
+    SkillFactory.getSkill("add");
+
+    System.out.println(SkillFactory.getSkillNames());
 
     HibernateUtilityFactory.getByDatabaseConfig(DataBaseConfig.PROD).closeSessionFactory();
   }

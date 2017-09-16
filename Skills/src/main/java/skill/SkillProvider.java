@@ -1,21 +1,19 @@
 /*
- * Created by Dariusz Lelek on 9/10/17 9:55 PM
+ * Created by Dariusz Lelek on 9/16/17 2:28 AM
  * Copyright (c) 2017. All rights reserved.
  */
 
-package provider;
+package skill;
 
 import file.FileUtility;
 import org.apache.log4j.Logger;
-import skill.EmptySkill;
-import skill.Skill;
 import utilities.StringUtilities;
 
 import java.lang.reflect.Constructor;
 import java.lang.reflect.InvocationTargetException;
 import java.util.*;
 
-public class SkillProvider implements SkillProvide {
+public class SkillProvider {
   private static final Logger logger = Logger.getLogger(SkillProvider.class);
 
   private static final String SKILLS_DIRECTORY = "skills";
@@ -26,18 +24,18 @@ public class SkillProvider implements SkillProvide {
 
   private final Map<String, String> skillSynonymCache = new HashMap<>();
 
+  Collection<String> getSkills(){return skillSynonymCache.values();}
+
   SkillProvider() {
     loadSkills();
   }
 
-  @Override
-  public Skill getSkill(String skillName) {
+  Skill getSkill(String skillName) {
     final Object object = tryGetObjectFromConstructor(tryGetClassConstructor(tryGetSkillClass(skillName)));
     return Skill.class.isInstance(object) ? (Skill) object : new EmptySkill();
   }
 
-  @Override
-  public boolean hasSkill(String skillName) {
+  boolean hasSkill(String skillName) {
     return skillSynonymCache.keySet().stream().anyMatch(synonym -> synonym.equalsIgnoreCase(skillName));
   }
 

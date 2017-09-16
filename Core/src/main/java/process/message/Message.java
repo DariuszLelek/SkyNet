@@ -5,14 +5,10 @@
 
 package process.message;
 
-import java.util.LinkedList;
-import java.util.Queue;
-
-import process.instruction.Instruction;
 import org.joda.time.DateTime;
 import process.ProcessorFactory;
 import process.processable.Processable;
-import provider.SkillFactory;
+import skill.SkillFactory;
 import skill.Skill;
 
 public class Message extends Processable {
@@ -37,8 +33,8 @@ public class Message extends Processable {
   public boolean process() {
     final String chunk = getInstruction().poll();
 
-    if(SkillFactory.getSkillProvider().hasSkill(chunk)){
-      final Skill skill = SkillFactory.getSkillProvider().getSkill(chunk);
+    if(SkillFactory.hasSkill(chunk)){
+      final Skill skill = SkillFactory.getSkill(chunk);
       ProcessorFactory.getSkillProcessor().process(skill, getInstruction());
     }else{
       ProcessorFactory.getMessageProcessor().process(this);
