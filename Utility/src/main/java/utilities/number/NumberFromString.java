@@ -20,6 +20,8 @@ class NumberFromString {
   private final static String conjunction = "and";
   private final static long minimumMatchCount = 2;
   private final static WordClass numberClass = WordClass.NOUN;
+
+  // TODO cache for not number words also?
   private final static Map<String, Long> CACHE = new HashMap<>();
 
   NumberFromString() {
