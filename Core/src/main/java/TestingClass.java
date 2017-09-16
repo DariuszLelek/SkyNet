@@ -7,17 +7,22 @@
 import dao.WordDao;
 import execute.ProcessableExecutor;
 import hibernate.HibernateUtilityFactory;
+import hibernate.preserver.DaoPreserverFactory;
 import hibernate.provider.Provider;
 import hibernate.provider.DaoProviderFactory;
 import load.DataBaseLoader;
 import load.DictionaryDataBaseLoader;
+import org.apache.log4j.Logger;
 import process.ProcessorFactory;
 import process.message.Message;
 import process.message.MessageCreator;
 import process.message.MessageType;
+import process.skill.SkillProcessor;
 
 
 public class TestingClass {
+  private final static Logger logger = Logger.getLogger(TestingClass.class);
+
   public static void main(String[] args) throws InterruptedException {
 
     MessageCreator messageCreator = new MessageCreator();
@@ -45,8 +50,6 @@ public class TestingClass {
 
     System.out.println(DaoProviderFactory.getWordProvider()
         .getByKey("word", "a"));
-
-    System.out.println("sasas");
 
 
     //HibernateUtilityFactory.closeAllSessionFactories();

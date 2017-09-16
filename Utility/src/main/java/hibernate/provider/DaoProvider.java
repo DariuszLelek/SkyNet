@@ -7,8 +7,8 @@ package hibernate.provider;
 
 import config.DataBaseConfig;
 import dao.Dao;
-import hibernate.HibernateUtility;
 import hibernate.HibernateUtilityFactory;
+import org.apache.log4j.Logger;
 import org.hibernate.Session;
 import org.hibernate.Transaction;
 import org.hibernate.criterion.Projections;
@@ -18,6 +18,8 @@ import java.util.ArrayList;
 import java.util.Collection;
 
 class DaoProvider<T extends Dao> implements Provider<T> {
+  private final static Logger logger = Logger.getLogger(DaoProvider.class);
+
   private final Session session = HibernateUtilityFactory
       .getByDatabaseConfig(DataBaseConfig.PROD).getSession();
   private final Class<T> daoClass;
@@ -30,8 +32,7 @@ class DaoProvider<T extends Dao> implements Provider<T> {
   public Collection<T> getAll(){
     Transaction tx = session.beginTransaction();
     Collection collection = session.createCriteria(daoClass).list();
-    tx.commit();
-
+    commit(tx);
     return getCastedCollection(collection);
   }
 
@@ -39,7 +40,7 @@ class DaoProvider<T extends Dao> implements Provider<T> {
   public int getQuantity() {
     Transaction tx = session.beginTransaction();
     int result = ((Number) session.createCriteria(daoClass).setProjection(Projections.rowCount()).uniqueResult()).intValue();
-    tx.commit();
+    commit(tx);
     return result;
   }
 
@@ -47,7 +48,7 @@ class DaoProvider<T extends Dao> implements Provider<T> {
   public Collection<T> getByKey(String propertyName, String value) {
     Transaction tx = session.beginTransaction();
     Collection collection = session.createCriteria(daoClass).add(Restrictions.eq(propertyName, value)).list();
-    tx.commit();
+    commit(tx);
     return getCastedCollection(collection);
   }
 
@@ -56,12 +57,7 @@ class DaoProvider<T extends Dao> implements Provider<T> {
     Transaction tx = session.beginTransaction();
     Collection collection = session.createCriteria(daoClass).add(Restrictions.in(propertyName,
         values.toArray(new String[values.size()]))).list();
-    try {
-      tx.commit();
-    }catch (Exception e){
-      e.printStackTrace();
-    }
-
+    commit(tx);
     return getCastedCollection(collection);
   }
 
@@ -70,7 +66,7 @@ class DaoProvider<T extends Dao> implements Provider<T> {
   public T getByUniqueKey(String propertyName, String value) {
     Transaction tx = session.beginTransaction();
     Object object = session.createCriteria(daoClass).add(Restrictions.eq(propertyName, value)).uniqueResult();
-    tx.commit();
+    commit(tx);
     return daoClass.isInstance(object) ? daoClass.cast(object) : null;
   }
 
@@ -96,9 +92,19 @@ class DaoProvider<T extends Dao> implements Provider<T> {
     return result;
   }
 
-  @Override
-  protected void finalize() throws Throwable {
-    super.finalize();
-    System.out.println("destroy provider");
+  private void commit(Transaction tx){
+    try{
+      tx.commit();
+    }catch (Exception e){
+      logger.error("performTransaction()", e);
+      if (tx != null) {
+        tx.rollback();
+      }
+    }finally {
+      if (session != null && session.isOpen()) {
+        session.flush();
+        session.close();
+      }
+    }
   }
 }

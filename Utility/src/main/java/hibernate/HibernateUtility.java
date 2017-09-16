@@ -29,7 +29,6 @@ public class HibernateUtility {
 
   private SessionFactory sessionFactory;
   private ServiceRegistry serviceRegistry;
-  private Session session;
 
   HibernateUtility(DataBaseConfig databaseConfig) {
     configuration = new Configuration();
@@ -58,15 +57,16 @@ public class HibernateUtility {
   }
 
   public synchronized Session getSession() {
-    if (session == null || !session.isOpen()) {
-      try {
-        session = sessionFactory.getCurrentSession();
-      } catch (HibernateException he) {
-        logger.error("getSession()", he);
-        session = sessionFactory.openSession();
-      }
+    Session session;
+
+    try {
+      session = sessionFactory.getCurrentSession();
+    } catch (HibernateException he) {
+      logger.error("getSession()", he);
+      session = sessionFactory.openSession();
     }
-    return sessionFactory.openSession();
+
+    return session;
   }
 
   public void closeSessionFactory() {

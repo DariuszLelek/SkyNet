@@ -17,14 +17,10 @@ import org.hibernate.Transaction;
 import java.util.Collection;
 import java.util.Collections;
 
-public class DaoPreserver<T extends Dao> implements Preserver<T> {
+class DaoPreserver<T extends Dao> implements Preserver<T> {
   private final static Logger logger = Logger.getLogger(DaoPreserver.class);
 
-  private final HibernateUtility hibernateUtility;
-
-  public DaoPreserver() {
-    hibernateUtility = HibernateUtilityFactory.getByDatabaseConfig(DataBaseConfig.PROD);
-  }
+  private final Session session = HibernateUtilityFactory.getByDatabaseConfig(DataBaseConfig.PROD).getSession();
 
   //TODO add return type int save if needed
   @Override
@@ -69,23 +65,22 @@ public class DaoPreserver<T extends Dao> implements Preserver<T> {
 
 
   private void performTransaction(Collection<T> daos, TransactionType type) {
-    final Session localSession = hibernateUtility.getSession();
     Transaction tx = null;
     try {
-      tx = localSession.getTransaction();
+      tx = session.getTransaction();
       tx.begin();
       switch (type) {
         case SAVE:
-          daos.forEach(localSession::save);
+          daos.forEach(session::save);
           break;
         case UPDATE:
-          daos.forEach(localSession::update);
+          daos.forEach(session::update);
           break;
         case SAVE_OR_UPDATE:
-          daos.forEach(localSession::saveOrUpdate);
+          daos.forEach(session::saveOrUpdate);
           break;
         case DELETE:
-          daos.forEach(localSession::delete);
+          daos.forEach(session::delete);
           break;
         default:
           break;
@@ -97,8 +92,9 @@ public class DaoPreserver<T extends Dao> implements Preserver<T> {
         tx.rollback();
       }
     } finally {
-      if (localSession != null && localSession.isOpen()) {
-        localSession.close();
+      if (session != null && session.isOpen()) {
+        session.flush();
+        session.close();
       }
     }
   }

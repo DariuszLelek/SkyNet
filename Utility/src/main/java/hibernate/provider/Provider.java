@@ -6,6 +6,7 @@
 package hibernate.provider;
 
 import dao.Dao;
+import org.hibernate.Transaction;
 
 import java.util.Collection;
 import java.util.List;

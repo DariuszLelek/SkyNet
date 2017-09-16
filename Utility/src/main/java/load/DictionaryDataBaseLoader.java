@@ -10,7 +10,9 @@ import dao.Dao;
 import dao.WordDao;
 import file.FileUtility;
 import hibernate.builder.WordDaoBuilder;
-import hibernate.preserver.DaoPreserver;
+import hibernate.preserver.DaoPreserverFactory;
+import hibernate.preserver.Preserver;
+import hibernate.provider.DaoProviderFactory;
 import org.apache.log4j.Logger;
 
 import java.io.InputStream;
@@ -31,7 +33,7 @@ public class DictionaryDataBaseLoader implements DataBaseLoader {
   public void loadToDataBase() {
     Collection<WordDao> words = getWords(FileUtility.getFileLines(fileInputStream));
     logger.info("loadToDataBase - start - " + words.size() + " records of WordDao.");
-    (new DaoPreserver<WordDao>()).save(words);
+    DaoPreserverFactory.getWordPreserver().save(words);
     logger.info("loadToDataBase - finish.");
   }
 
