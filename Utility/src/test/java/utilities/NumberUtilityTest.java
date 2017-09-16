@@ -5,8 +5,14 @@
 
 package utilities;
 
+import config.DataBaseConfig;
+import hibernate.HibernateUtility;
+import hibernate.HibernateUtilityFactory;
+import org.apache.log4j.Logger;
+import org.junit.Before;
 import org.junit.Test;
 
+import javax.annotation.processing.Processor;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collection;
@@ -15,8 +21,18 @@ import java.util.List;
 import static org.junit.Assert.assertEquals;
 
 public class NumberUtilityTest {
+  private final static Logger logger = Logger.getLogger(NumberUtilityTest.class);
+
+  @Before
+  public void setUp() throws Exception {
+    // TODO just to initialize Hibernate before tests start
+    HibernateUtilityFactory.getByDatabaseConfig(DataBaseConfig.PROD);
+  }
+
   @Test
   public void tryGetNumbersFromWords() throws Exception {
+    logger.info("tryGetNumbersFromWords - start");
+
     String instruction1 = "one hundred and twenty five then another number is five million and one";
     String instruction2 = "one million and two hundred thousand and seven hundred and eleven";
     String instruction3 = "one thousand and two hundred";
@@ -36,10 +52,14 @@ public class NumberUtilityTest {
 
     assertEquals((Long) 5200000L, result4.get(0));
     assertEquals((Long) 5211L, result4.get(1));
+
+    logger.info("tryGetNumbersFromWords - complete");
   }
 
   @Test
   public void tryGetNumberFromWord() throws Exception {
+    logger.info("tryGetNumberFromWord - start");
+
     assertEquals((Long) 5L, NumberUtility.tryGetNumberFromWord("5"));
     assertEquals((Long) 1000000L, NumberUtility.tryGetNumberFromWord("1000000"));
     assertEquals((Long) 123456789L, NumberUtility.tryGetNumberFromWord("123456789"));
@@ -51,15 +71,21 @@ public class NumberUtilityTest {
     assertEquals((Long) 1000000L, NumberUtility.tryGetNumberFromWord("million"));
     assertEquals((Long) 1000000000L, NumberUtility.tryGetNumberFromWord("billion"));
     assertEquals((Long) 0L, NumberUtility.tryGetNumberFromWord("cipher"));
+
+    logger.info("tryGetNumberFromWord - complete");
   }
 
   @Test
   public void getRatioMinToMax() throws Exception {
+    logger.info("getRatioMinToMax - start");
+
     float delta = 0.01F;
     assertEquals(1/3F, NumberUtility.getRatioMinToMax(1,3), delta);
     assertEquals(1/3F, NumberUtility.getRatioMinToMax(3,1), delta);
     assertEquals(1F, NumberUtility.getRatioMinToMax(3,3), delta);
     assertEquals(0, NumberUtility.getRatioMinToMax(0,3), delta);
+
+    logger.info("getRatioMinToMax - complete");
   }
 
 }
