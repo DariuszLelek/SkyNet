@@ -1,9 +1,9 @@
 /*
- * Created by Dariusz Lelek on 9/16/17 11:51 PM
+ * Created by Dariusz Lelek on 9/17/17 12:27 AM
  * Copyright (c) 2017. All rights reserved.
  */
 
-package utilities.number;
+package constant;
 
 public enum Number {
   O(0),

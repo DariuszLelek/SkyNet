@@ -5,8 +5,7 @@
 
 package dao;
 
-import com.sun.deploy.util.StringUtils;
-import entity.WordClass;
+import constant.WordClass;
 
 import javax.persistence.*;
 import java.util.Arrays;

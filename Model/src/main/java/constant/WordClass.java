@@ -1,9 +1,9 @@
 /*
- * Created by Dariusz Lelek on 9/14/17 10:47 PM
+ * Created by Dariusz Lelek on 9/17/17 12:31 AM
  * Copyright (c) 2017. All rights reserved.
  */
 
-package entity;
+package constant;
 
 public enum WordClass {
   UNKNOWN("unknown"),

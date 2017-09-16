@@ -6,7 +6,8 @@
 package utilities.number;
 
 import dao.WordDao;
-import entity.WordClass;
+import constant.Number;
+import constant.WordClass;
 import helper.entity.WordHelper;
 import process.candidate.StringCandidate;
 import utilities.StringUtility;

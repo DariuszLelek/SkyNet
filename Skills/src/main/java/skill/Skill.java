@@ -5,7 +5,7 @@
 
 package skill;
 
-import entity.WordClass;
+import constant.WordClass;
 import process.instruction.Instruction;
 import org.apache.log4j.Logger;
 import process.instruction.InstructionValidator;

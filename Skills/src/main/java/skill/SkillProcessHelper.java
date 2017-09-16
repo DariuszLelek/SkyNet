@@ -6,7 +6,7 @@
 package skill;
 
 import dao.WordDao;
-import entity.WordClass;
+import constant.WordClass;
 import hibernate.provider.Provider;
 import hibernate.provider.DaoProviderFactory;
 import process.instruction.Instruction;

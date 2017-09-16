@@ -6,7 +6,7 @@
 package helper.entity;
 
 import dao.WordDao;
-import entity.WordClass;
+import constant.WordClass;
 import exception.NotValidWordException;
 import hibernate.provider.DaoProviderFactory;
 import utilities.StringUtility;

@@ -6,7 +6,7 @@
 package hibernate.builder;
 
 import dao.WordDao;
-import entity.WordClass;
+import constant.WordClass;
 import utilities.StringUtility;
 
 public class WordDaoBuilder implements DaoBuilder<WordDao> {
