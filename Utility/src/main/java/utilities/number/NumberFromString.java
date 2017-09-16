@@ -1,19 +1,20 @@
 /*
- * Created by Dariusz Lelek on 9/13/17 9:15 PM
+ * Created by Dariusz Lelek on 9/16/17 11:56 PM
  * Copyright (c) 2017. All rights reserved.
  */
 
-package utilities;
+package utilities.number;
 
 import dao.WordDao;
 import entity.WordClass;
 import helper.entity.WordHelper;
 import process.candidate.StringCandidate;
+import utilities.StringUtility;
 
 import java.util.*;
 import java.util.stream.Collectors;
 
-public class NumberUtility {
+class NumberFromString {
   private final static String[] keyWords =
       {"number", "cipher", "numeration", "number", "digit", "symbol", "sum", "unit"};
   private final static String conjunction = "and";
@@ -21,34 +22,40 @@ public class NumberUtility {
   private final static WordClass numberClass = WordClass.NOUN;
   private final static Map<String, Long> CACHE = new HashMap<>();
 
-  public static float getRatioMinToMax(int first, int second) {
-    int min = Math.min(first, second);
-    int max = Math.max(first, second);
-    return (float) min / max;
+  NumberFromString() {
+    initCache();
   }
 
-  public static List<Long> tryGetNumbersFromWords(Collection<String> words) {
-    return tryGetNumbersFromLongList(getLongList(words));
-  }
-
-  public static Long tryGetNumberFromWord(String word) {
-    return getFromCacheOrCompute(word);
-  }
-
-  private static Long getFromCacheOrCompute(String word) {
+  private void initCache(){
     synchronized (CACHE) {
-      return CACHE.computeIfAbsent(word, NumberUtility::computeNumber);
+      for(Number number : Number.values()){
+        CACHE.put(number.name().toLowerCase(), number.getValue());
+      }
     }
   }
 
-  private static List<Long> getLongList(Collection<String> words) {
+  List<Long> tryGetNumbersFromWords(Collection<String> words) {
+    return tryGetNumbersFromLongList(getLongList(words));
+  }
+
+  Long tryGetNumberFromWord(String word) {
+    return getFromCacheOrCompute(word);
+  }
+
+  private Long getFromCacheOrCompute(String word) {
+    synchronized (CACHE) {
+      return CACHE.computeIfAbsent(word, this::computeNumber);
+    }
+  }
+
+  private List<Long> getLongList(Collection<String> words) {
     return words.stream()
         .filter(word -> !word.equals(conjunction))
         .map(NumberUtility::tryGetNumberFromWord)
         .collect(Collectors.toList());
   }
 
-  private static Long computeNumber(String word) {
+  private Long computeNumber(String word) {
     if (StringUtility.isNumeric(word)) {
       return tryParse(word);
     } else if (StringUtility.isAlphabetic(word)) {
@@ -57,7 +64,7 @@ public class NumberUtility {
     return null;
   }
 
-  private static Long tryParse(String string) {
+  private Long tryParse(String string) {
     try {
       return Long.parseLong(string);
     } catch (NumberFormatException ex) {
@@ -65,11 +72,11 @@ public class NumberUtility {
     }
   }
 
-  private static Long tryGetNumberFromDictionary(String word) {
+  private Long tryGetNumberFromDictionary(String word) {
     return tryGetFromCandidates(getCandidates(WordHelper.getByWordClass(word, numberClass)));
   }
 
-  private static ArrayList<StringCandidate> getCandidates(Collection<WordDao> words) {
+  private ArrayList<StringCandidate> getCandidates(Collection<WordDao> words) {
     return words.stream()
         .map(WordDao::getDescription)
         .map(desc -> new StringCandidate(getKeyWordMatchCount(desc) + getContainsDigitMatch(desc), desc))
@@ -77,24 +84,23 @@ public class NumberUtility {
         .collect(Collectors.toCollection(ArrayList::new));
   }
 
-  private static Long tryGetFromCandidates(Collection<StringCandidate> candidates) {
+  private Long tryGetFromCandidates(Collection<StringCandidate> candidates) {
     return candidates.stream()
         .map(StringCandidate::getContent)
         .map(StringUtility::getOnlyNumeric)
-        .map(NumberUtility::tryParse)
+        .map(this::tryParse)
         .filter(Objects::nonNull)
         .findFirst().orElse(null);
   }
 
-  private static List<Long> tryGetNumbersFromLongList(List<Long> list) {
+  private List<Long> tryGetNumbersFromLongList(List<Long> list) {
     return getGroupsFromLongList(list).stream()
         .filter(group -> !group.isEmpty())
-        .map(NumberUtility::getLongFromGroup)
+        .map(this::getLongFromGroup)
         .collect(Collectors.toList());
   }
 
-  // TODO rewrite to streams...
-  private static List<List<Long>> getGroupsFromLongList(List<Long> list) {
+  private List<List<Long>> getGroupsFromLongList(List<Long> list) {
     List<List<Long>> groups = new ArrayList<>();
     List<Long> currentGroup = new ArrayList<>();
 
@@ -114,7 +120,7 @@ public class NumberUtility {
     return groups;
   }
 
-  private static Long getLongFromGroup(List<Long> group){
+  private Long getLongFromGroup(List<Long> group){
     Collections.reverse(group);
 
     Long[] longs = group.toArray(new Long[group.size()]);
@@ -136,15 +142,15 @@ public class NumberUtility {
     return isPowerOf10(longs[longs.length-1]) ? result + longs[longs.length-1] : result ;
   }
 
-  private static boolean isPowerOf10(Long number){
+  private boolean isPowerOf10(Long number){
     return number >= 10 && String.valueOf(number).replaceAll("0", "").equals("1");
   }
 
-  private static int getContainsDigitMatch(String string) {
+  private int getContainsDigitMatch(String string) {
     return StringUtility.containsDigit(string) ? 1 : 0;
   }
 
-  private static long getKeyWordMatchCount(String string) {
+  private long getKeyWordMatchCount(String string) {
     return Arrays.stream(keyWords).filter(word -> StringUtility.containsIgnoreCase(word, string)).count();
   }
 }

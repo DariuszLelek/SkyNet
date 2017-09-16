@@ -6,29 +6,19 @@
 package utilities;
 
 import config.DataBaseConfig;
-import hibernate.HibernateUtility;
 import hibernate.HibernateUtilityFactory;
 import org.apache.log4j.Logger;
 import org.junit.Before;
 import org.junit.Test;
+import utilities.number.NumberUtility;
 
-import javax.annotation.processing.Processor;
-import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.Collection;
 import java.util.List;
 
 import static org.junit.Assert.assertEquals;
 
 public class NumberUtilityTest {
   private final static Logger logger = Logger.getLogger(NumberUtilityTest.class);
-
-  @Before
-  public void setUp() throws Exception {
-    // TODO conntect to test DB probably?
-    // just to initialize Hibernate before tests start
-    HibernateUtilityFactory.getByDatabaseConfig(DataBaseConfig.PROD);
-  }
 
   @Test
   public void tryGetNumbersFromWords() throws Exception {
