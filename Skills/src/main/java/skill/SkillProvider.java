@@ -7,13 +7,13 @@ package skill;
 
 import file.FileUtility;
 import org.apache.log4j.Logger;
-import utilities.StringUtilities;
+import utilities.StringUtility;
 
 import java.lang.reflect.Constructor;
 import java.lang.reflect.InvocationTargetException;
 import java.util.*;
 
-public class SkillProvider {
+class SkillProvider {
   private static final Logger logger = Logger.getLogger(SkillProvider.class);
 
   private static final String SKILLS_DIRECTORY = "skills";
@@ -97,7 +97,7 @@ public class SkillProvider {
   }
 
   private void insertToCache(String skillName, String skillClass){
-    if(!skillName.isEmpty() && StringUtilities.isAlphabetic(skillName)){
+    if(!skillName.isEmpty() && StringUtility.isAlphabetic(skillName)){
       skillSynonymCache.put(skillName, skillClass);
     }
   }

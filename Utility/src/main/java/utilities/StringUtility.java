@@ -7,13 +7,17 @@ package utilities;
 
 import java.util.Collection;
 
-public class StringUtilities {
+public class StringUtility {
   public static String getNotNull(String string){
     return string!= null ? string : "";
   }
 
   public static boolean containsStringIgnoreCase(Collection<String> collection, String string){
     return collection.stream().anyMatch(string::equalsIgnoreCase);
+  }
+
+  public static String getOnlyNumeric(String string){
+    return string.replaceAll("[^A-Za-z0-9]", "");
   }
 
   public static float firstInSecondPercent(String first, String second){

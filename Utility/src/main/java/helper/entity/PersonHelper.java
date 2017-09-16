@@ -6,7 +6,7 @@
 package helper.entity;
 
 import dao.PersonDao;
-import utilities.StringUtilities;
+import utilities.StringUtility;
 
 import java.util.Collection;
 import java.util.stream.Collectors;
@@ -17,7 +17,7 @@ public class PersonHelper {
       final String name,
       final Collection<PersonDao> persons) {
     return persons.stream()
-        .filter(p -> StringUtilities.firstInSecondPercent(name, p.getFirstName()) >= probability)
+        .filter(p -> StringUtility.firstInSecondPercent(name, p.getFirstName()) >= probability)
         .collect(Collectors.toList());
   }
 
@@ -26,7 +26,7 @@ public class PersonHelper {
       final String lastName,
       final Collection<PersonDao> persons) {
     return persons.stream()
-        .filter(p -> StringUtilities.firstInSecondPercent(lastName, p.getLastName()) >= probability)
+        .filter(p -> StringUtility.firstInSecondPercent(lastName, p.getLastName()) >= probability)
         .collect(Collectors.toList());
   }
 }
