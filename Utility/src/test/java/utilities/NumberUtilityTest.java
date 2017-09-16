@@ -21,11 +21,14 @@ public class NumberUtilityTest {
     assertEquals((Integer) 20, NumberUtility.tryGetNumberFromWord("twenty"));
 
     List<String> words = new ArrayList<String>(){{
+      add("one");
+      add("hundred");
+      add("and");
       add("twenty");
-      add("five");
+      add("seven");
     }};
 
-    assertEquals((Integer) 22, NumberUtility.tryGetNumberFromWords(words));
+    assertEquals((Long) 127L, NumberUtility.tryGetNumberFromWords(words));
     //assertNull(NumberUtility.tryGetNumberFromWord("a5"));
   }
 

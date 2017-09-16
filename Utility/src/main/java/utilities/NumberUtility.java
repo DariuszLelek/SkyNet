@@ -15,6 +15,7 @@ import java.util.stream.Collectors;
 
 public class NumberUtility {
   private final static String[] keyWords = {"number", "digit", "symbol", "sum", "unit", "object"};
+  private final static String conjunction = "and";
   private final static long minimumMatchCount = 2;
   private final static WordClass numberClass = WordClass.NOUN;
 
@@ -24,7 +25,8 @@ public class NumberUtility {
     return (float) min/max;
   }
 
-  public static Integer tryGetNumberFromWords(Collection<String> words){
+  // TODO just testing concept, don't use this one - rewrite and add check when there is not number word in between
+  public static Long tryGetNumberFromWords(Collection<String> words){
     List<Integer> numbers = new LinkedList<>();
 
     for(String word : words){
@@ -34,10 +36,20 @@ public class NumberUtility {
       }
     }
 
-   // numbers.
+    Integer lastInt = 1;
+    Long result = lastInt.longValue();
+
+    for(Integer number : numbers){
+      if(number > lastInt){
+        result *= number;
+      }else if(number < lastInt){
+        result += number;
+      }
+      lastInt = number;
+    }
 
     // TODO
-    return null;
+    return result;
   }
 
   public static Integer tryGetNumberFromWord(String word){

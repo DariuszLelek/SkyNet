@@ -1,4 +1,4 @@
-select * from word where WORD = 'fifty'
+select * from word where WORD = 'and'
 
 
 
