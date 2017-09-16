@@ -1,4 +1,4 @@
-select * from word where WORD = 'and'
+select * from word where WORD = 'cipher'
 
 
 

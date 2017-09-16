@@ -7,7 +7,9 @@ package helper.entity;
 
 import dao.WordDao;
 import entity.WordClass;
+import exception.NotValidWordException;
 import hibernate.provider.DaoProviderFactory;
+import utilities.StringUtility;
 
 import java.util.Collection;
 import java.util.stream.Collectors;
@@ -17,6 +19,13 @@ public class WordHelper {
     return DaoProviderFactory.getWordProvider().getByKey("word", word)
         .stream().filter(w -> wordClass == w.getWordClass())
         .collect(Collectors.toList());
+  }
 
+  public static boolean isValidWord(String string) throws NotValidWordException {
+    if(StringUtility.isAlphabetic(string)){
+      return true;
+    }else{
+      throw new NotValidWordException();
+    }
   }
 }

@@ -8,6 +8,7 @@ package utilities;
 import org.junit.Test;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Collection;
 import java.util.List;
 
@@ -15,21 +16,41 @@ import static org.junit.Assert.assertEquals;
 
 public class NumberUtilityTest {
   @Test
-  public void tryGetNumber() throws Exception {
-    assertEquals((Integer) 5, NumberUtility.tryGetNumberFromWord("5"));
-    assertEquals((Integer) 1000000, NumberUtility.tryGetNumberFromWord("1000000"));
-    assertEquals((Integer) 20, NumberUtility.tryGetNumberFromWord("twenty"));
+  public void tryGetNumbersFromWords() throws Exception {
+    String instruction1 = "one hundred and twenty five then another number is five million and one";
+    String instruction2 = "one million and two hundred thousand and seven hundred and eleven";
+    String instruction3 = "one thousand and two hundred";
+    String instruction4 = "five million and two hundred thousand and then five thousand and two hundred and eleven";
 
-    List<String> words = new ArrayList<String>(){{
-      add("one");
-      add("hundred");
-      add("and");
-      add("twenty");
-      add("seven");
-    }};
+    List<Long> result1 = NumberUtility.tryGetNumbersFromWords(Arrays.asList(instruction1.split(" ")));
+    List<Long> result2 = NumberUtility.tryGetNumbersFromWords(Arrays.asList(instruction2.split(" ")));
+    List<Long> result3 = NumberUtility.tryGetNumbersFromWords(Arrays.asList(instruction3.split(" ")));
+    List<Long> result4 = NumberUtility.tryGetNumbersFromWords(Arrays.asList(instruction4.split(" ")));
 
-    assertEquals((Long) 127L, NumberUtility.tryGetNumberFromWords(words));
-    //assertNull(NumberUtility.tryGetNumberFromWord("a5"));
+    assertEquals((Long) 125L, result1.get(0));
+    assertEquals((Long) 5000001L, result1.get(1));
+
+    assertEquals((Long) 1200711L, result2.get(0));
+
+    assertEquals((Long) 1200L, result3.get(0));
+
+    assertEquals((Long) 5200000L, result4.get(0));
+    assertEquals((Long) 5211L, result4.get(1));
+  }
+
+  @Test
+  public void tryGetNumberFromWord() throws Exception {
+    assertEquals((Long) 5L, NumberUtility.tryGetNumberFromWord("5"));
+    assertEquals((Long) 1000000L, NumberUtility.tryGetNumberFromWord("1000000"));
+    assertEquals((Long) 123456789L, NumberUtility.tryGetNumberFromWord("123456789"));
+
+    assertEquals((Long) 1L, NumberUtility.tryGetNumberFromWord("one"));
+    assertEquals((Long) 11L, NumberUtility.tryGetNumberFromWord("eleven"));
+    assertEquals((Long) 30L, NumberUtility.tryGetNumberFromWord("thirty"));
+    assertEquals((Long) 100L, NumberUtility.tryGetNumberFromWord("hundred"));
+    assertEquals((Long) 1000000L, NumberUtility.tryGetNumberFromWord("million"));
+    assertEquals((Long) 1000000000L, NumberUtility.tryGetNumberFromWord("billion"));
+    assertEquals((Long) 0L, NumberUtility.tryGetNumberFromWord("cipher"));
   }
 
   @Test

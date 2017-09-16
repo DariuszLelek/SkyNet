@@ -4,6 +4,8 @@
  */
 
 
+import database.DataBaseSaver;
+import database.DictionaryDataBaseSaver;
 import hibernate.provider.DaoProviderFactory;
 import org.apache.log4j.Logger;
 import process.message.Message;
@@ -35,12 +37,13 @@ public class TestingClass {
 //
 //    timeSave.save(t);
 //
-//    // save dictionary to db
+    // save dictionary to db
 //    DataBaseSaver dictionaryLoader = new DictionaryDataBaseSaver();
 //    dictionaryLoader.saveToDataBase();
 
-    System.out.println(DaoProviderFactory.getWordProvider()
-        .getByKey("word", "a"));
+
+//    System.out.println(DaoProviderFactory.getWordProvider()
+//        .getByKey("word", "a"));
 
 
     //HibernateUtilityFactory.closeAllSessionFactories();

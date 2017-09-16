@@ -6,14 +6,20 @@
 package utilities;
 
 import java.util.Collection;
+import java.util.regex.Pattern;
 
 public class StringUtility {
+
   public static String getNotNull(String string){
     return string!= null ? string : "";
   }
 
   public static boolean containsStringIgnoreCase(Collection<String> collection, String string){
     return collection.stream().anyMatch(string::equalsIgnoreCase);
+  }
+
+  public static boolean containsIgnoreCase(String checkedString, String string){
+    return Pattern.compile(Pattern.quote(checkedString), Pattern.CASE_INSENSITIVE).matcher(string).find();
   }
 
   public static String getOnlyNumeric(String string){
@@ -45,11 +51,35 @@ public class StringUtility {
     return result > 1F ? 1F : result;
   }
 
-  public static boolean isAlphabetic(String name) {
-    char[] chars = getNotNull(name).toCharArray();
+  public static boolean containsDigit(String string){
+    char[] chars = getNotNull(string).toCharArray();
+
+    for (char c : chars) {
+      if(Character.isDigit(c)) {
+        return true;
+      }
+    }
+
+    return false;
+  }
+
+  public static boolean isAlphabetic(String string) {
+    char[] chars = getNotNull(string).toCharArray();
 
     for (char c : chars) {
       if(!Character.isLetter(c)) {
+        return false;
+      }
+    }
+
+    return chars.length > 0;
+  }
+
+  public static boolean isNumeric(String string) {
+    char[] chars = getNotNull(string).toCharArray();
+
+    for (char c : chars) {
+      if(!Character.isDigit(c)) {
         return false;
       }
     }
