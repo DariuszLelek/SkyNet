@@ -52,8 +52,6 @@ public class NumberUtilityTest {
 
     assertEquals((Long) 5200000L, result4.get(0));
     assertEquals((Long) 5211L, result4.get(1));
-
-    logger.info("tryGetNumbersFromWords - complete");
   }
 
   @Test
@@ -71,8 +69,6 @@ public class NumberUtilityTest {
     assertEquals((Long) 1000000L, NumberUtility.tryGetNumberFromWord("million"));
     assertEquals((Long) 1000000000L, NumberUtility.tryGetNumberFromWord("billion"));
     assertEquals((Long) 0L, NumberUtility.tryGetNumberFromWord("cipher"));
-
-    logger.info("tryGetNumberFromWord - complete");
   }
 
   @Test
@@ -84,8 +80,6 @@ public class NumberUtilityTest {
     assertEquals(1/3F, NumberUtility.getRatioMinToMax(3,1), delta);
     assertEquals(1F, NumberUtility.getRatioMinToMax(3,3), delta);
     assertEquals(0, NumberUtility.getRatioMinToMax(0,3), delta);
-
-    logger.info("getRatioMinToMax - complete");
   }
 
 }

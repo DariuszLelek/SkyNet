@@ -5,6 +5,10 @@
 
 package utilities;
 
+import config.DataBaseConfig;
+import hibernate.HibernateUtilityFactory;
+import org.apache.log4j.Logger;
+import org.junit.Before;
 import org.junit.Test;
 
 import java.util.ArrayList;
@@ -13,8 +17,13 @@ import java.util.List;
 import static org.junit.Assert.*;
 
 public class StringUtilityTest {
+
+  private final static Logger logger = Logger.getLogger(StringUtilityTest.class);
+
   @Test
   public void getNotNull() throws Exception {
+    logger.info("getNotNull - start");
+
     assertEquals("", StringUtility.getNotNull(null));
     assertEquals("", StringUtility.getNotNull(""));
     assertEquals("ABC", StringUtility.getNotNull("ABC"));
@@ -22,6 +31,8 @@ public class StringUtilityTest {
 
   @Test
   public void containsStringIgnoreCase() throws Exception {
+    logger.info("containsStringIgnoreCase - start");
+
     List<String> list = new ArrayList<>();
     list.add("abc");
     list.add("ABC");
@@ -36,6 +47,8 @@ public class StringUtilityTest {
 
   @Test
   public void firstInSecondPercent() throws Exception {
+    logger.info("firstInSecondPercent - start");
+
     final float delta = 0.01F;
 
     assertEquals(0, StringUtility.firstInSecondPercent("", "AbC"), delta);
@@ -54,6 +67,8 @@ public class StringUtilityTest {
 
   @Test
   public void isAlphabetic() throws Exception {
+    logger.info("isAlphabetic - start");
+
     assertTrue(StringUtility.isAlphabetic("abcDEF"));
     assertTrue(StringUtility.isAlphabetic("o"));
 
