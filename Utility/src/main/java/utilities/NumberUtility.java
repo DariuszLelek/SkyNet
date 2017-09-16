@@ -8,7 +8,6 @@ package utilities;
 import dao.WordDao;
 import entity.WordClass;
 import helper.entity.WordHelper;
-import org.apache.log4j.Logger;
 import process.candidate.StringCandidate;
 
 import java.util.*;
@@ -88,44 +87,14 @@ public class NumberUtility {
   }
 
   private static List<Long> tryGetNumbersFromLongList(List<Long> list) {
-    return getNumberGroupsFromLongList(list).stream()
+    return getGroupsFromLongList(list).stream()
         .filter(group -> !group.isEmpty())
-        .map(NumberUtility::getNumberFromGroup)
+        .map(NumberUtility::getLongFromGroup)
         .collect(Collectors.toList());
   }
 
-  private static Long getNumberFromGroup(List<Long> group) {
-    return getSubGroupsFromGroup(group).stream()
-        .filter(subGroup -> !subGroup.isEmpty())
-        .map(NumberUtility::getNumberByMultiplyingElements)
-        .mapToLong(Long::longValue)
-        .sum();
-  }
-
-  private static Long getNumberByMultiplyingElements(List<Long> subGroup) {
-    return subGroup.stream().reduce(1L, (a, b) -> a * b);
-  }
-
   // TODO rewrite to streams...
-  private static List<List<Long>> getSubGroupsFromGroup(List<Long> group) {
-    List<List<Long>> subGroups = new ArrayList<>();
-    List<Long> currentGroup = new ArrayList<>();
-
-    for (Long number : group) {
-      if (!currentGroup.isEmpty() && number <= currentGroup.get(currentGroup.size() - 1)) {
-        subGroups.add(new ArrayList<>(currentGroup));
-        currentGroup.clear();
-      }
-      currentGroup.add(number);
-    }
-
-    subGroups.add(currentGroup);
-
-    return subGroups;
-  }
-
-  // TODO rewrite to streams...
-  private static List<List<Long>> getNumberGroupsFromLongList(List<Long> list) {
+  private static List<List<Long>> getGroupsFromLongList(List<Long> list) {
     List<List<Long>> groups = new ArrayList<>();
     List<Long> currentGroup = new ArrayList<>();
 
@@ -143,6 +112,32 @@ public class NumberUtility {
     groups.add(currentGroup);
 
     return groups;
+  }
+
+  private static Long getLongFromGroup(List<Long> group){
+    Collections.reverse(group);
+
+    Long[] longs = group.toArray(new Long[group.size()]);
+    Long result = 0L;
+    Long lastPowerOf10 = 1L;
+
+    for (Long current : longs) {
+      if(isPowerOf10(current)){
+        if(current < lastPowerOf10){
+          lastPowerOf10 *= current;
+        }else{
+          lastPowerOf10 = current;
+        }
+      }else {
+        result += current * lastPowerOf10;
+      }
+    }
+
+    return isPowerOf10(longs[longs.length-1]) ? result + longs[longs.length-1] : result ;
+  }
+
+  private static boolean isPowerOf10(Long number){
+    return number >= 10 && String.valueOf(number).replaceAll("0", "").equals("1");
   }
 
   private static int getContainsDigitMatch(String string) {
