@@ -26,9 +26,13 @@ public class TimeUtilityTest {
       assertEquals(fromEnum.getDuration(), TimeUtility.getTime(fromEnum.name()).getDuration());
     }
 
-    assertEquals(0, TimeUtility.getTime(invalidTime[0]).getDuration());
+    assertEquals(Long.MIN_VALUE, TimeUtility.getTime(invalidTime[0]).getDuration());
+    assertEquals(0, TimeUtility.getTime("Now").getDuration());
     assertEquals(60, TimeUtility.getTime("minutes").getDuration());
     assertEquals(3600, TimeUtility.getTime("HOURS").getDuration());
+
+    assertEquals(Time.UNKNOWN, TimeUtility.getTime("sdasads"));
+    assertTrue(TimeUtility.getTime("unknown").getDuration() < 0);
   }
 
   @Test
@@ -52,4 +56,14 @@ public class TimeUtilityTest {
     }
   }
 
+
+  @Test
+  public void getTimeIsRepeatable() throws Exception {
+    logger.info("getTimeIsRepeatable - start");
+
+    assertTrue(TimeUtility.getTime("weekly").isRepeatable());
+    assertTrue(TimeUtility.getTime("MONTHLY").isRepeatable());
+    assertFalse(TimeUtility.getTime("Minute").isRepeatable());
+    assertFalse(TimeUtility.getTime("january").isRepeatable());
+  }
 }

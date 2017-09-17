@@ -6,6 +6,7 @@
 package constant;
 
 public enum Time {
+  UNKNOWN(Long.MIN_VALUE, false),
   NOW(0, false),
   SECOND(1, false),
 

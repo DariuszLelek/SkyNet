@@ -21,14 +21,18 @@ public class TimeUtility {
   }
 
   public static Time getTime(String string){
-    return CACHE.getOrDefault(CACHE.keySet().stream()
-        .filter(unit -> StringUtility.containsIgnoreCase(string, unit))
-        .findFirst().orElse(""), Time.NOW);
+    return CACHE.getOrDefault(string.toLowerCase(), tryGetBestMatch(string));
   }
 
   public static boolean isTime(String string){
     return CACHE.keySet().stream()
         .anyMatch(unit -> StringUtility.containsIgnoreCase(string, unit));
+  }
+
+  private static Time tryGetBestMatch(String string){
+    return CACHE.getOrDefault(CACHE.keySet().stream()
+        .filter(unit -> StringUtility.containsIgnoreCase(string, unit))
+        .findFirst().orElse(""), Time.UNKNOWN);
   }
 
   private static void initCache(){
