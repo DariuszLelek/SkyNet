@@ -18,9 +18,9 @@ public enum Time {
   MONTH(31 * DAY.duration, false),
   YEAR(12 * MONTH.duration, false),
 
-  TOMORROW(60 * SECOND.duration, false),
-  YESTERDAY(60 * SECOND.duration, false),
-  TODAY(60 * SECOND.duration, false),
+  TOMORROW(DAY.duration, false),
+  YESTERDAY(- DAY.duration, false),
+  TODAY(NOW.duration, false),
 
   LATER(15 * MINUTE.duration, false),
 
