@@ -5,12 +5,8 @@
 
 package utilities;
 
-import config.DataBaseConfig;
-import hibernate.HibernateUtilityFactory;
 import org.apache.log4j.Logger;
-import org.junit.Before;
 import org.junit.Test;
-import utilities.number.NumberUtility;
 
 import java.util.Arrays;
 import java.util.List;
