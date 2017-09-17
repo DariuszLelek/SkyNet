@@ -1,9 +1,9 @@
 /*
- * Created by Dariusz Lelek on 9/17/17 2:35 AM
+ * Created by Dariusz Lelek on 9/17/17 4:31 PM
  * Copyright (c) 2017. All rights reserved.
  */
 
-package utilities.time;
+package utilities;
 
 import constant.Time;
 import utilities.StringUtility;

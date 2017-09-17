@@ -1,9 +1,12 @@
 /*
- * Created by Dariusz Lelek on 9/16/17 11:56 PM
+ * Created by Dariusz Lelek on 9/17/17 4:31 PM
  * Copyright (c) 2017. All rights reserved.
  */
 
-package utilities.number;
+package utilities;
+
+
+import utilities.number.NumberFromString;
 
 import java.util.*;
 

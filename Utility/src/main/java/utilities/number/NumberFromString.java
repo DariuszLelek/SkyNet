@@ -10,12 +10,13 @@ import constant.Number;
 import constant.WordClass;
 import helper.entity.WordHelper;
 import process.candidate.StringCandidate;
+import utilities.NumberUtility;
 import utilities.StringUtility;
 
 import java.util.*;
 import java.util.stream.Collectors;
 
-class NumberFromString {
+public class NumberFromString {
   private final static String[] keyWords =
       {"number", "cipher", "numeration", "number", "digit", "symbol", "sum", "unit"};
   private final static String conjunction = "and";
@@ -25,7 +26,7 @@ class NumberFromString {
   // TODO cache for not number words also?
   private final static Map<String, Long> CACHE = new HashMap<>();
 
-  NumberFromString() {
+  public NumberFromString() {
     initCache();
   }
 
@@ -37,11 +38,11 @@ class NumberFromString {
     }
   }
 
-  List<Long> tryGetNumbersFromWords(Collection<String> words) {
+  public List<Long> tryGetNumbersFromWords(Collection<String> words) {
     return tryGetNumbersFromLongList(getLongList(words));
   }
 
-  Long tryGetNumberFromWord(String word) {
+  public Long tryGetNumberFromWord(String word) {
     return getFromCacheOrCompute(word);
   }
 
