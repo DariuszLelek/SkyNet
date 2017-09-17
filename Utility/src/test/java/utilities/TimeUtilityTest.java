@@ -9,9 +9,21 @@ import constant.Time;
 import org.apache.log4j.Logger;
 import org.junit.Test;
 
+import java.util.ArrayList;
+import java.util.Arrays;
+
 import static org.junit.Assert.*;
 
 public class TimeUtilityTest {
+  @Test
+  public void getDate() throws Exception {
+    logger.info("getTime - start");
+
+    String text = "every friday ad five";
+
+    TimeUtility.getDate(Arrays.asList(text.split(" ")));
+  }
+
   private final static Logger logger = Logger.getLogger(TimeUtilityTest.class);
 
   private final String[] validTimeSingular = {"Month", "Year", "Day", "later", "monthly", "january"};
