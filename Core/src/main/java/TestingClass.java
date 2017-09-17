@@ -23,7 +23,7 @@ public class TestingClass {
 
     Message m1 = messageCreator.create("", MessageType.VOICE);
     Message m2 = messageCreator.create("email to DARIUS cat", MessageType.VOICE);
-    Message m3 = messageCreator.create("remind me about some thing tomorrows", MessageType.VOICE);
+    Message m3 = messageCreator.create("remind tomorrows then day day other", MessageType.VOICE);
 
     ProcessorFactory.getMessageProcessor().process(m3);
 

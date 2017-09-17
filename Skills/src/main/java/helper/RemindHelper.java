@@ -7,13 +7,17 @@ package helper;
 
 import dao.RemindDao;
 import hibernate.preserver.DaoPreserverFactory;
-import utilities.TimeUtility;
-import validator.Validator;
+import model.Duration;
+import org.joda.time.DateTime;
+import model.Validator;
+import utilities.time.TimeUtility;
 
 import java.util.Collection;
+import java.util.HashMap;
+import java.util.Map;
 import java.util.Queue;
 
-public class RemindHelper implements Validator<RemindDao>{
+public class RemindHelper {
   private RemindDao remindDao = null;
 
   public RemindDao getRemindDao(){
@@ -21,7 +25,7 @@ public class RemindHelper implements Validator<RemindDao>{
   }
 
   public boolean saveRemindDao(){
-    if(isValid(remindDao)){
+    if(isValid()){
       DaoPreserverFactory.getRemindPreserver().save(remindDao);
       return true;
     }
@@ -32,6 +36,7 @@ public class RemindHelper implements Validator<RemindDao>{
     String contentCandidate = "";
 
     // TODO add word processing to get valid sentence
+    getRemindDate(chunks);
 
     while(!chunks.isEmpty()){
       String chunk = chunks.poll();
@@ -40,9 +45,21 @@ public class RemindHelper implements Validator<RemindDao>{
     }
   }
 
-  @Override
-  public boolean isValid(RemindDao object) {
-    return object != null && ((object.getRepeatDelayS() == 0 && object.getTime() != null) ||
-        object.getRepeatDelayS() > 0) && !object.getText().isEmpty();
+  private DateTime getRemindDate(Collection<String> chunks){
+    DateTime date = null;
+
+    Map<String, Duration> wordToDurationMap = TimeUtility.getWordToDurationMap(chunks);
+
+    return null;
+
+  }
+
+  private void mapDurationsToWords(){
+
+  }
+
+  private boolean isValid() {
+    return remindDao != null && ((remindDao.getRepeatDelayS() == 0 && remindDao.getTime() != null) ||
+        remindDao.getRepeatDelayS() > 0) && !remindDao.getText().isEmpty();
   }
 }

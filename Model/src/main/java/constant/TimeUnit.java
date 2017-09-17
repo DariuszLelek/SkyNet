@@ -6,6 +6,7 @@
 package constant;
 
 public enum TimeUnit {
+  NONE(Long.MIN_VALUE, false),
   NOW(0, false),
   LATER(15 * 60, false), // ...
 

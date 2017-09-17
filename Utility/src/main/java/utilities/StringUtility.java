@@ -5,6 +5,8 @@
 
 package utilities;
 
+import org.apache.commons.lang3.StringUtils;
+
 import java.util.Collection;
 import java.util.regex.Pattern;
 
@@ -19,7 +21,7 @@ public class StringUtility {
   }
 
   public static boolean containsIgnoreCase(String checkedString, String string){
-    return Pattern.compile(Pattern.quote(checkedString), Pattern.CASE_INSENSITIVE).matcher(string).find();
+    return StringUtils.containsIgnoreCase(checkedString, string);
   }
 
   public static String getOnlyNumeric(String string){

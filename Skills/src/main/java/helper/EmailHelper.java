@@ -5,19 +5,16 @@
 
 package helper;
 
-import com.sun.tracing.ProviderFactory;
 import dao.PersonDao;
 import helper.entity.PersonHelper;
 import hibernate.provider.DaoProviderFactory;
-import validator.Validator;
-import validator.skill.EmailValidator;
 
-
+import javax.mail.internet.AddressException;
+import javax.mail.internet.InternetAddress;
 import java.util.ArrayList;
 import java.util.Collection;
 
-public class EmailHelper implements Validator<String> {
-  private final EmailValidator emailValidator = new EmailValidator();
+public class EmailHelper {
   private final float MATCH_PERCENT = 0.8F;
 
   private final String[] MAIL_AT = {"at", "@"};
@@ -44,9 +41,14 @@ public class EmailHelper implements Validator<String> {
     return "";
   }
 
-  @Override
-  public boolean isValid(String object) {
-    return emailValidator.isValid(object);
+  private boolean isValid(String emailString) {
+    try {
+      InternetAddress emailAddress = new InternetAddress(emailString);
+      emailAddress.validate();
+    } catch (AddressException ex) {
+      return false;
+    }
+    return true;
   }
 
   private String tryGetValidMailFromPersons(Collection<String> chunks){
@@ -90,7 +92,7 @@ public class EmailHelper implements Validator<String> {
   }
 
   private String tryGetValidMailFromChunks(Collection<String> chunks){
-    return chunks.stream().filter(emailValidator::isValid).findFirst().orElse("");
+    return chunks.stream().filter(this::isValid).findFirst().orElse("");
   }
 
   private String tryAssembleValidMailFromChunks(Collection<String> chunks){
