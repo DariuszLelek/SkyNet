@@ -3,7 +3,7 @@
  * Copyright (c) 2017. All rights reserved.
  */
 
-import constant.TimeUnit;
+import constant.Time;
 import dao.WordDao;
 import hibernate.provider.DaoProviderFactory;
 
@@ -13,7 +13,7 @@ public class TestClass {
   public static void main(String[] args) {
     Collection<WordDao> fiveWord = DaoProviderFactory.getWordProvider().getByKey("word", "five");
 
-    System.out.println(TimeUnit.MINUTE);
+    System.out.println(Time.MINUTE);
 
   }
 }
