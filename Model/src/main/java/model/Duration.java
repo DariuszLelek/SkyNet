@@ -7,7 +7,7 @@ package model;
 
 import constant.TimeUnit;
 
-public class Duration implements Validator{
+public class Duration {
   private final TimeUnit timeUnit;
   private final long multiplier;
 
@@ -26,7 +26,6 @@ public class Duration implements Validator{
     return timeUnit.getTimeSecond() * multiplier;
   }
 
-  @Override
   public boolean isValid() {
     return timeUnit.getTimeSecond() > 0;
   }

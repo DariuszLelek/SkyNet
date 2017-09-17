@@ -12,15 +12,12 @@ public class DaoProviderFactory {
     return new DaoProvider<>(WordDao.class);
   }
 
-  public static Provider<TimeDao> getTimeProvider() {
-    return new DaoProvider<>(TimeDao.class);
-  }
-
   public static Provider<PersonDao> getPersonProvider() {
     return new DaoProvider<>(PersonDao.class);
   }
 
-  public static Provider<RemindDao> getRemindProvider() {
-    return new DaoProvider<>(RemindDao.class);
+  public static Provider<EventDao> getEventProvider() {
+    return new DaoProvider<>(EventDao.class);
   }
+
 }

@@ -5,8 +5,14 @@
 
 package dao;
 
-public class Dao {
-  String getNonNull(String string) {
+import process.validator.Validator;
+
+public abstract class Dao implements Validator{
+
+  String getNotNull(String string){
     return string != null ? string : "";
   }
+
+  @Override
+  public abstract boolean isValid();
 }

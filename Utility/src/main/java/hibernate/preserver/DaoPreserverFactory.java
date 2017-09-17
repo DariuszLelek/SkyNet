@@ -5,9 +5,8 @@
 
 package hibernate.preserver;
 
+import dao.EventDao;
 import dao.PersonDao;
-import dao.RemindDao;
-import dao.TimeDao;
 import dao.WordDao;
 
 public class DaoPreserverFactory {
@@ -15,15 +14,11 @@ public class DaoPreserverFactory {
     return new DaoPreserver<>();
   }
 
-  public static Preserver<TimeDao> getTimePreserver() {
-    return new DaoPreserver<>();
-  }
-
   public static Preserver<PersonDao> getPersonPreserver() {
     return new DaoPreserver<>();
   }
 
-  public static Preserver<RemindDao> getRemindPreserver() {
+  public static Preserver<EventDao> getEventPreserver() {
     return new DaoPreserver<>();
   }
 }

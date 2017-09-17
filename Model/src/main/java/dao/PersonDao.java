@@ -5,6 +5,8 @@
 
 package dao;
 
+import process.validator.Validator;
+
 import javax.persistence.*;
 
 @Entity
@@ -32,7 +34,7 @@ public class PersonDao extends Dao implements java.io.Serializable {
   }
 
   public String getFirstName() {
-    return getNonNull(firstName);
+    return getNotNull(firstName);
   }
 
   public void setFirstName(String firstName) {
@@ -40,7 +42,7 @@ public class PersonDao extends Dao implements java.io.Serializable {
   }
 
   public String getLastName() {
-    return getNonNull(lastName);
+    return getNotNull(lastName);
   }
 
   public void setLastName(String lastName) {
@@ -48,7 +50,7 @@ public class PersonDao extends Dao implements java.io.Serializable {
   }
 
   public String getEmail() {
-    return getNonNull(email);
+    return getNotNull(email);
   }
 
   public void setEmail(String email) {
@@ -56,11 +58,25 @@ public class PersonDao extends Dao implements java.io.Serializable {
   }
 
   public String getPhone() {
-    return getNonNull(phone);
+    return getNotNull(phone);
   }
 
   public void setPhone(String phone) {
     this.phone = phone;
   }
 
+  @Override
+  public String toString() {
+    return "PersonDao{" +
+        "firstName='" + firstName + '\'' +
+        ", lastName='" + lastName + '\'' +
+        ", email='" + email + '\'' +
+        ", phone='" + phone + '\'' +
+        '}';
+  }
+
+  @Override
+  public boolean isValid() {
+    return !getFirstName().isEmpty() || !getLastName().isEmpty();
+  }
 }

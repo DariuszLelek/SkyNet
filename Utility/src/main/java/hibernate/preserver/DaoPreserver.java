@@ -63,7 +63,6 @@ class DaoPreserver<T extends Dao> implements Preserver<T> {
     performTransaction(daos, TransactionType.DELETE);
   }
 
-
   private void performTransaction(Collection<T> daos, TransactionType type) {
     Transaction tx = null;
     try {
@@ -71,16 +70,17 @@ class DaoPreserver<T extends Dao> implements Preserver<T> {
       tx.begin();
       switch (type) {
         case SAVE:
-          daos.forEach(session::save);
+          daos.stream().filter(this::isValid).forEach(session::save);
           break;
         case UPDATE:
-          daos.forEach(session::update);
+          daos.stream().filter(this::isValid).forEach(session::update);
           break;
         case SAVE_OR_UPDATE:
-          daos.forEach(session::saveOrUpdate);
+          daos.stream().filter(this::isValid).forEach(session::saveOrUpdate);
           break;
         case DELETE:
-          daos.forEach(session::delete);
+          // TODO probably not needed validation here
+          daos.stream().filter(this::isValid).forEach(session::delete);
           break;
         default:
           break;
@@ -96,6 +96,15 @@ class DaoPreserver<T extends Dao> implements Preserver<T> {
         session.flush();
         session.close();
       }
+    }
+  }
+
+  private boolean isValid(T dao){
+    if(dao.isValid()){
+      return true;
+    }else{
+      logger.warn("validate - Cannot perform transaction on:" + dao.toString());
+      return false;
     }
   }
 }
