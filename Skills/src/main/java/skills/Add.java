@@ -12,7 +12,6 @@ import skill.Skill;
 import java.util.ArrayList;
 
 public class Add extends Skill {
-  private final static String[] skillsThatCanBeAdded = {"calendar"};
 
   public Add() {
     super(Priority.MEDIUM, new ArrayList<WordClass>(){{

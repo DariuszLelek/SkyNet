@@ -39,16 +39,25 @@ public abstract class Skill extends Processable {
     }
   }
 
-  public final void logSuccess(String message){
+  public final void success(String message){
     logger.info(this.getClass().getName() + " SUCCESS " + message);
+    processVoiceConfirmation();
   }
 
-  public final void logFail(String message){
+  public final void fail(String message){
     logger.warn(this.getClass().getName() + " FAIL " + message);
+    disable();
   }
 
-  public final void logFail(String message, Throwable t){
+  public final void fail(String message, Throwable t){
     logger.error(this.getClass().getName() + " FAIL " + message, t);
+    disable();
+  }
+
+  private void processVoiceConfirmation(){
+    if(voiceConfirmationNeeded){
+      // TODO
+    }
   }
 
   private void validateInstruction() {
@@ -56,13 +65,9 @@ public abstract class Skill extends Processable {
         SkillProcessHelper.instructionHasAllExpectedWordClasses(getInstruction(), expectedWordClasses)) {
       validator = InstructionValidator.VALID;
     } else {
-      logger.warn(this.toString() + " has invalid instruction.");
+      fail("Invalid instruction.");
       validator = InstructionValidator.INVALID;
     }
-  }
-
-  public boolean isVoiceConfirmationNeeded() {
-    return voiceConfirmationNeeded;
   }
 
   public final boolean hasValidInstruction(){

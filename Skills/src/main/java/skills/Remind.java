@@ -27,15 +27,15 @@ public class Remind extends Skill {
 //      logger.info("process - processing Remind: " + getInstruction().toString());
 //      remindHelper.dequeueMessage(getInstruction().getQueue());
 //      if(remindHelper.saveRemindDao()){
-//        logSuccess("Save:" + remindHelper.getRemindDao());
+//        success("Save:" + remindHelper.getRemindDao());
 //        // TODO voice confirmation
 //        return true;
 //      }
-//      logFail("Save:" + remindHelper.getRemindDao());
+//      fail("Save:" + remindHelper.getRemindDao());
 //      disable();
 //      return false;
 //    }
-//    logFail("Invalid Instruction:" + getInstruction().toString());
+//    fail("Invalid Instruction:" + getInstruction().toString());
 
     disable();
     return false;

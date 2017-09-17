@@ -1,5 +1,5 @@
 /*
- * Created by Dariusz Lelek on 9/17/17 3:03 PM
+ * Created by Dariusz Lelek on 9/17/17 3:42 PM
  * Copyright (c) 2017. All rights reserved.
  */
 
@@ -12,9 +12,9 @@ import skill.Skill;
 import java.util.Collection;
 import java.util.LinkedList;
 
-public class Calendar extends Skill {
+public class Event extends Skill {
 
-  protected Calendar() {
+  protected Event() {
     super(Priority.MEDIUM, new LinkedList<>(), true);
   }
 

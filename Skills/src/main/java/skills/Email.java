@@ -45,18 +45,11 @@ public class Email extends Skill {
       String content = "some content";
 
       if(recipient.isEmpty()){
-        logFail("Cannot get valid recipient.");
-        disable();
+        fail("Cannot get valid recipient.");
         return false;
       }else{
         setMailServerProperties();
-        if(trySendMail(recipient, content)){
-          logSuccess("Email sent to:" + recipient + ", content:" + content + ".");
-          return true;
-        }else{
-          disable();
-          return false;
-        }
+        return trySendMail(recipient, content);
       }
     }
     return false;
@@ -65,9 +58,10 @@ public class Email extends Skill {
   private boolean trySendMail(String recipient, String content){
     try {
       sendEmail(getMessage(recipient, content));
+      success("Email sent to:" + recipient + ", content:" + content + ".");
       return true;
     } catch (javax.mail.MessagingException e) {
-      logFail("Failed to send Email.", e);
+      fail("Failed to send Email.", e);
       return false;
     }
   }
