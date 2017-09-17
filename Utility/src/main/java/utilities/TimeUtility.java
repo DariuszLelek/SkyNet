@@ -5,11 +5,31 @@
 
 package utilities;
 
+import constant.TimeUnit;
+
+import java.util.Arrays;
+import java.util.HashMap;
+import java.util.Map;
+
 public class TimeUtility {
 
-  public static boolean isTimeUnit(String text){
+  private static final String[] repeatableKeyWords = {"every", "each"};
+  private static final Map<String, TimeUnit> CACHE_TIME_UNIT = new HashMap<>();
 
-    return false;
+  static{
+    initCache();
+  }
+
+  public static TimeUnit getTimeUnit(String string){
+    return CACHE_TIME_UNIT.getOrDefault(string, TimeUnit.NOW);
+  }
+
+  public static boolean isTimeUnit(String text){
+    return CACHE_TIME_UNIT.containsKey(text);
+  }
+
+  private static void initCache(){
+    Arrays.stream(TimeUnit.values()).forEach(value -> CACHE_TIME_UNIT.put(value.name().toLowerCase(), value));
   }
 
 }
