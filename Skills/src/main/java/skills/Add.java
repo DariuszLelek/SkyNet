@@ -17,7 +17,7 @@ public class Add extends Skill {
     super(Priority.MEDIUM, new ArrayList<WordClass>(){{
       add(WordClass.NOUN);
       add(WordClass.NOUN);
-    }});
+    }}, true);
   }
 
   @Override

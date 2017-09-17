@@ -8,6 +8,7 @@ import database.DataBaseSaver;
 import database.DictionaryDataBaseSaver;
 import hibernate.provider.DaoProviderFactory;
 import org.apache.log4j.Logger;
+import process.ProcessorFactory;
 import process.message.Message;
 import process.message.MessageCreator;
 import process.message.MessageType;
@@ -22,9 +23,9 @@ public class TestingClass {
 
     Message m1 = messageCreator.create("", MessageType.VOICE);
     Message m2 = messageCreator.create("email to DARIUS cat", MessageType.VOICE);
-    Message m3 = messageCreator.create("email darius lelek", MessageType.VOICE);
+    Message m3 = messageCreator.create("remind me about some thing tomorrows", MessageType.VOICE);
 
-    //ProcessorFactory.getMessageProcessor().process(m3);
+    ProcessorFactory.getMessageProcessor().process(m3);
 
 
 //    DaoPreserver<TimeDao> timeSave = new DaoPreserver<>();

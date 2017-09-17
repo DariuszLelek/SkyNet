@@ -12,7 +12,7 @@ import java.util.ArrayList;
 public class EmptySkill extends Skill {
 
   public EmptySkill() {
-    super(Priority.NONE, new ArrayList<>());
+    super(Priority.NONE, new ArrayList<>(), false);
   }
 
   @Override

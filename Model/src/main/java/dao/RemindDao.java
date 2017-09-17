@@ -18,9 +18,7 @@ public class RemindDao extends Dao implements java.io.Serializable{
   private int remindId;
   @Column(name = "TEXT", unique = true, nullable = false)
   private String text;
-  @Column(name = "REPEATABLE", nullable = false)
-  private boolean repeatable;
-  @Column(name = "REPEAT_DELAY_S")
+  @Column(name = "REPEAT_DELAY_S", nullable = false)
   private int repeatDelayS;
   @Column(name = "TIME")
   private DateTime time;
@@ -42,14 +40,6 @@ public class RemindDao extends Dao implements java.io.Serializable{
 
   public void setText(String text) {
     this.text = text;
-  }
-
-  public boolean isRepeatable() {
-    return repeatable;
-  }
-
-  public void setRepeatable(boolean repeatable) {
-    this.repeatable = repeatable;
   }
 
   public int getRepeatDelayS() {

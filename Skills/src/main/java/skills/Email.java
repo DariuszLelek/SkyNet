@@ -34,7 +34,7 @@ public class Email extends Skill {
   public Email() {
     super(Priority.LOW, new ArrayList<WordClass>(){{
 
-    }});
+    }}, true);
   }
 
   @Override
@@ -45,7 +45,7 @@ public class Email extends Skill {
       String content = "some content";
 
       if(recipient.isEmpty()){
-        logFail("Failed to send Email - Cannot get valid recipient.");
+        logFail("Cannot get valid recipient.");
         disable();
         return false;
       }else{

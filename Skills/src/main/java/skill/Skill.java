@@ -21,10 +21,14 @@ public abstract class Skill extends Processable {
   private final Collection<WordClass> expectedWordClasses;
 
   private InstructionValidator validator = InstructionValidator.UNKNOWN;
+  private final boolean voiceConfirmationNeeded;
 
-  protected Skill(Priority priority, Collection<WordClass> expectedWordClasses) {
+  protected Skill(Priority priority, Collection<WordClass> expectedWordClasses,
+                  boolean voiceConfirmationNeeded) {
     super.priority = priority;
+
     this.expectedWordClasses = expectedWordClasses;
+    this.voiceConfirmationNeeded = voiceConfirmationNeeded;
   }
 
   public final void setInstruction(Instruction instruction) {
@@ -55,6 +59,10 @@ public abstract class Skill extends Processable {
       logger.warn(this.toString() + " has invalid instruction.");
       validator = InstructionValidator.INVALID;
     }
+  }
+
+  public boolean isVoiceConfirmationNeeded() {
+    return voiceConfirmationNeeded;
   }
 
   public final boolean hasValidInstruction(){

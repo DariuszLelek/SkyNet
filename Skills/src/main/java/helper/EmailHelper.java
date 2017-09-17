@@ -1,5 +1,5 @@
 /*
- * Created by Dariusz Lelek on 9/13/17 7:41 PM
+ * Created by Dariusz Lelek on 9/17/17 1:35 AM
  * Copyright (c) 2017. All rights reserved.
  */
 
@@ -9,13 +9,14 @@ import com.sun.tracing.ProviderFactory;
 import dao.PersonDao;
 import helper.entity.PersonHelper;
 import hibernate.provider.DaoProviderFactory;
+import validator.Validator;
 import validator.skill.EmailValidator;
 
 
 import java.util.ArrayList;
 import java.util.Collection;
 
-public class EmailHelper {
+public class EmailHelper implements Validator<String> {
   private final EmailValidator emailValidator = new EmailValidator();
   private final float MATCH_PERCENT = 0.8F;
 
@@ -26,21 +27,26 @@ public class EmailHelper {
     String candidate;
 
     candidate = tryGetValidMailFromChunks(chunks);
-    if (emailValidator.isValid(candidate)) {
+    if (isValid(candidate)) {
       return candidate;
     }
 
     candidate = tryGetValidMailFromPersons(chunks);
-    if (emailValidator.isValid(candidate)) {
+    if (isValid(candidate)) {
       return candidate;
     }
 
     candidate = tryAssembleValidMailFromChunks(chunks);
-    if (emailValidator.isValid(candidate)) {
+    if (isValid(candidate)) {
       return candidate;
     }
 
     return "";
+  }
+
+  @Override
+  public boolean isValid(String object) {
+    return emailValidator.isValid(object);
   }
 
   private String tryGetValidMailFromPersons(Collection<String> chunks){

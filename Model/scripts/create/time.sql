@@ -1,4 +1,4 @@
-select * from word where WORD = 'year'
+select * from word where WORD = 'minute'
 
 
 
