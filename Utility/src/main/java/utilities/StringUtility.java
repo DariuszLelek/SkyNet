@@ -1,5 +1,5 @@
 /*
- * Created by Dariusz Lelek on 9/13/17 9:12 PM
+ * Created by Dariusz Lelek on 9/17/17 6:37 PM
  * Copyright (c) 2017. All rights reserved.
  */
 
@@ -13,6 +13,11 @@ import java.util.regex.Pattern;
 
 public class StringUtility {
 
+
+  /**
+   * @param string String
+   * @return empty String if <code>string</code> is null.
+   */
   public static String getNotNull(String string){
     return string!= null ? string : "";
   }
@@ -21,18 +26,24 @@ public class StringUtility {
     return collection.stream().anyMatch(string::equalsIgnoreCase);
   }
 
-  public static boolean containsIgnoreCase(String checkedString, String string){
-    return StringUtils.containsIgnoreCase(checkedString, string);
+  public static boolean containsIgnoreCase(String checkedString, String pattern){
+    return StringUtils.containsIgnoreCase(checkedString, pattern);
   }
 
-  public static boolean containsIgnoreCase(String checkedString, String[] strings){
-    return Arrays.stream(strings).anyMatch(s -> StringUtils.containsIgnoreCase(checkedString, s));
+  public static boolean containsIgnoreCase(String checkedString, String[] patterns){
+    return Arrays.stream(patterns).anyMatch(s -> StringUtils.containsIgnoreCase(checkedString, s));
   }
 
   public static String getOnlyNumeric(String string){
     return string.replaceAll("[^0-9]", "");
   }
 
+  /**
+   * @param first First String
+   * @param second Second String
+   * @return float number between 0 and 1 expressing percentage content of
+   *         lower case letters from <code>first</code> String in <code>second</code> String.
+   */
   public static float firstInSecondPercent(String first, String second){
     float result = 0F;
 

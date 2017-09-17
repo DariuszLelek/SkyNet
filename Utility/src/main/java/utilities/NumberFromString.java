@@ -1,22 +1,20 @@
 /*
- * Created by Dariusz Lelek on 9/16/17 11:56 PM
+ * Created by Dariusz Lelek on 9/17/17 6:37 PM
  * Copyright (c) 2017. All rights reserved.
  */
 
-package utilities.number;
+package utilities;
 
 import dao.WordDao;
 import constant.Number;
 import constant.WordClass;
 import helper.entity.WordHelper;
 import process.candidate.StringCandidate;
-import utilities.NumberUtility;
-import utilities.StringUtility;
 
 import java.util.*;
 import java.util.stream.Collectors;
 
-public class NumberFromString {
+class NumberFromString {
   private final static String[] keyWords =
       {"number", "cipher", "numeration", "number", "digit", "symbol", "sum", "unit"};
   private final static String conjunction = "and";
@@ -26,7 +24,7 @@ public class NumberFromString {
   // TODO cache for not number words also?
   private final static Map<String, Long> CACHE = new HashMap<>();
 
-  public NumberFromString() {
+  NumberFromString() {
     initCache();
   }
 
@@ -38,11 +36,11 @@ public class NumberFromString {
     }
   }
 
-  public List<Long> tryGetNumbersFromWords(Collection<String> words) {
+  List<Long> tryGetNumbersFromWords(Collection<String> words) {
     return tryGetNumbersFromLongList(getLongList(words));
   }
 
-  public Long tryGetNumberFromWord(String word) {
+  Long tryGetNumberFromWord(String word) {
     return getFromCacheOrCompute(word);
   }
 

@@ -5,9 +5,6 @@
 
 package utilities;
 
-
-import utilities.number.NumberFromString;
-
 import java.util.*;
 
 public class NumberUtility {
@@ -19,10 +16,18 @@ public class NumberUtility {
     return (float) min / max;
   }
 
+  /**
+   * @param words Collection of single words
+   * @return List of Numbers in Long format in order they appear in <code>words</code>
+   */
   public static List<Long> tryGetNumbersFromWords(Collection<String> words) {
     return numberFromString.tryGetNumbersFromWords(words);
   }
 
+  /**
+   * @param word single word
+   * @return Number of Long type if <code>word</code> is a Number.
+   */
   public static Long tryGetNumberFromWord(String word) {
     return numberFromString.tryGetNumberFromWord(word);
   }
