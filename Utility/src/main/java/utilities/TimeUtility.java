@@ -5,7 +5,9 @@
 
 package utilities;
 
-import constant.Time;
+import constant.TimeKeyWord;
+import constant.TimeUnit;
+import exception.ListsLengthMissMatchException;
 import org.joda.time.DateTime;
 
 import java.util.*;
@@ -13,67 +15,95 @@ import java.util.stream.Collectors;
 import java.util.stream.IntStream;
 
 public class TimeUtility {
+
   private static final String[] repeatableKeyWords = {"every", "each"};
-  private static final Map<String, Time> CACHE = new HashMap<>();
+
+  private static final Collection<String> timeKeyWords = new ArrayList<String>();
+
+  private static final Map<String, TimeUnit> CACHE = new HashMap<>();
+  private static final Map<String, TimeKeyWord> CACHE_KEY_WORDS = new HashMap<>();
 
   static{
     initCache();
+    initTimeKeyWords();
   }
 
-  public static DateTime getDate(List<String> strings){
+  public static DateTime getDateTime(List<String> strings){
     if(!strings.isEmpty()){
-      List<Time> timeList = getTimeList(strings);
-      List<Boolean> repeatableList = getRepeatableList(strings, timeList);
-      List<Long> numberList = getLongList(strings);
+      List<TimeUnit> timeUnitList = getTimeUnitList(strings);
+      // List<Boolean> repeatableList = getRepeatableList(strings, timeUnitList);
+      List<Long> numberList = getNumberList(strings);
+      List<TimeKeyWord> timeKeyWordList = getTimeKeyWordList(strings);
 
       // TODO
+      // merge lists and try get date from them
+
+
       return null;
     }
     return null;
   }
 
-  public static DateTime getDate(String[] strings){
-    return getDate(Arrays.asList(strings));
+  private int tryGetHour(){
+    // TODO
+    return 1;
   }
 
-  public static Time getTime(String string){
+  public static DateTime getDateTime(String[] strings){
+    return getDateTime(Arrays.asList(strings));
+  }
+
+  public static TimeUnit getTimeUnit(String string){
     return CACHE.getOrDefault(string.toLowerCase(), tryGetBestMatch(string));
   }
 
-  public static boolean isTime(String string){
+  public static boolean isTimeUnit(String string){
     return CACHE.keySet().stream()
         .anyMatch(unit -> StringUtility.containsIgnoreCase(string, unit));
   }
 
-  private static List<Long> getLongList(List<String> strings){
+  private static List<Long> getNumberList(List<String> strings){
     return Collections.unmodifiableList(
         strings.stream()
             .map(NumberUtility::tryGetNumberFromWord)
             .collect(Collectors.toList()));
   }
 
-  private static List<Boolean> getRepeatableList(List<String> strings, List<Time> timeList) {
+  private static List<TimeKeyWord> getTimeKeyWordList(List<String> strings){
+    return Collections.unmodifiableList(
+        strings.stream()
+            .map(s -> CACHE_KEY_WORDS.getOrDefault(s.toLowerCase(), TimeKeyWord.UNKNOWN))
+            .collect(Collectors.toList()));
+  }
+
+  private static List<Boolean> getRepeatableList(List<String> strings, List<TimeUnit> timeUnitList) {
     return Collections.unmodifiableList(
         IntStream.range(0, strings.size())
-            .mapToObj(i -> i < timeList.size() && timeList.get(i).isRepeatable()
+            .mapToObj(i -> i < timeUnitList.size() && timeUnitList.get(i).isRepeatable()
                 || i - 1 >= 0 && StringUtility.containsIgnoreCase(strings.get(i - 1), repeatableKeyWords))
             .collect(Collectors.toList()));
   }
 
-  private static List<Time> getTimeList(Collection<String> strings){
+  private static List<TimeUnit> getTimeUnitList(Collection<String> strings){
     return Collections.unmodifiableList(
         strings.stream()
-            .map(TimeUtility::getTime)
+            .map(TimeUtility::getTimeUnit)
             .collect(Collectors.toList()));
   }
 
-  private static Time tryGetBestMatch(String string){
+  private static TimeUnit tryGetBestMatch(String string){
     return CACHE.getOrDefault(CACHE.keySet().stream()
         .filter(unit -> StringUtility.containsIgnoreCase(string, unit))
-        .findFirst().orElse(""), Time.UNKNOWN);
+        .findFirst().orElse(""), TimeUnit.UNKNOWN);
   }
 
   private static void initCache(){
-    Arrays.stream(Time.values()).forEach(value -> CACHE.put(value.name().toLowerCase(), value));
+    Arrays.stream(TimeUnit.values()).forEach(value -> CACHE.put(value.name().toLowerCase(), value));
+    Arrays.stream(TimeKeyWord.values()).forEach(value -> CACHE_KEY_WORDS.put(value.getValue().toLowerCase(), value));
+  }
+
+  private static void initTimeKeyWords(){
+    timeKeyWords.addAll(Arrays.stream(TimeKeyWord.values())
+        .map(TimeKeyWord::getValue).collect(Collectors.toList()));
   }
 }

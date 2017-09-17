@@ -5,7 +5,7 @@
 
 package constant;
 
-public enum Time {
+public enum TimeUnit {
   UNKNOWN(Long.MIN_VALUE, false),
   NOW(0, false),
   SECOND(1, false),
@@ -25,7 +25,7 @@ public enum Time {
   LATER(15 * MINUTE.duration, false),
 
   EVERYDAY(DAY.duration, true),
-  WEEKLY(Time.WEEK.duration, true),
+  WEEKLY(TimeUnit.WEEK.duration, true),
   HOURLY(HOUR.duration, true),
   MONTHLY(MONTH.duration, true),
   YEARLY(YEAR.duration, true),
@@ -46,7 +46,7 @@ public enum Time {
   private final long duration;
   private final boolean repeatable;
 
-  Time(long duration, boolean repeatable) {
+  TimeUnit(long duration, boolean repeatable) {
     this.duration = duration;
     this.repeatable = repeatable;
   }

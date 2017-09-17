@@ -3,17 +3,13 @@
  * Copyright (c) 2017. All rights reserved.
  */
 
-import constant.Time;
-import dao.WordDao;
-import hibernate.provider.DaoProviderFactory;
-
-import java.util.Collection;
+import utilities.TimeUtility;
 
 public class TestClass {
   public static void main(String[] args) {
-    Collection<WordDao> fiveWord = DaoProviderFactory.getWordProvider().getByKey("word", "five");
+    //Collection<WordDao> fiveWord = DaoProviderFactory.getWordProvider().getByKey("word", "five");
 
-    System.out.println(Time.MINUTE);
+    TimeUtility.getDateTime("today we will go to the cinema at five past 10".split(" "));
 
   }
 }
