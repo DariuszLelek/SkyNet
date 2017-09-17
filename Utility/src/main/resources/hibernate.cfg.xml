@@ -18,6 +18,5 @@
     <!--MAPPINGS-->
     <mapping class="dao.WordDao"></mapping>
     <mapping class="dao.PersonDao"></mapping>
-    <mapping class="dao.TimeDao"></mapping>
   </session-factory>
 </hibernate-configuration>
