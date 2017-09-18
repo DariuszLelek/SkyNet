@@ -153,6 +153,6 @@ class NumberFromString {
   }
 
   private long getKeyWordMatchCount(String string) {
-    return Arrays.stream(keyWords).filter(word -> StringUtility.containsIgnoreCase(word, string)).count();
+    return Arrays.stream(keyWords).filter(keyWord -> StringUtility.containsIgnoreCase(string, keyWord)).count();
   }
 }
