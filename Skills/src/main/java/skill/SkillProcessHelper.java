@@ -21,7 +21,6 @@ class SkillProcessHelper {
     return wordProvider.getByKeys(WordDao.WORD, instruction.getQueue());
   }
 
-
   private static Collection<WordClass> getWordClassesFromWords(final Collection<WordDao> wordDAOImpls){
     return wordDAOImpls.stream()
         .map(WordDao::getWordClassString)
@@ -46,6 +45,7 @@ class SkillProcessHelper {
 
   static boolean instructionHasAllExpectedWordClasses(final Instruction instruction,
                                                       final Collection<WordClass> expectedWordClasses){
+    // TODO use word analyse module
     return wordsHaveAllExpectedWordClasses(getWordsFromInstruction(instruction), expectedWordClasses);
   }
 }

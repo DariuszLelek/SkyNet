@@ -6,24 +6,56 @@
 // TODO rename
 package text.sentence;
 
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import jdk.nashorn.internal.ir.annotations.Immutable;
 
+import java.util.*;
+
+@Immutable
 public class Sentence {
 
-  private final Map<String, Word> words;
+  private final List<Word> words;
   private final List<String> strings;
   private final Predicate predicate;
   private final Subject subject;
   private final List<Long> numbers;
 
-  public Sentence(Map<String, Word> words, List<String> strings,
+  public Sentence(List<Word> words, List<String> strings,
                   Predicate predicate, Subject subject, List<Long> numbers) {
     this.words = words;
     this.strings = strings;
     this.predicate = predicate;
     this.subject = subject;
     this.numbers = numbers;
+  }
+
+  public List<Word> getWords() {
+    return Collections.unmodifiableList(words);
+  }
+
+  public List<String> getStrings() {
+    return Collections.unmodifiableList(strings);
+  }
+
+  public Predicate getPredicate() {
+    return predicate;
+  }
+
+  public Subject getSubject() {
+    return subject;
+  }
+
+  public List<Long> getNumbers() {
+    return Collections.unmodifiableList(numbers);
+  }
+
+  public boolean hasNumber(){
+    return !numbers.isEmpty();
+  }
+
+  /**
+   * @return true if sentence has Subject and Predicate.
+   */
+  public boolean isValid(){
+    return !Subject.EMPTY.equals(subject) && !Predicate.EMPTY.equals(predicate);
   }
 }

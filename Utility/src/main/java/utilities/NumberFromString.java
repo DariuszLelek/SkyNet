@@ -8,7 +8,7 @@ package utilities;
 import dao.WordDao;
 import constant.Number;
 import constant.WordClass;
-import helper.entity.WordHelper;
+import helper.entity.WordDictionary;
 import process.candidate.StringCandidate;
 
 import java.util.*;
@@ -75,7 +75,7 @@ class NumberFromString {
   }
 
   private Long tryGetNumberFromDictionary(String word) {
-    return tryGetFromCandidates(getCandidates(WordHelper.getByWordClass(word, numberClass)));
+    return tryGetFromCandidates(getCandidates(WordDictionary.getByWordClass(word, numberClass)));
   }
 
   private ArrayList<StringCandidate> getCandidates(Collection<WordDao> words) {

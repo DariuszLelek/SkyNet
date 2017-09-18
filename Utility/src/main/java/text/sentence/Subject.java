@@ -6,4 +6,5 @@
 package text.sentence;
 
 public class Subject {
+  public static final Subject EMPTY = new Subject();
 }

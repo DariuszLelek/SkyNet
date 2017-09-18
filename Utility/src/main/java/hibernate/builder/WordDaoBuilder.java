@@ -14,6 +14,10 @@ public class WordDaoBuilder implements DaoBuilder<WordDao> {
   private static final int validChunkLength = 3;
   private final String[] chunks;
 
+
+  /**
+   * @param chunks line from "dictionary-EN.txt" file - format [0]word - [1]class - [2]description
+   */
   public WordDaoBuilder(String[] chunks) {
     this.chunks = chunks;
   }

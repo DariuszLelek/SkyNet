@@ -32,8 +32,6 @@ class DaoProvider<T extends Dao> implements Provider<T> {
     this.daoClass = daoClass;
   }
 
-
-
   @Override
   public Collection<T> getAll(){
     Transaction tx = session.beginTransaction();

@@ -7,7 +7,11 @@ package hibernate.provider;
 
 import dao.*;
 
+import java.util.HashMap;
+import java.util.Map;
+
 public class DaoProviderFactory {
+
   public static Provider<WordDao> getWordProvider() {
     return new DaoProvider<>(WordDao.class);
   }

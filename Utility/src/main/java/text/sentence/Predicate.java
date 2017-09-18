@@ -6,5 +6,5 @@
 package text.sentence;
 
 public class Predicate {
-  private static final Predicate EMPTY = new Predicate();
+  public static final Predicate EMPTY = new Predicate();
 }

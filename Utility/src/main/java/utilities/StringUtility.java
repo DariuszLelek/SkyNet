@@ -104,5 +104,4 @@ public class StringUtility {
 
     return chars.length > 0;
   }
-
 }
