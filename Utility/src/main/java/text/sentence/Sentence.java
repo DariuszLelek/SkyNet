@@ -19,6 +19,14 @@ public class Sentence {
   private final Subject subject;
   private final List<Long> numbers;
 
+  public Sentence() {
+    words = new ArrayList<>(0);
+    strings = new ArrayList<>(0);
+    predicate = Predicate.EMPTY;
+    subject = Subject.EMPTY;
+    numbers = new ArrayList<>(0);
+  }
+
   public Sentence(List<Word> words, List<String> strings,
                   Predicate predicate, Subject subject, List<Long> numbers) {
     this.words = words;
@@ -50,6 +58,10 @@ public class Sentence {
 
   public boolean hasNumber(){
     return !numbers.isEmpty();
+  }
+
+  public boolean isEmpty(){
+    return strings.isEmpty();
   }
 
   /**

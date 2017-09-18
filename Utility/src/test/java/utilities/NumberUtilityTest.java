@@ -27,6 +27,7 @@ public class NumberUtilityTest {
     String instruction5 = "zero then ten then hundred then thousand";
     String instruction6 = "eleven thousand and one hundred and eleven";
     String instruction7 = "nine million nine hundred ninety nine thousand and eight hundred seventy six";
+    String instruction8 = "one hundred, some text";
 
     List<Long> result1 = NumberUtility.tryGetNumbersFromWords(Arrays.asList(instruction1.split(" ")));
     List<Long> result2 = NumberUtility.tryGetNumbersFromWords(Arrays.asList(instruction2.split(" ")));
@@ -35,6 +36,7 @@ public class NumberUtilityTest {
     List<Long> result5 = NumberUtility.tryGetNumbersFromWords(Arrays.asList(instruction5.split(" ")));
     List<Long> result6 = NumberUtility.tryGetNumbersFromWords(Arrays.asList(instruction6.split(" ")));
     List<Long> result7 = NumberUtility.tryGetNumbersFromWords(Arrays.asList(instruction7.split(" ")));
+    List<Long> result8 = NumberUtility.tryGetNumbersFromWords(Arrays.asList(instruction8.split(" ")));
 
     assertEquals((Long) 125L, result1.get(0));
     assertEquals((Long) 5000001L, result1.get(1));
@@ -54,6 +56,8 @@ public class NumberUtilityTest {
     assertEquals((Long) 11111L, result6.get(0));
 
     assertEquals((Long) 9999876L, result7.get(0));
+
+    assertEquals((Long) 100L, result8.get(0));
   }
 
   @Test
