@@ -18,12 +18,13 @@ import java.util.stream.Collectors;
 
 public class SentenceAnalyzer {
 
+  @NotNull
   public static Sentence getSentence(String[] strings){
-    return strings != null ? performAnalyze(Arrays.asList(strings)) : new Sentence();
+    return strings == null ? new Sentence() : getSentence(Arrays.asList(strings));
   }
 
-  public static Sentence getSentence(Collection<String> strings) {
-    return strings == null || strings.isEmpty() ? new Sentence() : performAnalyze(strings);
+  private static Sentence getSentence(Collection<String> strings) {
+    return strings.isEmpty() ? new Sentence() : performAnalyze(strings);
   }
 
   private static Sentence performAnalyze(Collection<String> strings) {
@@ -41,6 +42,7 @@ public class SentenceAnalyzer {
 
   private static List<Word> getWordsList(Collection<String> strings) {
     return strings.stream()
+        .filter(s -> !s.isEmpty())
         .map(string -> new Word(string,
             getDescriptions(string),
             getWordType(string),

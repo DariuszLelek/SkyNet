@@ -24,19 +24,21 @@ public class SentenceAnalyzerTest {
   public void getSentence() throws Exception {
     logger.info("getSentence - start");
 
-    assertNotNull(SentenceAnalyzer.getSentence(Arrays.asList("".split(""))));
     assertNotNull(SentenceAnalyzer.getSentence("".split("")));
-    assertNotNull(SentenceAnalyzer.getSentence((Collection<String>) null));
+    assertNotNull(SentenceAnalyzer.getSentence("".split("")));
     assertNotNull(SentenceAnalyzer.getSentence((String[]) null));
 
-    assertTrue(SentenceAnalyzer.getSentence(Arrays.asList("".split(""))).isEmpty());
+    assertTrue(SentenceAnalyzer.getSentence("".split("")).isEmpty());
   }
 
   @Test
   public void sentenceHasNumber() throws Exception {
     logger.info("sentenceHasNumber - start");
 
-    assertTrue(SentenceAnalyzer.getSentence("sentence with number five".split("")).hasNumber());
-    assertTrue(SentenceAnalyzer.getSentence("one hundred, some text".split("")).hasNumber());
+    Sentence s = SentenceAnalyzer.getSentence("one hundred some text".split(" "));
+
+    assertTrue(SentenceAnalyzer.getSentence("sentence with number seven thousand".split(" ")).hasNumber());
+    assertTrue(SentenceAnalyzer.getSentence("one hundred some text".split(" ")).hasNumber());
+    assertTrue(SentenceAnalyzer.getSentence("this is number 67".split(" ")).hasNumber());
   }
 }

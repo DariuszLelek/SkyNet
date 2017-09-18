@@ -19,9 +19,9 @@ public class TestClass {
 
     SentenceAnalyzer se = new SentenceAnalyzer();
 
-    Sentence sentence = se.getSentence(Arrays.asList(analyzeMe.split(" ")));
+    //Sentence sentence = se.getSentence(Arrays.asList(analyzeMe.split(" ")));
 
-    System.out.println("sentence: " + sentence);
+    //System.out.println("sentence: " + sentence);
 
   }
 }

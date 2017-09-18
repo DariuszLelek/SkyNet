@@ -60,8 +60,9 @@ public class Sentence {
     return !numbers.isEmpty();
   }
 
+  // TODO check this
   public boolean isEmpty(){
-    return strings.isEmpty();
+    return words.isEmpty();
   }
 
   /**

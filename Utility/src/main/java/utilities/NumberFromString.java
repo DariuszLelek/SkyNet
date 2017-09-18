@@ -52,11 +52,12 @@ class NumberFromString {
 
   private List<Long> getLongList(Collection<String> words) {
     return words.stream()
-        .filter(word -> !word.equals(conjunction))
+        .filter(word -> !word.isEmpty() && !word.equals(conjunction))
         .map(NumberUtility::tryGetNumberFromWord)
         .collect(Collectors.toList());
   }
 
+  // TODO dont compute numbers like "five," or "1-"
   private Long computeNumber(String word) {
     if (StringUtility.isNumeric(word)) {
       return tryParse(word);
