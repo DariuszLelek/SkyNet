@@ -25,6 +25,11 @@ public class PersonDao extends Dao implements java.io.Serializable {
   @Column(name = "PHONE")
   private String phone;
 
+  public static final Property FIRST_NAME = new Property("firstName");
+  public static final Property LAST_NAME = new Property("lastName");
+  public static final Property EMAIL = new Property("email");
+  public static final Property PHONE = new Property("phone");
+
   public int getPersonId() {
     return personId;
   }

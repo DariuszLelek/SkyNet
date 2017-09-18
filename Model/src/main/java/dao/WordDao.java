@@ -29,6 +29,10 @@ public class WordDao extends Dao implements java.io.Serializable {
   @Column(name = "DESCRIPTION", length = DESCRIPTION_LENGTH)
   private String description;
 
+  public static final Property WORD = new Property("word");
+  public static final Property CLASS = new Property("wordClassString");
+  public static final Property SYNONYMS = new Property("synonyms");
+
   public WordDao() {
   }
 

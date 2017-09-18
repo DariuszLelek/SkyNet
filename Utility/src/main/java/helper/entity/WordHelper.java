@@ -16,7 +16,7 @@ import java.util.stream.Collectors;
 
 public class WordHelper {
   public static Collection<WordDao> getByWordClass(String word, WordClass wordClass){
-    return DaoProviderFactory.getWordProvider().getByKey("word", word)
+    return DaoProviderFactory.getWordProvider().getByKey(WordDao.WORD, word)
         .stream().filter(w -> wordClass == w.getWordClass())
         .collect(Collectors.toList());
   }

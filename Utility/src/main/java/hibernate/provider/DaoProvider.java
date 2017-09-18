@@ -45,27 +45,27 @@ class DaoProvider<T extends Dao> implements Provider<T> {
   }
 
   @Override
-  public Collection<T> getByKey(String propertyName, String value) {
+  public Collection<T> getByKey(Dao.Property property, Object value) {
     Transaction tx = session.beginTransaction();
-    Collection collection = session.createCriteria(daoClass).add(Restrictions.eq(propertyName, value)).list();
+    Collection collection = session.createCriteria(daoClass).add(Restrictions.eq(property.getValue(), value)).list();
     commit(tx);
     return getCastedCollection(collection);
   }
 
   @Override
-  public Collection<T> getByKeys(String propertyName, Collection<String> values) {
+  public Collection<T> getByKeys(Dao.Property property, Collection values) {
     Transaction tx = session.beginTransaction();
-    Collection collection = session.createCriteria(daoClass).add(Restrictions.in(propertyName,
-        values.toArray(new String[values.size()]))).list();
+    Collection collection = session.createCriteria(daoClass).add(Restrictions.in(property.getValue(),
+        values.toArray(new Object[values.size()]))).list();
     commit(tx);
     return getCastedCollection(collection);
   }
 
 
   @Override
-  public T getByUniqueKey(String propertyName, String value) {
+  public T getByUniqueKey(Dao.Property property, Object value) {
     Transaction tx = session.beginTransaction();
-    Object object = session.createCriteria(daoClass).add(Restrictions.eq(propertyName, value)).uniqueResult();
+    Object object = session.createCriteria(daoClass).add(Restrictions.eq(property.getValue(), value)).uniqueResult();
     commit(tx);
     return daoClass.isInstance(object) ? daoClass.cast(object) : null;
   }

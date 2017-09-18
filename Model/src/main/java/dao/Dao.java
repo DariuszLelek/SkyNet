@@ -15,4 +15,16 @@ public abstract class Dao implements Validator{
 
   @Override
   public abstract boolean isValid();
+
+  public static class Property {
+    private final String value;
+
+    public Property(String value) {
+      this.value = value;
+    }
+
+    public String getValue() {
+      return value;
+    }
+  }
 }

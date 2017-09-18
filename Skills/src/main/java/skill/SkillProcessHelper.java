@@ -18,7 +18,7 @@ class SkillProcessHelper {
   private static final Provider<WordDao> wordProvider = DaoProviderFactory.getWordProvider();
 
   private static Collection<WordDao> getWordsFromInstruction(final Instruction instruction){
-    return wordProvider.getByKeys("word", instruction.getQueue());
+    return wordProvider.getByKeys(WordDao.WORD, instruction.getQueue());
   }
 
 

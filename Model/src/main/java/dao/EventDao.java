@@ -6,7 +6,6 @@
 package dao;
 
 import org.joda.time.DateTime;
-import process.validator.Validator;
 
 import javax.persistence.*;
 
@@ -27,6 +26,10 @@ public class EventDao extends Dao implements java.io.Serializable {
   private String location;
   @Column(name = "INSTRUCTION")
   private String instruction;
+
+  public static final Property NAME = new Property("name");
+  public static final Property REPEATABLE = new Property("repeatable");
+  public static final Property LOCATION = new Property("location");
 
   public String getName() {
     return getNotNull(name);
