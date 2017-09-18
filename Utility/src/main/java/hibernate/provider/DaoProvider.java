@@ -16,6 +16,10 @@ import org.hibernate.criterion.Restrictions;
 
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.List;
+import java.util.stream.Collectors;
+
+import static java.util.stream.Collectors.toList;
 
 class DaoProvider<T extends Dao> implements Provider<T> {
   private final static Logger logger = Logger.getLogger(DaoProvider.class);
@@ -28,12 +32,19 @@ class DaoProvider<T extends Dao> implements Provider<T> {
     this.daoClass = daoClass;
   }
 
+
+
   @Override
   public Collection<T> getAll(){
     Transaction tx = session.beginTransaction();
     Collection collection = session.createCriteria(daoClass).list();
     commit(tx);
     return getCastedCollection(collection);
+  }
+
+  @Override
+  public boolean isInUse() {
+    return session.isOpen();
   }
 
   @Override
@@ -62,7 +73,7 @@ class DaoProvider<T extends Dao> implements Provider<T> {
   }
 
   private Collection<T> getCastedCollection(Collection collection){
-    Collection<T> result = new ArrayList<>();
+    List<T> result = new ArrayList<>();
 
     for(Object object : collection){
       if(Dao.class.isInstance(object)){

@@ -10,6 +10,8 @@ import dao.Dao;
 import java.util.Collection;
 
 public interface Provider<T> {
+  boolean isInUse();
+
   int getQuantity();
   Collection<T> getByKey(Dao.Property property, Object value);
   Collection<T> getByKeys(Dao.Property property, Collection values);
