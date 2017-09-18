@@ -61,25 +61,6 @@ class DaoProvider<T extends Dao> implements Provider<T> {
     return getCastedCollection(collection);
   }
 
-
-  @Override
-  public T getByUniqueKey(Dao.Property property, Object value) {
-    Transaction tx = session.beginTransaction();
-    Object object = session.createCriteria(daoClass).add(Restrictions.eq(property.getValue(), value)).uniqueResult();
-    commit(tx);
-    return daoClass.isInstance(object) ? daoClass.cast(object) : null;
-  }
-
-//  @Override
-//  public Collection<T> getByUniqueKeys(String propertyName, Collection<String> values) {
-//    Session session = hibernateUtility.getSession();
-//    Transaction tx = session.beginTransaction();
-//    Collection collection = session.createCriteria(daoClass).add(Restrictions.in(propertyName,
-//        values.toArray(new String[values.size()]))).list();
-//    tx.commit();
-//    return getCastedCollection(collection);
-//  }
-
   private Collection<T> getCastedCollection(Collection collection){
     Collection<T> result = new ArrayList<>();
 

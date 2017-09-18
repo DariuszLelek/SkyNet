@@ -11,8 +11,6 @@ import java.util.Collection;
 
 public interface Provider<T> {
   int getQuantity();
-  T getByUniqueKey(Dao.Property property, Object value);
-  //Collection<T> getByUniqueKeys(String propertyName, Collection<String> values);
   Collection<T> getByKey(Dao.Property property, Object value);
   Collection<T> getByKeys(Dao.Property property, Collection values);
   Collection<T> getAll();
