@@ -57,7 +57,7 @@ class NumberFromString {
         .collect(Collectors.toList());
   }
 
-  // TODO dont compute numbers like "five," or "1-"
+  // TODO handle numbers like "five," or "1-"
   private Long computeNumber(String word) {
     if (StringUtility.isNumeric(word)) {
       return tryParse(word);

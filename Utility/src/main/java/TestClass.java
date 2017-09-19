@@ -13,7 +13,7 @@ public class TestClass {
   public static void main(String[] args) {
     //Collection<WordDao> fiveWord = DaoProviderFactory.getWordProvider().getByKey("word", "five");
 
-    TimeUtility.getDateTime("today we will go to the cinema at five past 10".split(" "));
+    TimeUtility.getDateTime("remind me in three days".split(" "));
 
     String analyzeMe = "send an email to my friend with a message: Where is my five hundred pounds";
 

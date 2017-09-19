@@ -99,9 +99,4 @@ public class EmailHelper {
     // TODO;
     return "";
   }
-
-  @Override
-  protected void finalize() throws Throwable {
-    System.out.println("destroyed");
-  }
 }

@@ -35,6 +35,12 @@ public class TimeUtility {
       List<Long> numberList = getNumberList(strings);
       List<TimeKeyWord> timeKeyWordList = getTimeKeyWordList(strings);
 
+
+      DateTime t = DateTime.now();
+
+      t = t.plus(TimeUnit.DAY.getDuration() * 1000);
+      t = t.withHourOfDay(5);
+
       // TODO
       // merge lists and try get date from them
 
