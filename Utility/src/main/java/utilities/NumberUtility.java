@@ -16,6 +16,7 @@ public class NumberUtility {
     return (float) min / max;
   }
 
+  // TODO fix implementation for "five five five five" example -> 20 instead o f 5555
   /**
    * @param words Collection of single words
    * @return List of Numbers in Long format in order they appear in <code>words</code>
