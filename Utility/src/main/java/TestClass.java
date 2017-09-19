@@ -15,13 +15,11 @@ public class TestClass {
 
     TimeUtility.getDateTime("today we will go to the cinema at five past 10".split(" "));
 
-    String analyzeMe = "some word consisting probably some number like seve or 11";
+    String analyzeMe = "send an email to my friend with a message: Where is my five hundred pounds";
 
-    SentenceAnalyzer se = new SentenceAnalyzer();
+    Sentence sentence = SentenceAnalyzer.getSentence(analyzeMe.split(" "));
 
-    //Sentence sentence = se.getSentence(Arrays.asList(analyzeMe.split(" ")));
-
-    //System.out.println("sentence: " + sentence);
+    System.out.println("sentence: " + sentence);
 
   }
 }
