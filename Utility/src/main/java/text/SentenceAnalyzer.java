@@ -29,11 +29,13 @@ public class SentenceAnalyzer {
 
   private static Sentence performAnalyze(Collection<String> strings) {
     PairSP pairSubjectPredicate = getPairSP(strings);
-    List<Word> words = getWordsList(strings);
-    List<Long> numbers = getNumbersList(strings);
 
-    return new Sentence(words, new ArrayList<>(strings), pairSubjectPredicate.getPredicate(),
-        pairSubjectPredicate.getSubject(), numbers);
+    return new Sentence(
+        getWordsList(strings),
+        new ArrayList<>(strings),
+        pairSubjectPredicate.getPredicate(),
+        pairSubjectPredicate.getSubject(),
+        getNumbersList(strings));
   }
 
   private static List<Long> getNumbersList(Collection<String> strings) {
@@ -51,13 +53,15 @@ public class SentenceAnalyzer {
   }
 
   private static Set<String> getDescriptions(String string){
-    return WordDictionary.getByString(string)
-        .stream().map(WordDao::getDescription).collect(Collectors.toSet());
+    return WordDictionary.getByString(string).stream()
+        .map(WordDao::getDescription).collect(Collectors.toSet());
   }
 
   private static Set<WordClass> getWordClasses(String string) {
-    return WordDictionary.getByString(string)
-        .stream().map(WordDao::getWordClass).collect(Collectors.toSet());
+    return WordDictionary.getByString(string).stream()
+        .map(WordDao::getWordClass)
+        .filter(wordClass -> wordClass != WordClass.UNKNOWN)
+        .collect(Collectors.toSet());
   }
 
   private static WordType getWordType(String string) {
