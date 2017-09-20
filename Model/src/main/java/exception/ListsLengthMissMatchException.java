@@ -5,5 +5,13 @@
 
 package exception;
 
-public class ListsLengthMissMatchException extends Throwable{
+public class ListsLengthMissMatchException extends CustomException{
+  public ListsLengthMissMatchException(String message) {
+    super(message);
+  }
+
+  @Override
+  public String toString() {
+    return "ListsLengthMissMatchException{}";
+  }
 }

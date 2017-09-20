@@ -5,5 +5,13 @@
 
 package exception;
 
-public class NotValidWordException extends Throwable {
+public class NotValidWordException extends CustomException {
+  public NotValidWordException(String message) {
+    super(message);
+  }
+
+  @Override
+  public String toString() {
+    return "NotValidWordException{\"" + message + "\" is not a valid word.}";
+  }
 }
