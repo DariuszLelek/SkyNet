@@ -7,7 +7,6 @@ package worker;
 
 import java.util.ArrayList;
 import java.util.Collection;
-import java.util.List;
 import java.util.concurrent.Executors;
 import java.util.concurrent.ScheduledExecutorService;
 import java.util.concurrent.TimeUnit;
@@ -32,7 +31,7 @@ public class WorkerSupervisor {
   }
 
   private static void addWorkers(){
-    workers.add(new EventWorker());
+    workers.add(new ReminderWorker());
   }
 
   private static void scheduleWorkers(){

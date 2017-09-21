@@ -5,22 +5,19 @@
 
 package worker;
 
-import dao.EventDao;
-import execute.ProcessableExecutor;
 import hibernate.provider.DaoProviderFactory;
-import org.joda.time.DateTime;
-import process.event.Event;
+import process.reminder.Reminder;
 
 import java.util.*;
 import java.util.stream.Collectors;
 
-public class EventWorker extends Worker {
+public class ReminderWorker extends Worker {
 
   // TODO change to 60s
   private static final long workerDelay = 5 * 1000;
-  private final Set<Event> CACHE = new HashSet<>();
+  private final Set<Reminder> CACHE = new HashSet<>();
 
-  public EventWorker() {
+  public ReminderWorker() {
     super(workerDelay);
   }
 
@@ -39,12 +36,12 @@ public class EventWorker extends Worker {
     }
   }
 
-  private Collection<Event> getAllEvents(){
+  private Collection<Reminder> getAllEvents(){
     return DaoProviderFactory.getEventProvider().getAll().stream()
-        .map(Event::new).collect(Collectors.toList());
+        .map(Reminder::new).collect(Collectors.toList());
   }
 
   private void processEvents(){
-    CACHE.stream().filter(Event::canProcess).forEach(ProcessableExecutor::addProcessable);
+    CACHE.stream().filter(Reminder::canProcess).forEach(Reminder::process);
   }
 }

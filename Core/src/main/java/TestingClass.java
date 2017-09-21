@@ -5,17 +5,9 @@
 
 
 import dao.EventDao;
-import database.DataBaseSaver;
-import database.DictionaryDataBaseSaver;
-import hibernate.preserver.DaoPreserverFactory;
-import hibernate.provider.DaoProviderFactory;
 import org.apache.log4j.Logger;
 import org.joda.time.DateTime;
-import process.ProcessorFactory;
-import process.message.Message;
 import process.message.MessageCreator;
-import process.message.MessageType;
-import worker.EventWorker;
 import worker.WorkerSupervisor;
 
 
