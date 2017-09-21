@@ -1,9 +1,9 @@
 /*
- * Created by Dariusz Lelek on 9/21/17 7:55 PM
+ * Created by Dariusz Lelek on 9/21/17 10:22 PM
  * Copyright (c) 2017. All rights reserved.
  */
 
-package process.reminder;
+package worker.reminder;
 
 import dao.EventDao;
 import org.joda.time.DateTime;

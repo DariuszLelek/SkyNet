@@ -11,13 +11,12 @@ import org.joda.time.DateTime;
  * Background task
  */
 public abstract class Worker implements Runnable{
-  private final long delay;
-  //private final WorkerType type;
+  private final WorkerConfig config;
 
-  boolean working = true;
+  protected boolean working = true;
 
-  public Worker(long delay) {
-    this.delay = delay;
+  public Worker(WorkerConfig config) {
+    this.config = config;
   }
 
   public void start(){
@@ -33,9 +32,15 @@ public abstract class Worker implements Runnable{
   }
 
   public long getDelay() {
-    return delay;
+    return config.getDelay();
   }
 
   @Override
-  public abstract void run();
+  public void run(){
+    if(working){
+      runWorker();
+    }
+  };
+
+  public abstract void runWorker();
 }
