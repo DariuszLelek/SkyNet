@@ -30,6 +30,11 @@ public class Message extends Processable {
 
 
   @Override
+  public boolean canProcess() {
+    return hasInstruction();
+  }
+
+  @Override
   public boolean process() {
     final String chunk = getInstruction().poll();
 

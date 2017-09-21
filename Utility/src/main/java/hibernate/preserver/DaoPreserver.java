@@ -103,7 +103,7 @@ class DaoPreserver<T extends Dao> implements Preserver<T> {
     if(dao.isValid()){
       return true;
     }else{
-      logger.warn("validate - Cannot perform transaction on:" + dao.toString());
+      logger.warn("isValid(dao) - FAIL - Cannot perform transaction on:" + dao.toString());
       return false;
     }
   }

@@ -4,14 +4,19 @@
  */
 
 
+import dao.EventDao;
 import database.DataBaseSaver;
 import database.DictionaryDataBaseSaver;
+import hibernate.preserver.DaoPreserverFactory;
 import hibernate.provider.DaoProviderFactory;
 import org.apache.log4j.Logger;
+import org.joda.time.DateTime;
 import process.ProcessorFactory;
 import process.message.Message;
 import process.message.MessageCreator;
 import process.message.MessageType;
+import worker.EventWorker;
+import worker.WorkerSupervisor;
 
 
 public class TestingClass {
@@ -21,11 +26,26 @@ public class TestingClass {
 
     MessageCreator messageCreator = new MessageCreator();
 
-    Message m1 = messageCreator.create("", MessageType.VOICE);
-    Message m2 = messageCreator.create("email to DARIUS cat", MessageType.VOICE);
-    Message m3 = messageCreator.create("remind tomorrows then day day other", MessageType.VOICE);
+//    Message m1 = messageCreator.create("", MessageType.VOICE);
+//    Message m2 = messageCreator.create("email to DARIUS cat", MessageType.VOICE);
+//    Message m3 = messageCreator.create("remind tomorrows then day day other", MessageType.VOICE);
+//
+//    ProcessorFactory.getMessageProcessor().process(m3);
 
-    ProcessorFactory.getMessageProcessor().process(m3);
+    EventDao ed = new EventDao();
+    ed.setName("reminder1");
+    ed.setDelay(10 * 1000L);
+    ed.setRepeatable(true);
+    ed.setTime(DateTime.now().toString());
+
+    //ed.setTime(DateTime.now().toString());
+
+    //DaoPreserverFactory.getEventPreserver().save(ed);
+
+    WorkerSupervisor ws=new WorkerSupervisor();
+
+    ws.startWorkers();
+    System.out.println("ss");
 
 
 //    DaoPreserver<TimeDao> timeSave = new DaoPreserver<>();

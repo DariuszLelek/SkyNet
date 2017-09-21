@@ -7,10 +7,11 @@
 package text.sentence;
 
 import jdk.nashorn.internal.ir.annotations.Immutable;
+import org.joda.time.DateTime;
+import utilities.TimeUtility;
 
 import java.util.*;
 
-@Immutable
 public class Sentence {
 
   private final List<Word> words;
@@ -18,6 +19,8 @@ public class Sentence {
   private final Predicate predicate;
   private final Subject subject;
   private final List<Long> numbers;
+
+  private DateTime dateTime;
 
   public Sentence() {
     words = new ArrayList<>(0);
@@ -34,6 +37,10 @@ public class Sentence {
     this.predicate = predicate;
     this.subject = subject;
     this.numbers = numbers;
+  }
+
+  public boolean hasDateTime(){
+    return getOrComputeDateTime() != null;
   }
 
   public List<Word> getWords() {
@@ -63,6 +70,14 @@ public class Sentence {
   // TODO check this
   public boolean isEmpty(){
     return words.isEmpty();
+  }
+
+  private DateTime getOrComputeDateTime(){
+    return dateTime == null ? computeDateTime() : dateTime;
+  }
+
+  private DateTime computeDateTime(){
+    return dateTime = TimeUtility.getDateTime(strings);
   }
 
   /**

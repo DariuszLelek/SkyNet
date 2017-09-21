@@ -19,6 +19,11 @@ public class Event extends Skill {
   }
 
   @Override
+  public boolean canProcess() {
+    return true;
+  }
+
+  @Override
   public boolean process() {
     return false;
   }

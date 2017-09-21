@@ -21,7 +21,9 @@ public class EventDao extends Dao implements java.io.Serializable {
   @Column(name = "REPEATABLE")
   private boolean repeatable;
   @Column(name = "TIME", nullable = false)
-  private DateTime time;
+  private String time;
+  @Column(name = "DELAY")
+  private long delay;
   @Column(name = "LOCATION")
   private String location;
   @Column(name = "INSTRUCTION")
@@ -47,11 +49,15 @@ public class EventDao extends Dao implements java.io.Serializable {
     this.repeatable = repeatable;
   }
 
-  public DateTime getTime() {
+  public String getTime() {
     return time;
   }
 
-  public void setTime(DateTime time) {
+  public DateTime getDateTime() {
+    return DateTime.parse(time);
+  }
+
+  public void setTime(String time) {
     this.time = time;
   }
 
@@ -71,6 +77,14 @@ public class EventDao extends Dao implements java.io.Serializable {
     this.instruction = instruction;
   }
 
+  public long getDelay() {
+    return delay;
+  }
+
+  public void setDelay(long delay) {
+    this.delay = delay;
+  }
+
   @Override
   public String toString() {
     return "EventDao{" +
@@ -85,5 +99,20 @@ public class EventDao extends Dao implements java.io.Serializable {
   @Override
   public boolean isValid() {
     return !getName().isEmpty() && getTime() != null;
+  }
+
+  @Override
+  public boolean equals(Object o) {
+    if (this == o) return true;
+    if (o == null || getClass() != o.getClass()) return false;
+
+    EventDao eventDao = (EventDao) o;
+
+    return name != null ? name.equals(eventDao.name) : eventDao.name == null;
+  }
+
+  @Override
+  public int hashCode() {
+    return name != null ? name.hashCode() : 0;
   }
 }

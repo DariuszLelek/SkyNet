@@ -55,7 +55,7 @@ public class ProcessableRunner implements Runnable {
       try {
         Thread.sleep(RETRY_DELAY);
       } catch (InterruptedException e) {
-        e.printStackTrace();
+        logger.error("sleep()", e);
       }
     }
   }

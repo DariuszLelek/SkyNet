@@ -5,11 +5,9 @@
 
 package text;
 
-import com.sun.istack.internal.NotNull;
 import constant.WordClass;
 import dao.WordDao;
 import helper.entity.WordDictionary;
-import hibernate.provider.DaoProviderFactory;
 import text.sentence.*;
 import utilities.NumberUtility;
 
@@ -18,7 +16,6 @@ import java.util.stream.Collectors;
 
 public class SentenceAnalyzer {
 
-  @NotNull
   public static Sentence getSentence(String[] strings){
     return strings == null ? new Sentence() : getSentence(Arrays.asList(strings));
   }
@@ -68,7 +65,6 @@ public class SentenceAnalyzer {
     return WordType.getByString(string);
   }
 
-  @NotNull
   private static PairSP getPairSP(Collection<String> strings) {
     // TODO
     return new PairSP(null, null);

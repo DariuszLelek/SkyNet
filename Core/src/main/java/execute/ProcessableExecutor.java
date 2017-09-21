@@ -57,7 +57,7 @@ public class ProcessableExecutor {
           } else {
             if(logIdleCounter++ >= LOG_IDLE_FREQUENCY){
               logIdleCounter = 0;
-              logger.info("Running... - No pending processables");
+              logger.info("Idle... - No pending processables");
             }
             try {
               Thread.sleep(PENDING_CHECK_DELAY);
@@ -73,7 +73,7 @@ public class ProcessableExecutor {
   }
 
   private synchronized static void startProcessableRunner(final Processable processable) {
-    if(processable.hasInstructions()){
+    if(processable.canProcess()){
       removeFromPending(processable);
 
       ProcessableRunner runner = new ProcessableRunner(processable);
@@ -97,8 +97,7 @@ public class ProcessableExecutor {
     Processable highestPriorityProcessable = emptyProcessable;
 
     for (Processable processable : pendingProcessables) {
-      if (processable.getPriority() > highestPriorityProcessable.getPriority() &&
-          processable.hasInstructions()) {
+      if (processable.getPriority() > highestPriorityProcessable.getPriority()) {
         highestPriorityProcessable = processable;
       }
     }

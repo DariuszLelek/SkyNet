@@ -13,7 +13,7 @@ public abstract class Processor {
   private final static Logger logger = Logger.getLogger(Processor.class);
 
   public final void process(Processable processable){
-    if(processable.hasInstructions()){
+    if(processable.canProcess()){
       ProcessableExecutor.addProcessable(processable);
     }else{
       logger.warn("process() - Can't process - " + processable.toString());

@@ -13,9 +13,8 @@ public class TestClass {
   public static void main(String[] args) {
     //Collection<WordDao> fiveWord = DaoProviderFactory.getWordProvider().getByKey("word", "five");
 
-    TimeUtility.getDateTime("remind me in three days".split(" "));
-
-    String analyzeMe = "send an email to my friend with a message: Where is my five hundred pounds";
+    TimeUtility.getDateTime("remind me about something tomorrow at five thirty".split(" "));
+    String analyzeMe = "remind me about something tomorrow at five thirty";
 
     Sentence sentence = SentenceAnalyzer.getSentence(analyzeMe.split(" "));
 

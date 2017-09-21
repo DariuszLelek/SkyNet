@@ -37,22 +37,25 @@ public class Email extends Skill {
     }}, true);
   }
 
+
+  @Override
+  public boolean canProcess() {
+    return hasValidInstruction();
+  }
+
   @Override
   public boolean process() {
-    if(hasValidInstruction()){
-      String recipient = emailHelper.getEmail(getInstruction().getQueue());
-      // TODO get from content helper
-      String content = "some content";
+    String recipient = emailHelper.getEmail(getInstruction().getQueue());
+    // TODO get from content helper
+    String content = "some content";
 
-      if(recipient.isEmpty()){
-        fail("Cannot get valid recipient.");
-        return false;
-      }else{
-        setMailServerProperties();
-        return trySendMail(recipient, content);
-      }
+    if (recipient.isEmpty()) {
+      fail("Cannot get valid recipient.");
+      return false;
+    } else {
+      setMailServerProperties();
+      return trySendMail(recipient, content);
     }
-    return false;
   }
 
   private boolean trySendMail(String recipient, String content){

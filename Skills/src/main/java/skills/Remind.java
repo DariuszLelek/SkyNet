@@ -21,9 +21,14 @@ public class Remind extends Skill {
   }
 
   @Override
+  public boolean canProcess() {
+    return hasValidInstruction();
+  }
+
+  @Override
   public boolean process() {
 //    if(hasValidInstruction()){
-//      // TODO basically store to DB then run daemon to execute any reminder that is relevant
+//      // TODO basically store to DB then run worker to execute any reminder that is relevant
 //      logger.info("process - processing Remind: " + getInstruction().toString());
 //      remindHelper.dequeueMessage(getInstruction().getQueue());
 //      if(remindHelper.saveRemindDao()){

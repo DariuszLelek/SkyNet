@@ -1,4 +1,4 @@
-select * from word where WORD = 'minute'
+select * from word where WORD = 'or'
 
 
 

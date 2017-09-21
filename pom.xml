@@ -7,7 +7,6 @@
     <packaging>pom</packaging>
     <modules>
         <module>Core</module>
-        <module>Dictionary</module>
         <module>Skills</module>
         <module>Model</module>
         <module>Utility</module>

@@ -15,6 +15,12 @@ public class EmptySkill extends Skill {
     super(Priority.NONE, new ArrayList<>(), false);
   }
 
+
+  @Override
+  public boolean canProcess() {
+    return false;
+  }
+
   @Override
   public boolean process() {
     return true;

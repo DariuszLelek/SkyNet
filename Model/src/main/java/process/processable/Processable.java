@@ -29,9 +29,7 @@ public abstract class Processable {
     return instruction;
   }
 
-  public final boolean hasInstructions(){
-    return !instruction.isEmpty();
-  }
+  public abstract boolean canProcess();
 
   public void setInstruction(final Instruction instruction){
     this.instruction = instruction;
@@ -40,6 +38,10 @@ public abstract class Processable {
   public abstract boolean process();
 
   public abstract int getPriority();
+
+  public boolean hasInstruction(){
+    return !instruction.isEmpty();
+  }
 
   @Override
   public String toString() {

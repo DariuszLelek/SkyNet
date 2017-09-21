@@ -17,7 +17,7 @@ public class TestClass {
     //System.out.println(add.getInfo());
 
     System.out.println(SkillFactory.hasSkill("maiL"));
-    System.out.println(SkillFactory.hasSkill("Remind me about some thing tomorrow"));
+    System.out.println(SkillFactory.hasSkill("Remind me about something tomorrow"));
     SkillFactory.getSkill("add");
 
     System.out.println(SkillFactory.getSkillNames());

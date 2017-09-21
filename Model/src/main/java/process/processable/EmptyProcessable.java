@@ -9,6 +9,11 @@ public class EmptyProcessable extends Processable{
   public static final EmptyProcessable INSTANCE = new EmptyProcessable();
 
   @Override
+  public boolean canProcess() {
+    return false;
+  }
+
+  @Override
   public boolean process() {
     return true;
   }
