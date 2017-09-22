@@ -69,8 +69,16 @@ public class HibernateUtility {
     return session;
   }
 
+  private synchronized SessionFactory getSessionFactory(){
+    return sessionFactory;
+  }
+
+  public boolean isSessionFactoryClosed(){
+    return getSessionFactory().isClosed();
+  }
+
   public void closeSessionFactory() {
-    sessionFactory.close();
+    getSessionFactory().close();
     StandardServiceRegistryBuilder.destroy(serviceRegistry);
   }
 }

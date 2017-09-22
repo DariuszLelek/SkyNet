@@ -20,11 +20,17 @@ public class HibernateUtilityFactory {
 
   private static HibernateUtility getFromCache(DataBaseConfig dataBaseConfig){
     synchronized (CACHE){
-      return CACHE.computeIfAbsent(dataBaseConfig, (key) -> new HibernateUtility(dataBaseConfig));
+      if(!CACHE.containsKey(dataBaseConfig) || CACHE.get(dataBaseConfig).isSessionFactoryClosed()){
+        CACHE.put(dataBaseConfig, new HibernateUtility((dataBaseConfig)));
+      }
+
+      return CACHE.get(dataBaseConfig);
     }
   }
 
   public static void closeAllSessionFactories(){
-    CACHE.values().forEach(HibernateUtility::closeSessionFactory);
+    synchronized (CACHE){
+      CACHE.values().forEach(HibernateUtility::closeSessionFactory);
+    }
   }
 }
