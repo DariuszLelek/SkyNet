@@ -33,4 +33,9 @@ public class HibernateUtilityFactory {
       CACHE.values().forEach(HibernateUtility::closeSessionFactory);
     }
   }
+
+
+  public synchronized boolean isSessionFactoryOpen(){
+    return CACHE.values().stream().anyMatch(utility -> !utility.isSessionFactoryClosed());
+  }
 }
