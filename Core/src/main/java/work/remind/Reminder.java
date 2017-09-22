@@ -3,7 +3,7 @@
  * Copyright (c) 2017. All rights reserved.
  */
 
-package worker.reminder;
+package work.remind;
 
 import dao.EventDao;
 import org.joda.time.DateTime;
@@ -29,8 +29,11 @@ public class Reminder extends Processable{
 
     lastProcessed = DateTime.now();
 
-    // TODO process reminder
-    System.out.println(name + " - reminder");
+    // TODO send repeatable reminders to voice processing ?
+    // TODO send important reminders to voice module with confirmation ?
+
+    // TODO process remind
+    System.out.println(name + " - remind");
 
     return true;
   }

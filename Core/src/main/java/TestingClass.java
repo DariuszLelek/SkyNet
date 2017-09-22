@@ -8,7 +8,7 @@ import dao.EventDao;
 import org.apache.log4j.Logger;
 import org.joda.time.DateTime;
 import process.message.MessageCreator;
-import worker.WorkerSupervisor;
+import work.WorkerSupervisor;
 
 
 public class TestingClass {

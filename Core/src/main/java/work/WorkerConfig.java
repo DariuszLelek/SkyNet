@@ -3,7 +3,7 @@
  * Copyright (c) 2017. All rights reserved.
  */
 
-package worker;
+package work;
 
 public enum WorkerConfig {
   // TODO add runtime hours for example Reminders between 7-24 or 6-22

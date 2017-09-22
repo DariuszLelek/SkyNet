@@ -3,11 +3,11 @@
  * Copyright (c) 2017. All rights reserved.
  */
 
-package worker.reminder;
+package work.remind;
 
 import hibernate.provider.DaoProviderFactory;
-import worker.Worker;
-import worker.WorkerConfig;
+import work.Worker;
+import work.WorkerConfig;
 
 import java.util.*;
 import java.util.stream.Collectors;

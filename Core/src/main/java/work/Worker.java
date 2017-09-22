@@ -3,9 +3,7 @@
  * Copyright (c) 2017. All rights reserved.
  */
 
-package worker;
-
-import org.joda.time.DateTime;
+package work;
 
 /**
  * Background task

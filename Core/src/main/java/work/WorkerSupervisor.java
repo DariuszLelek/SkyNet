@@ -3,9 +3,9 @@
  * Copyright (c) 2017. All rights reserved.
  */
 
-package worker;
+package work;
 
-import worker.reminder.ReminderWorker;
+import work.remind.ReminderWorker;
 
 import java.util.ArrayList;
 import java.util.Collection;
