@@ -10,6 +10,7 @@ import process.priority.Priority;
 public enum MessageType {
   EMPTY(Priority.NONE),
 
+  UI(Priority.HIGH),
   VOICE(Priority.HIGH),
   SYSTEM(Priority.HIGH);
 

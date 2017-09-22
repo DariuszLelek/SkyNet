@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import java.lang.*?>
+<?import java.net.*?>
+<?import java.util.*?>
+<?import javafx.scene.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<AnchorPane id="AnchorPane" fx:id="root" prefHeight="803.0" prefWidth="860.0" styleClass="mainFxmlClass" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="fxml.SkyNetFXMLController">
+    <stylesheets>
+        <URL value="@/styles/skynetfxml.css" />
+    </stylesheets>
+   <children>
+      <VBox layoutX="184.0" layoutY="230.0" prefHeight="803.0" prefWidth="860.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+         <children>
+            <MenuBar>
+              <menus>
+                <Menu mnemonicParsing="false" text="File">
+                  <items>
+                    <MenuItem mnemonicParsing="false" text="Close" />
+                  </items>
+                </Menu>
+                <Menu mnemonicParsing="false" text="Edit">
+                  <items>
+                    <MenuItem mnemonicParsing="false" text="Delete" />
+                  </items>
+                </Menu>
+                <Menu mnemonicParsing="false" text="Help">
+                  <items>
+                    <MenuItem mnemonicParsing="false" text="About" />
+                  </items>
+                </Menu>
+              </menus>
+            </MenuBar>
+            <ToolBar prefHeight="40.0" prefWidth="200.0">
+              <items>
+                <Button mnemonicParsing="false" onAction="#btnStart" text="Start" />
+                  <Button mnemonicParsing="false" onAction="#btnStop" text="Stop" />
+              </items>
+            </ToolBar>
+            <ToolBar prefHeight="40.0" prefWidth="200.0">
+               <items>
+                  <Label text="Command:" />
+                  <TextField fx:id="txtCommand" HBox.hgrow="ALWAYS" />
+                  <Button mnemonicParsing="false" onAction="#btnExecuteCommand" text="Execute" />
+               </items>
+            </ToolBar>
+         </children>
+      </VBox>
+   </children>
+</AnchorPane>
