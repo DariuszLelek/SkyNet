@@ -3,9 +3,9 @@ Personal assistant project
 
 Modules description:
 - Core - currently message processing logic,
-- Dictionary - provider of wordDAOImpls from DB,
 - Model - mostly classes used in multiple modules,
 - Skills - unique skills which can be executed,
 - Utility - hibernate utility, config, file utility etc.
+- UI - interface to monitor/control system.
 
 In development...
