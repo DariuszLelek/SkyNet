@@ -8,12 +8,16 @@ package fxml;
 import java.net.URL;
 import java.util.ResourceBundle;
 
+
 import core.Core;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.AnchorPane;
+import monitor.MonitorFactory;
+import monitor.SystemStatusMonitor;
 import process.message.MessageCreator;
 import process.message.MessageType;
 
@@ -25,11 +29,16 @@ import process.message.MessageType;
 public class SkyNetFXMLController implements Initializable {
 
   private final MessageCreator messageCreator = new MessageCreator();
+  private final SystemStatusMonitor systemStatusMonitor = MonitorFactory.getSystemStatusMonitor();
 
   @FXML
   private AnchorPane root;
   @FXML
   private TextField txtCommand;
+  @FXML
+  private Label txtHibernateActive;
+  @FXML
+  private Label txtProcessableExecutorActive;
 
   /**
    * Initializes the controller class.
@@ -37,7 +46,20 @@ public class SkyNetFXMLController implements Initializable {
   @Override
   public void initialize(URL url, ResourceBundle rb) {
     // TODO
-  }  
+    prepareSystemStatusListeners();
+  }
+
+  private void prepareSystemStatusListeners(){
+    systemStatusMonitor.hibernateSessionFactoryProperty().addListener((observable, oldValue, newValue) -> {
+      txtHibernateActive.setText(LabelHelper.getTextByEnabled(newValue));
+      txtHibernateActive.setStyle(LabelHelper.getStyleByEnabled(newValue));
+    });
+
+    systemStatusMonitor.processableExecutorProperty().addListener((observable, oldValue, newValue) -> {
+      txtProcessableExecutorActive.setText(LabelHelper.getTextByEnabled(newValue));
+      txtProcessableExecutorActive.setStyle(LabelHelper.getStyleByEnabled(newValue));
+    });
+  }
 
   @FXML
   private void btnStart(ActionEvent event) {

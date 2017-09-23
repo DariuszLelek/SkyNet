@@ -5,20 +5,32 @@
 
 package monitor;
 
+import execute.ProcessableExecutor;
+import hibernate.HibernateUtilityFactory;
 import javafx.beans.property.SimpleBooleanProperty;
-import javafx.beans.value.ObservableBooleanValue;
 
 public class SystemStatusMonitor extends Monitor {
-  private final ObservableBooleanValue hibernateSessionFactory = new SimpleBooleanProperty(false);
 
+  private static final long delay = 2 * 1000L;
+  private final SimpleBooleanProperty hibernateSessionFactory = new SimpleBooleanProperty(false);
+  private final SimpleBooleanProperty processableExecutor = new SimpleBooleanProperty(false);
 
+  public SystemStatusMonitor() {
+    super(delay);
+    start();
+  }
 
-  static{
-    // startMonitor();
+  public SimpleBooleanProperty processableExecutorProperty() {
+    return processableExecutor;
+  }
+
+  public SimpleBooleanProperty hibernateSessionFactoryProperty() {
+    return hibernateSessionFactory;
   }
 
   @Override
-  void startMonitor() {
-
+  void update() {
+    hibernateSessionFactory.set(HibernateUtilityFactory.isSessionFactoryOpen());
+    processableExecutor.set(ProcessableExecutor.isRunning());
   }
 }

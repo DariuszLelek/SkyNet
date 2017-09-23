@@ -9,23 +9,31 @@ import work.WorkerSupervisor;
 
 public class Core {
 
-  private static final WorkerSupervisor WORKER_SUPERVISOR = new WorkerSupervisor();
+  private static WorkerSupervisor workerSupervisor;
   private static boolean running = false;
 
   public static void start(){
     if(!isRunning()){
       setRunning(true);
-      WORKER_SUPERVISOR.startWorkers();
+      ProcessableExecutor.startExecutor();
+      getWorkerSupervisor().startWorkers();
     }
   }
 
   public static void stop(){
     if(isRunning()){
       setRunning(false);
-      WORKER_SUPERVISOR.stopWorkers();
+      getWorkerSupervisor().stopWorkers();
       HibernateUtilityFactory.closeAllSessionFactories();
       ProcessableExecutor.stopExecutor();
     }
+  }
+
+  private static synchronized WorkerSupervisor getWorkerSupervisor(){
+    if(workerSupervisor == null){
+      workerSupervisor = new WorkerSupervisor();
+    }
+    return workerSupervisor;
   }
 
   private static synchronized void setRunning(boolean value){

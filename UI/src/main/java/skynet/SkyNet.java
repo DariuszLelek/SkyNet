@@ -6,11 +6,14 @@
 package skynet;
 
 import java.io.IOException;
+
+import core.Core;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
+import monitor.MonitorFactory;
 
 /**
  *
@@ -33,6 +36,8 @@ public class SkyNet extends Application {
 
     primaryStage.setOnCloseRequest(event -> {
        // TODO
+      Core.stop();
+      MonitorFactory.close();
     });
   }
 

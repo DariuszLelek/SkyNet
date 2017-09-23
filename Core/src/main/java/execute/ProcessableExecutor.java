@@ -20,7 +20,7 @@ public class ProcessableExecutor {
   private final static List<Processable> pendingProcessables = new ArrayList<>();
   private final static List<ProcessableRunner> ACTIVE_RUNNERS = new ArrayList<>();
 
-  private static boolean running = true;
+  private static boolean running = false;
 
   private static final int PENDING_CHECK_DELAY = 1 * 1000;
   private static final int PROCESS_NEXT_DELAY = 100;
@@ -28,24 +28,30 @@ public class ProcessableExecutor {
 
   private static int logIdleCounter = LOG_IDLE_FREQUENCY;
 
-  static {
-    startExecutor();
-  }
-
   public synchronized static void addProcessable(Processable processable) {
     if(!pendingProcessables.contains(processable)){
       pendingProcessables.add(processable);
     }
   }
 
-  public static void stopExecutor() {
-    running = false;
+  public synchronized static boolean isRunning() {
+    return running;
+  }
+
+  private synchronized static void setRunning(boolean newValue){
+    running = newValue;
+  }
+
+  public synchronized static void stopExecutor() {
+    setRunning(false);
     stopActiveRunners();
   }
 
-  private static void startExecutor() {
-    Thread thread = new Thread(() -> {
-      while (running) {
+  public static void startExecutor() {
+    setRunning(true);
+
+    new Thread(() -> {
+      while (isRunning()) {
         synchronized (pendingProcessables) {
           if (!pendingProcessables.isEmpty()) {
             startProcessableRunner(getHighestPriorityProcessable());
@@ -55,7 +61,7 @@ public class ProcessableExecutor {
               logger.error("startExecutor()", e);
             }
           } else {
-            if(logIdleCounter++ >= LOG_IDLE_FREQUENCY){
+            if (logIdleCounter++ >= LOG_IDLE_FREQUENCY) {
               logIdleCounter = 0;
               logger.info("Idle... - No pending processables");
             }
@@ -67,9 +73,7 @@ public class ProcessableExecutor {
           }
         }
       }
-    });
-
-    thread.start();
+    }).start();
   }
 
   private synchronized static void startProcessableRunner(final Processable processable) {
