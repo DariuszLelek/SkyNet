@@ -6,9 +6,10 @@
 package execute;
 
 import org.apache.log4j.Logger;
+import process.control.StateControl;
 import process.processable.Processable;
 
-public class ProcessableRunner implements Runnable {
+public class ProcessableRunner implements Runnable, StateControl {
 
   private final static Logger logger = Logger.getLogger(ProcessableRunner.class);
 
@@ -17,7 +18,7 @@ public class ProcessableRunner implements Runnable {
 
   private final Processable processable;
 
-  private boolean running = true;
+  private boolean running = false;
   private int retryTimes = 0;
 
   public ProcessableRunner(Processable processable) {
@@ -26,6 +27,8 @@ public class ProcessableRunner implements Runnable {
 
   @Override
   public void run() {
+    start();
+
     while (isRunning()) {
       if(!processable.isActive()){
         running = false;
@@ -58,6 +61,11 @@ public class ProcessableRunner implements Runnable {
         logger.error("sleep()", e);
       }
     }
+  }
+
+  @Override
+  public synchronized void start() {
+    this.running = true;
   }
 
   public synchronized void stop() {

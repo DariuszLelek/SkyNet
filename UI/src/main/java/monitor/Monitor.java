@@ -6,8 +6,9 @@
 package monitor;
 
 import javafx.application.Platform;
+import process.control.StateControl;
 
-public abstract class Monitor {
+public abstract class Monitor implements StateControl{
   private boolean running = true;
   private final Thread monitorThread = new Thread(getMonitorRunnable());
   private final long monitorDelay;
@@ -16,11 +17,13 @@ public abstract class Monitor {
     this.monitorDelay = monitorDelay;
   }
 
-  void start(){
+  @Override
+  public void start(){
     monitorThread.start();
   }
 
-  void stop(){
+  @Override
+  public void stop(){
       this.running = false;
   }
 
@@ -36,6 +39,11 @@ public abstract class Monitor {
         }
       }
     };
+  }
+
+  @Override
+  public boolean isRunning() {
+    return running;
   }
 
   abstract void update();

@@ -5,10 +5,12 @@
 
 package work;
 
+import process.control.StateControl;
+
 /**
  * Background task
  */
-public abstract class Worker implements Runnable{
+public abstract class Worker implements Runnable, StateControl{
   private final WorkerConfig config;
 
   protected boolean working = true;
@@ -38,7 +40,12 @@ public abstract class Worker implements Runnable{
     if(working){
       runWorker();
     }
-  };
+  }
+
+  @Override
+  public boolean isRunning() {
+    return working;
+  }
 
   public abstract void runWorker();
 }

@@ -7,6 +7,7 @@ package core;
 
 import execute.ProcessableExecutor;
 import hibernate.HibernateUtilityFactory;
+import org.apache.log4j.Logger;
 import process.control.StateControl;
 import process.message.MessageProcessor;
 import process.processable.Processable;
@@ -18,8 +19,9 @@ import java.util.concurrent.locks.ReentrantLock;
 
 public class Core implements StateControl{
 
-  private final Lock coreLock = new ReentrantLock();
+  private final static Logger logger = Logger.getLogger(Core.class);
 
+  private final Lock coreLock = new ReentrantLock();
   private final WorkerSupervisor workerSupervisor = new WorkerSupervisor();
   private final ProcessableExecutor processableExecutor = new ProcessableExecutor();
   private boolean running = false;
@@ -31,25 +33,25 @@ public class Core implements StateControl{
   @Override
   public void start() {
     if (coreLock.tryLock() && !isRunning()) {
+      logger.debug("start");
+
       processableExecutor.start();
       workerSupervisor.start();
       setRunning(true);
       coreLock.unlock();
-    } else {
-      System.out.println("trying to start when there is a lock");
     }
   }
 
   @Override
   public void stop() {
     if (coreLock.tryLock() && isRunning()) {
+      logger.debug("stop");
+
       workerSupervisor.stop();
       processableExecutor.stop();
       HibernateUtilityFactory.closeAllAndClear();
       setRunning(false);
       coreLock.unlock();
-    } else {
-      System.out.println("trying to stop when there is a lock");
     }
   }
 
