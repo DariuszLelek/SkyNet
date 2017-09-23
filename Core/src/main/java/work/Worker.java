@@ -13,22 +13,18 @@ import process.control.StateControl;
 public abstract class Worker implements Runnable, StateControl{
   private final WorkerConfig config;
 
-  protected boolean working = true;
+  protected boolean running = false;
 
   public Worker(WorkerConfig config) {
     this.config = config;
   }
 
   public void start(){
-    this.working = true;
+    this.running = true;
   }
 
   public void stop(){
-    this.working = false;
-  }
-
-  public boolean isWorking() {
-    return working;
+    this.running = false;
   }
 
   public long getDelay() {
@@ -37,14 +33,14 @@ public abstract class Worker implements Runnable, StateControl{
 
   @Override
   public void run(){
-    if(working){
+    if(running){
       runWorker();
     }
   }
 
   @Override
   public boolean isRunning() {
-    return working;
+    return running;
   }
 
   public abstract void runWorker();

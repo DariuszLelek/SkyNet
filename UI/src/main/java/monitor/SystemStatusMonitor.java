@@ -14,10 +14,20 @@ public class SystemStatusMonitor extends Monitor {
   private static final long delay = 2 * 1000L;
   private final SimpleBooleanProperty hibernateSessionFactory = new SimpleBooleanProperty(false);
   private final SimpleBooleanProperty core = new SimpleBooleanProperty(false);
+  private final SimpleBooleanProperty coreWorkerSupervisor = new SimpleBooleanProperty(false);
+  private final SimpleBooleanProperty coreProcessableExecutor = new SimpleBooleanProperty(false);
 
   public SystemStatusMonitor() {
     super(delay);
     start();
+  }
+
+  public SimpleBooleanProperty coreWorkerSupervisorProperty() {
+    return coreWorkerSupervisor;
+  }
+
+  public SimpleBooleanProperty coreProcessableExecutorProperty() {
+    return coreProcessableExecutor;
   }
 
   public SimpleBooleanProperty coreProperty() {
@@ -32,5 +42,7 @@ public class SystemStatusMonitor extends Monitor {
   void update() {
     hibernateSessionFactory.set(HibernateUtilityFactory.isSessionFactoryOpen());
     core.set(CoreProvider.getCore().isRunning());
+    coreWorkerSupervisor.set(CoreProvider.getCore().isWorkerSupervisorRunning());
+    coreProcessableExecutor.set(CoreProvider.getCore().isProcessableExecutorRunning());
   }
 }

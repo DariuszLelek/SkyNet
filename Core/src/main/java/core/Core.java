@@ -17,7 +17,7 @@ import work.WorkerSupervisor;
 import java.util.concurrent.locks.Lock;
 import java.util.concurrent.locks.ReentrantLock;
 
-public class Core implements StateControl{
+public class Core implements StateControl, CoreInterface{
 
   private final static Logger logger = Logger.getLogger(Core.class);
 
@@ -26,6 +26,17 @@ public class Core implements StateControl{
   private final ProcessableExecutor processableExecutor = new ProcessableExecutor();
   private boolean running = false;
 
+  @Override
+  public boolean isProcessableExecutorRunning(){
+    return processableExecutor.isRunning();
+  }
+
+  @Override
+  public boolean isWorkerSupervisorRunning() {
+    return workerSupervisor.isRunning();
+  }
+
+  @Override
   public void addProcessable(Processable processable){
     processableExecutor.addProcessable(processable);
   }
@@ -55,12 +66,13 @@ public class Core implements StateControl{
     }
   }
 
-  private synchronized void setRunning(boolean value){
-    running = value;
-  }
-
   @Override
   public synchronized boolean isRunning(){
     return running;
   }
+
+  private synchronized void setRunning(boolean value){
+    running = value;
+  }
+
 }

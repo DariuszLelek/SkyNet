@@ -39,6 +39,10 @@ public class SkyNetFXMLController implements Initializable {
   private Label txtHibernateActive;
   @FXML
   private Label txtCoreActive;
+  @FXML
+  private Label txtCoreWorkerSupervisor;
+  @FXML
+  private Label txtCoreProcessableExecutor;
 
   /**
    * Initializes the controller class.
@@ -58,6 +62,16 @@ public class SkyNetFXMLController implements Initializable {
     systemStatusMonitor.coreProperty().addListener((observable, oldValue, newValue) -> {
       txtCoreActive.setText(LabelHelper.getTextByEnabled(newValue));
       txtCoreActive.setStyle(LabelHelper.getStyleByEnabled(newValue));
+    });
+
+    systemStatusMonitor.coreProcessableExecutorProperty().addListener((observable, oldValue, newValue) -> {
+      txtCoreProcessableExecutor.setText(LabelHelper.getTextByEnabled(newValue));
+      txtCoreProcessableExecutor.setStyle(LabelHelper.getStyleByEnabled(newValue));
+    });
+
+    systemStatusMonitor.coreWorkerSupervisorProperty().addListener((observable, oldValue, newValue) -> {
+      txtCoreWorkerSupervisor.setText(LabelHelper.getTextByEnabled(newValue));
+      txtCoreWorkerSupervisor.setStyle(LabelHelper.getStyleByEnabled(newValue));
     });
   }
 

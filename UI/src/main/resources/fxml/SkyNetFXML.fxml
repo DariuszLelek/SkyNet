@@ -93,6 +93,30 @@
                                                                   <Button mnemonicParsing="false" text="Restart" />
                                                                </items>
                                                             </ToolBar>
+                                                            <ToolBar prefHeight="40.0" prefWidth="200.0">
+                                                               <items>
+                                                                  <Label text="Core: WorkerSupervisor" />
+                                                                  <Pane HBox.hgrow="ALWAYS" />
+                                                                  <Label fx:id="txtCoreWorkerSupervisor" text="Unknown">
+                                                                     <font>
+                                                                        <Font name="System Bold" size="18.0" />
+                                                                     </font>
+                                                                  </Label>
+                                                                  <Button mnemonicParsing="false" text="Restart" />
+                                                               </items>
+                                                            </ToolBar>
+                                                            <ToolBar prefHeight="40.0" prefWidth="200.0">
+                                                               <items>
+                                                                  <Label text="Core: ProcessableExecutor" />
+                                                                  <Pane HBox.hgrow="ALWAYS" />
+                                                                  <Label fx:id="txtCoreProcessableExecutor" text="Unknown">
+                                                                     <font>
+                                                                        <Font name="System Bold" size="18.0" />
+                                                                     </font>
+                                                                  </Label>
+                                                                  <Button mnemonicParsing="false" text="Restart" />
+                                                               </items>
+                                                            </ToolBar>
                                                          </children>
                                                       </VBox>
                                                    </children>

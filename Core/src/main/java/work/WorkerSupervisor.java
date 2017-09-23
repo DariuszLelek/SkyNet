@@ -5,6 +5,7 @@
 
 package work;
 
+import process.control.StateControl;
 import work.remind.ReminderWorker;
 
 import java.util.ArrayList;
@@ -13,7 +14,7 @@ import java.util.concurrent.Executors;
 import java.util.concurrent.ScheduledExecutorService;
 import java.util.concurrent.TimeUnit;
 
-public class WorkerSupervisor {
+public class WorkerSupervisor implements StateControl {
 
   private static  ScheduledExecutorService executor;
   private static final Collection<Worker> workers = new ArrayList<>();
@@ -22,6 +23,7 @@ public class WorkerSupervisor {
     workers.add(new ReminderWorker());
   }
 
+  @Override
   public void start(){
     executor = Executors.newScheduledThreadPool(workers.size());
 
@@ -29,11 +31,17 @@ public class WorkerSupervisor {
     scheduleWorkers();
   }
 
+  @Override
   public void stop(){
     stopWorkers();
 
     executor.shutdownNow();
     executor = null;
+  }
+
+  @Override
+  public boolean isRunning() {
+    return workers.stream().anyMatch(Worker::isRunning);
   }
 
   private void startWorkers(){
