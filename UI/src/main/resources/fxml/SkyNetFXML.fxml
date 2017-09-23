@@ -83,9 +83,9 @@
                                                             </ToolBar>
                                                             <ToolBar prefHeight="40.0" prefWidth="200.0">
                                                                <items>
-                                                                  <Label text="Processable Executor" />
+                                                                  <Label text="Core" />
                                                                   <Pane HBox.hgrow="ALWAYS" />
-                                                                  <Label fx:id="txtProcessableExecutorActive" text="Unknown">
+                                                                  <Label fx:id="txtCoreActive" text="Unknown">
                                                                      <font>
                                                                         <Font name="System Bold" size="18.0" />
                                                                      </font>

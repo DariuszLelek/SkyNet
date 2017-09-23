@@ -3,44 +3,62 @@
  * Copyright (c) 2017. All rights reserved.
  */
 
-package core;import execute.ProcessableExecutor;
+package core;
+
+import execute.ProcessableExecutor;
 import hibernate.HibernateUtilityFactory;
+import process.control.StateControl;
+import process.message.MessageProcessor;
+import process.processable.Processable;
+import process.skill.SkillProcessor;
 import work.WorkerSupervisor;
 
-public class Core {
+import java.util.concurrent.locks.Lock;
+import java.util.concurrent.locks.ReentrantLock;
 
-  private static WorkerSupervisor workerSupervisor;
-  private static boolean running = false;
+public class Core implements StateControl{
 
-  public static void start(){
-    if(!isRunning()){
+  private final Lock coreLock = new ReentrantLock();
+
+  private final WorkerSupervisor workerSupervisor = new WorkerSupervisor();
+  private final ProcessableExecutor processableExecutor = new ProcessableExecutor();
+  private boolean running = false;
+
+  public void addProcessable(Processable processable){
+    processableExecutor.addProcessable(processable);
+  }
+
+  @Override
+  public void start() {
+    if (coreLock.tryLock() && !isRunning()) {
+      processableExecutor.start();
+      workerSupervisor.start();
       setRunning(true);
-      ProcessableExecutor.startExecutor();
-      getWorkerSupervisor().startWorkers();
+      coreLock.unlock();
+    } else {
+      System.out.println("trying to start when there is a lock");
     }
   }
 
-  public static void stop(){
-    if(isRunning()){
+  @Override
+  public void stop() {
+    if (coreLock.tryLock() && isRunning()) {
+      workerSupervisor.stop();
+      processableExecutor.stop();
+      HibernateUtilityFactory.closeAllAndClear();
       setRunning(false);
-      getWorkerSupervisor().stopWorkers();
-      HibernateUtilityFactory.closeAllSessionFactories();
-      ProcessableExecutor.stopExecutor();
+      coreLock.unlock();
+    } else {
+      System.out.println("trying to stop when there is a lock");
     }
   }
 
-  private static synchronized WorkerSupervisor getWorkerSupervisor(){
-    if(workerSupervisor == null){
-      workerSupervisor = new WorkerSupervisor();
-    }
-    return workerSupervisor;
-  }
-
-  private static synchronized void setRunning(boolean value){
+  private synchronized void setRunning(boolean value){
     running = value;
   }
 
-  private static synchronized boolean isRunning(){
+  @Override
+  public synchronized boolean isRunning(){
     return running;
   }
 }

@@ -4,6 +4,7 @@
  */
 package process;
 
+import core.CoreProvider;
 import execute.ProcessableExecutor;
 import org.apache.log4j.Logger;
 import process.processable.Processable;
@@ -14,7 +15,7 @@ public abstract class Processor {
 
   public final void process(Processable processable){
     if(processable.canProcess()){
-      ProcessableExecutor.addProcessable(processable);
+      CoreProvider.getCore().addProcessable(processable);
     }else{
       logger.warn("process() - Can't process - " + processable.toString());
     }

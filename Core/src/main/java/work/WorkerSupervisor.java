@@ -15,25 +15,33 @@ import java.util.concurrent.TimeUnit;
 
 public class WorkerSupervisor {
 
-  private static final int workersNum = 1;
-  private static final ScheduledExecutorService executor = Executors.newScheduledThreadPool(workersNum);
+  private static  ScheduledExecutorService executor;
   private static final Collection<Worker> workers = new ArrayList<>();
 
   static{
-    addWorkers();
+    workers.add(new ReminderWorker());
+  }
+
+  public void start(){
+    executor = Executors.newScheduledThreadPool(workers.size());
+
+    startWorkers();
     scheduleWorkers();
   }
 
-  public void startWorkers(){
+  public void stop(){
+    stopWorkers();
+
+    executor.shutdownNow();
+    executor = null;
+  }
+
+  private void startWorkers(){
     workers.forEach(Worker::start);
   }
 
-  public void stopWorkers(){
+  private void stopWorkers(){
     workers.forEach(Worker::stop);
-  }
-
-  private static void addWorkers(){
-    workers.add(new ReminderWorker());
   }
 
   private static void scheduleWorkers(){

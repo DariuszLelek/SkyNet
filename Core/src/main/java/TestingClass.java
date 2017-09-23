@@ -36,8 +36,8 @@ public class TestingClass {
 
     WorkerSupervisor ws=new WorkerSupervisor();
 
-    ws.startWorkers();
-    System.out.println("ss");
+//    ws.startWorkers();
+//    System.out.println("ss");
 
 
 //    DaoPreserver<TimeDao> timeSave = new DaoPreserver<>();
@@ -59,7 +59,7 @@ public class TestingClass {
 //        .getByKey("word", "a"));
 
 
-    //HibernateUtilityFactory.closeAllSessionFactories();
+    //HibernateUtilityFactory.closeAllAndClear();
     //ProcessableExecutor.stopExecutor();
   }
 }

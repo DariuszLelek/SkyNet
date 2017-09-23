@@ -5,7 +5,7 @@
 
 package monitor;
 
-import execute.ProcessableExecutor;
+import core.CoreProvider;
 import hibernate.HibernateUtilityFactory;
 import javafx.beans.property.SimpleBooleanProperty;
 
@@ -13,15 +13,15 @@ public class SystemStatusMonitor extends Monitor {
 
   private static final long delay = 2 * 1000L;
   private final SimpleBooleanProperty hibernateSessionFactory = new SimpleBooleanProperty(false);
-  private final SimpleBooleanProperty processableExecutor = new SimpleBooleanProperty(false);
+  private final SimpleBooleanProperty core = new SimpleBooleanProperty(false);
 
   public SystemStatusMonitor() {
     super(delay);
     start();
   }
 
-  public SimpleBooleanProperty processableExecutorProperty() {
-    return processableExecutor;
+  public SimpleBooleanProperty coreProperty() {
+    return core;
   }
 
   public SimpleBooleanProperty hibernateSessionFactoryProperty() {
@@ -31,6 +31,6 @@ public class SystemStatusMonitor extends Monitor {
   @Override
   void update() {
     hibernateSessionFactory.set(HibernateUtilityFactory.isSessionFactoryOpen());
-    processableExecutor.set(ProcessableExecutor.isRunning());
+    core.set(CoreProvider.getCore().isRunning());
   }
 }

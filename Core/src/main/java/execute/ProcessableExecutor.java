@@ -6,52 +6,41 @@
 package execute;
 
 import org.apache.log4j.Logger;
+import process.control.StateControl;
 import process.processable.EmptyProcessable;
 import process.processable.Processable;
 
 import java.util.ArrayList;
 import java.util.List;
 
-public class ProcessableExecutor {
-  private final static Logger logger = Logger.getLogger(ProcessableExecutor.class);
+public class ProcessableExecutor implements StateControl {
+  private final Logger logger = Logger.getLogger(ProcessableExecutor.class);
 
-  private final static EmptyProcessable emptyProcessable = EmptyProcessable.INSTANCE;
+  private final EmptyProcessable emptyProcessable = EmptyProcessable.INSTANCE;
 
-  private final static List<Processable> pendingProcessables = new ArrayList<>();
-  private final static List<ProcessableRunner> ACTIVE_RUNNERS = new ArrayList<>();
+  private final List<Processable> pendingProcessables = new ArrayList<>();
+  private final List<ProcessableRunner> ACTIVE_RUNNERS = new ArrayList<>();
 
-  private static boolean running = false;
+  private boolean running = false;
 
-  private static final int PENDING_CHECK_DELAY = 1 * 1000;
-  private static final int PROCESS_NEXT_DELAY = 100;
-  private static final int LOG_IDLE_FREQUENCY = 10;
+  private final int PENDING_CHECK_DELAY = 1 * 1000;
+  private final int PROCESS_NEXT_DELAY = 100;
+  private final int LOG_IDLE_FREQUENCY = 10;
 
-  private static int logIdleCounter = LOG_IDLE_FREQUENCY;
+  private int logIdleCounter = LOG_IDLE_FREQUENCY;
 
-  public synchronized static void addProcessable(Processable processable) {
+  public synchronized void addProcessable(Processable processable) {
     if(!pendingProcessables.contains(processable)){
       pendingProcessables.add(processable);
     }
   }
 
-  public synchronized static boolean isRunning() {
-    return running;
-  }
-
-  private synchronized static void setRunning(boolean newValue){
-    running = newValue;
-  }
-
-  public synchronized static void stopExecutor() {
-    setRunning(false);
-    stopActiveRunners();
-  }
-
-  public static void startExecutor() {
+  @Override
+  public void start() {
     setRunning(true);
 
     new Thread(() -> {
-      while (isRunning()) {
+      while (running) {
         synchronized (pendingProcessables) {
           if (!pendingProcessables.isEmpty()) {
             startProcessableRunner(getHighestPriorityProcessable());
@@ -76,7 +65,21 @@ public class ProcessableExecutor {
     }).start();
   }
 
-  private synchronized static void startProcessableRunner(final Processable processable) {
+  @Override
+  public void stop() {
+    setRunning(false);
+    stopActiveRunners();
+  }
+
+  public boolean isRunning() {
+    return running;
+  }
+
+  private synchronized void setRunning(boolean newValue){
+    running = newValue;
+  }
+
+  private synchronized void startProcessableRunner(final Processable processable) {
     if(processable.canProcess()){
       removeFromPending(processable);
 
@@ -89,15 +92,15 @@ public class ProcessableExecutor {
     }
   }
 
-  private synchronized static void addRunner(ProcessableRunner runner){
+  private synchronized void addRunner(ProcessableRunner runner){
     ACTIVE_RUNNERS.add(runner);
   }
 
-  private synchronized static void stopActiveRunners(){
+  private synchronized void stopActiveRunners(){
     ACTIVE_RUNNERS.stream().filter(ProcessableRunner::isRunning).forEach(ProcessableRunner::stop);
   }
 
-  private synchronized static Processable getHighestPriorityProcessable() {
+  private synchronized Processable getHighestPriorityProcessable() {
     Processable highestPriorityProcessable = emptyProcessable;
 
     for (Processable processable : pendingProcessables) {
@@ -109,7 +112,7 @@ public class ProcessableExecutor {
     return highestPriorityProcessable;
   }
 
-  private synchronized static void removeFromPending(Processable processable) {
+  private synchronized void removeFromPending(Processable processable) {
     if (pendingProcessables.contains(processable)) {
       pendingProcessables.remove(processable);
     }

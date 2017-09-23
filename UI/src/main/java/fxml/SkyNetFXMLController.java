@@ -9,7 +9,7 @@ import java.net.URL;
 import java.util.ResourceBundle;
 
 
-import core.Core;
+import core.CoreProvider;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
@@ -38,7 +38,7 @@ public class SkyNetFXMLController implements Initializable {
   @FXML
   private Label txtHibernateActive;
   @FXML
-  private Label txtProcessableExecutorActive;
+  private Label txtCoreActive;
 
   /**
    * Initializes the controller class.
@@ -55,20 +55,20 @@ public class SkyNetFXMLController implements Initializable {
       txtHibernateActive.setStyle(LabelHelper.getStyleByEnabled(newValue));
     });
 
-    systemStatusMonitor.processableExecutorProperty().addListener((observable, oldValue, newValue) -> {
-      txtProcessableExecutorActive.setText(LabelHelper.getTextByEnabled(newValue));
-      txtProcessableExecutorActive.setStyle(LabelHelper.getStyleByEnabled(newValue));
+    systemStatusMonitor.coreProperty().addListener((observable, oldValue, newValue) -> {
+      txtCoreActive.setText(LabelHelper.getTextByEnabled(newValue));
+      txtCoreActive.setStyle(LabelHelper.getStyleByEnabled(newValue));
     });
   }
 
   @FXML
   private void btnStart(ActionEvent event) {
-    Core.start();
+    CoreProvider.getCore().start();
   }
 
   @FXML
   private void btnStop(ActionEvent event) {
-    Core.stop();
+    CoreProvider.getCore().stop();
   }
 
   @FXML

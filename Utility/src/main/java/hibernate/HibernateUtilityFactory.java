@@ -28,9 +28,10 @@ public class HibernateUtilityFactory {
     }
   }
 
-  public static void closeAllSessionFactories(){
+  public static void closeAllAndClear(){
     synchronized (CACHE){
       CACHE.values().forEach(HibernateUtility::closeSessionFactory);
+      CACHE.clear();
     }
   }
 
